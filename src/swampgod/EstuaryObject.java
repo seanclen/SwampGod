@@ -17,14 +17,14 @@ public class EstuaryObject {
 	int pointValue;
 	int healthValue;
 	String type;
-	double speed;
+	int speed;
 	
 	
 	
 	/**
 	 * Moves the object down the stream towards the estuary
 	 */
-	public void Move(){
+	public void move(){
 		
 	}
 	
@@ -54,5 +54,25 @@ public class EstuaryObject {
 	
 	public Point getPos(){
 		return this.position;
+	}
+	
+	public int getHealthValue(){
+		return this.healthValue;
+	}
+	
+	public boolean isGood(){
+		return this.isGood;
+	}
+	
+	public int getPointValue(){
+		return this.pointValue;
+	}
+	
+	public String getType(){
+		return this.type;
+	}
+	
+	public int getSpeed(){
+		return this.speed;
 	}
 }
