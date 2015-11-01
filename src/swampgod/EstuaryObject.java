@@ -40,6 +40,10 @@ public class EstuaryObject {
 		
 	}
 	
+	public void setPosition(Point l) {
+		this.position = l;
+	}
+	
 	/**
 	 * @return an int based on the which stream it picked
 	 */
