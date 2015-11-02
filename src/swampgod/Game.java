@@ -26,6 +26,14 @@ public class Game {
 	}
 	
 	/**
+	 * returns points
+	 */
+			
+	public int getPoints(){
+		return points;
+	}
+	
+	/**
 	 * builds the menu
 	 */
 	public void initialize(){
@@ -110,6 +118,16 @@ public class Game {
 	 */
 	public Object createObject(String t){
 		return null;
+		
+	}
+	
+	/**
+	 * 
+	 * @param stream - which stream to add the obj to
+	 * @param obj - takes in an object (use createObject to make one
+	 * adds the input object to a stream
+	 */
+	public void addObject(int stream,EstuaryObject obj ){
 		
 	}
 	
