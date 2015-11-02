@@ -1,7 +1,8 @@
 package swampgod;
-
+/**
+ * 
+ */
 import java.awt.Point;
-
 
 public class Game {
 	int health;

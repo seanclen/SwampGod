@@ -1,7 +1,7 @@
 package swampgod;
 
 /**
- * This class creates bad instances of object
+ * This class is a sub class of Estuary object its main purpose is to be a constructor for badObject
  */
 public class BadObject extends EstuaryObject{
 
