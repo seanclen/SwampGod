@@ -5,7 +5,7 @@ package swampgod;
 /**
  * This class is a sub class of Estuaryobject its main purpose is to be a constructor for bad ojects
  */
-public class BadObject extends EstuaryObject{
+public class BadObject extends EstuaryObject implements java.io.Serializable{
 
 	/**
 	 * @param t - a type of plant used to set that specific plants attributes

@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class GameTest {
+public class GameTest implements java.io.Serializable{
 
 	@Test
 	public void gameStateTest() {

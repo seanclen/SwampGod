@@ -9,7 +9,7 @@ import java.awt.Point;
  * This class contains all of the game logic and methods
  *
  */
-public class Game {
+public class Game implements java.io.Serializable{
 	int health;
 	int points;
 	Plant[] plants;

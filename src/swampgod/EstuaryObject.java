@@ -11,7 +11,7 @@ package swampgod;
 
 import java.awt.Point;
 
-public class EstuaryObject {
+public class EstuaryObject implements java.io.Serializable{
 	Point position;
 	boolean isGood;
 	int pointValue;

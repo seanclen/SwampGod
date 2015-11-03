@@ -7,7 +7,7 @@ package swampgod;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-public class Stream {
+public class Stream implements java.io.Serializable{
 	
 	GoodObject goodObjects[];
 	BadObject badObjects[];

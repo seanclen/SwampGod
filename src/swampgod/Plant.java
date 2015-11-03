@@ -6,7 +6,7 @@ package swampgod;
 
 import java.awt.Point;
 
-public class Plant {
+public class Plant implements java.io.Serializable{
 	String type;
 	Point position;
 	int radius;

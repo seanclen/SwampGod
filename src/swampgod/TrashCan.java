@@ -6,7 +6,7 @@ package swampgod;
 
 import java.awt.Point;
 
-public class TrashCan {
+public class TrashCan implements java.io.Serializable{
 	Point Position;
 	int radius;
 	

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 
-public class EstuaryObjectTest {
+public class EstuaryObjectTest implements java.io.Serializable{
 
 	Game g1 = new Game();
 	EstuaryObject obj1 = new EstuaryObject();

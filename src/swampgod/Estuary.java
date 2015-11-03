@@ -3,7 +3,7 @@
  */
 package swampgod;
 
-public class Estuary {
+public class Estuary implements java.io.Serializable {
 	
 	GoodObject goodObjectList[];
 	BadObject badObjectList[];
