@@ -1,4 +1,3 @@
-package swampgod;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
@@ -40,14 +39,14 @@ public class GameTest {
 	@Test
 	public void updatePointsTest() {
 		Game g1 = new Game();
-		g1.updateScore(2);
+		g1.updatePoints(2);
 		assertEquals(2,g1.getPoints());
 	}
 	
 	@Test
 	public void addGoodObjTest() {
 		Game g1 = new Game();
-		EstuaryObject obj = new GoodObject("fish");
+		EstuaryObject obj = g1.createObject("fish");
 		g1.addObject(1, obj);
 		assertTrue(Arrays.asList(g1.Streams[1].goodObjects).contains(obj));
 	}
@@ -55,16 +54,16 @@ public class GameTest {
 	@Test
 	public void removeGoodObjTest(){
 		Game g1 = new Game();
-		EstuaryObject obj = new GoodObject("fish");
+		EstuaryObject obj = g1.createObject("fish");
 		g1.addObject(1, obj);
-		g1.removeObjects(obj);
+		g1.removeObject(obj);
 		assertFalse(Arrays.asList(g1.Streams[1].goodObjects).contains(obj));
 	}
 	
 	@Test
 	public void addBadObjTest() {
 		Game g1 = new Game();
-		EstuaryObject obj = new BadObject("crab");
+		EstuaryObject obj = g1.createObject("crab");
 		g1.addObject(1, obj);
 		assertTrue(Arrays.asList(g1.Streams[1].badObjects).contains(obj));
 	}
@@ -72,9 +71,9 @@ public class GameTest {
 	@Test
 	public void removeBadObjTest(){
 		Game g1 = new Game();
-		EstuaryObject obj = new BadObject("crab");
+		EstuaryObject obj = g1.createObject("crab");
 		g1.addObject(1, obj);
-		g1.removeObjects(obj);
+		g1.removeObject(obj);
 		assertFalse(Arrays.asList(g1.Streams[1].badObjects).contains(obj));
 	}
 	
