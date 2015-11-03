@@ -23,7 +23,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 		
 	public void endWaveTest(){
 		g1.endWave();
-		assertEquals(2, g1.getGameStatus());
+		assertEquals(1, g1.getGameStatus());
 	}
 	
 	public void startWaveTest(){
@@ -31,7 +31,11 @@ public class EstuaryObjectTest implements java.io.Serializable{
 		assertEquals(1, g1.getGameStatus());
 	}
 	
-	public void checkPositionTest(){
+	public void inbetweenWaveTest(){
+		assertEquals(2, g1.getGameStatus());
+	}
+	
+	public void setPositionTest(){
 		assertEquals(p, obj1.checkPosition());
 		Point k= new Point(6,1);
 		obj1.setPosition(k);
@@ -141,4 +145,19 @@ public class EstuaryObjectTest implements java.io.Serializable{
 		Point m=new Point();
 		assertEquals(m, obj1.getPos());
 	}
+	
+	public void streamObjectTest(){
+		Stream stream1 = new Stream();
+		stream1.createBadObject();
+		stream1.createBadObject();
+		stream1.createBadObject();
+		assertEquals(3, stream1.badObjects.size());
+		
+		stream1.createGoodObject();
+		stream1.createGoodObject();
+		stream1.createGoodObject();
+		assertEquals(3, stream1.goodObjects.size());
+	}
+	 
+	
 }
