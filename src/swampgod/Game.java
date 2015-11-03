@@ -1,6 +1,7 @@
 package swampgod;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 /**
  * This class contains all of the game logic and methods
@@ -9,9 +10,10 @@ import java.awt.Point;
 public class Game implements java.io.Serializable{
 	int health;
 	int points;
-	Plant[] plants;
+	ArrayList<Plant> plants;
 	int waveNumber;
 	Stream[] Streams = new Stream[3];
+	Estuary estuary;
 	int gameState;
 	//3 game states 1- running	2-inbetween waves	3- end of game
 	

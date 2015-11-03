@@ -1,4 +1,4 @@
-package swampgod;
+ package swampgod;
 
 /**
  * Keeps track of good and bad objects and the path of the estuary
@@ -6,13 +6,14 @@ package swampgod;
  */
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 public class Stream implements java.io.Serializable{
 	
-	GoodObject goodObjects[];
-	BadObject badObjects[];
+	ArrayList<GoodObject> goodObjects;
+	ArrayList<BadObject> badObjects;
 	Rectangle bounds;
-	Plant plants[];
+	ArrayList<Plant> plants;
 	
 	/**
 	 * constructs the stream (rectangle)
@@ -22,7 +23,7 @@ public class Stream implements java.io.Serializable{
 	}
 	
 	/**
-	 * initializes bad objects
+	 * initializes bad objects 
 	 */
 	void createBadObject(){
 

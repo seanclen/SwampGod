@@ -3,9 +3,11 @@
  */
 package swampgod;
 
+import java.util.ArrayList;
+
 public class Estuary implements java.io.Serializable {
 	
-	GoodObject goodObjectList[];
-	BadObject badObjectList[];
+	ArrayList<GoodObject> goodObjectList;
+	ArrayList<BadObject> badObjectList;
 
 }
