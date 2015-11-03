@@ -65,6 +65,7 @@ public class Game implements java.io.Serializable{
 	 * Takes in an int, adds that to the health
 	 */
 	public void updateHealth(int value){
+		health = value;
 		
 	}
 	
