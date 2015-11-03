@@ -3,6 +3,10 @@ package swampgod;
 import java.awt.Point;
 
 
+/**
+ * This class contains all of the game logic and methods
+ *
+ */
 public class Game {
 	int health;
 	int points;
@@ -132,7 +136,7 @@ public class Game {
 	}
 	
 	/**
-	 * 
+	 * selects the object at the current position of the mouse pointer
 	 */
 	public void pickUpObject(){
 		
