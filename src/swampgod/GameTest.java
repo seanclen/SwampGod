@@ -21,7 +21,7 @@ public class GameTest implements java.io.Serializable{
 	@Test
 	public void plantArrTest() {
 		Game g1 = new Game();
-		assertArrayEquals(null,g1.plants);
+		assertEquals(null,g1.plants);
 	}
 	
 	@Test
