@@ -12,6 +12,7 @@ private static Game game = new Game();
 	
 	
 	public GameView() {
+		
 	}
 	
 	public static void loadView() {

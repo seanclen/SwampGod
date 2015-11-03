@@ -2,6 +2,7 @@ package swampgod;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import swampgod.Main.GameState;
 
 /**
  * This class contains all of the game logic and methods
@@ -23,6 +24,7 @@ public class Game implements java.io.Serializable{
 	public Game(){
 		
 	}
+	
 	/**
 	 * @return - game status int
 	 */

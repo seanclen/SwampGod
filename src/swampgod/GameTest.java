@@ -5,7 +5,6 @@ import java.util.Arrays;
 import org.junit.Test;
 
 public class GameTest implements java.io.Serializable{
-
 	@Test
 	public void gameStateTest() {
 		Game g1 = new Game();
