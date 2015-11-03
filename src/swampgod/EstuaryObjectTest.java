@@ -3,6 +3,7 @@ package swampgod;
 import static org.junit.Assert.*;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -51,7 +52,17 @@ public class EstuaryObjectTest {
 		assertEquals(40, bush.percentEat);
 		
 		//eat
-		
+		ArrayList bo= new ArrayList(2);
+		BadObject a= new BadObject("Crabs");
+		bo.add(a);
+		BadObject b= new BadObject("Algae");
+		bo.add(b);
+		assertTrue(bo.contains(a));
+		bush.eat();
+		assertFalse(bo.contains(a));
+				
+		//check radius
+		assertEquals(a, bush.checkRadius());
 		
 		
 		//Bad Object

@@ -1,5 +1,7 @@
 package swampgod;
-
+/**
+ * 
+ */
 import java.awt.Point;
 
 
@@ -120,7 +122,7 @@ public class Game {
 	 * @return - an object
 	 * creates an object of t type
 	 */
-	public Object createObject(String t){
+	public EstuaryObject createObject(String t){
 		return null;
 		
 	}
