@@ -1,9 +1,6 @@
 package swampgod;
-/**
- * 
- */
-import java.awt.Point;
 
+import java.awt.Point;
 
 /**
  * This class contains all of the game logic and methods
