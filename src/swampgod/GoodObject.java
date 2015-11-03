@@ -4,7 +4,12 @@ package swampgod;
  * This class creates good instances of object
  */
 
-public class GoodObject extends EstuaryObject implements java.io.Serializable{
+public class GoodObject extends EstuaryObject{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8994809435744833908L;
 
 	/**
 	 * @param t - a type

@@ -9,6 +9,10 @@ import swampgod.Main.GameState;
  *
  */
 public class Game implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8247021508864248922L;
 	int health;
 	int points;
 	ArrayList<Plant> plants;

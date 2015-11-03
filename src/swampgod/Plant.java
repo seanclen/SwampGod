@@ -7,6 +7,10 @@ package swampgod;
 import java.awt.Point;
 
 public class Plant implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3281254137011811480L;
 	String type;
 	Point position;
 	int radius;

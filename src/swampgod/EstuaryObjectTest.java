@@ -10,6 +10,10 @@ import org.junit.Test;
 
 public class EstuaryObjectTest implements java.io.Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5055127386658248567L;
 	Game g1 = new Game();
 	EstuaryObject obj1 = new EstuaryObject();
 	Point p = new Point();
@@ -62,7 +66,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	
 	public void eatTest(){
 		Plant bush = new Plant("Bush", p);
-		ArrayList bo= new ArrayList(2);
+		ArrayList<BadObject> bo= new ArrayList<BadObject>(2);
 		BadObject a= new BadObject("Crabs");
 		bo.add(a);
 		BadObject b= new BadObject("Algae");

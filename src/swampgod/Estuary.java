@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 public class Estuary implements java.io.Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5964163876971167697L;
 	ArrayList<GoodObject> goodObjectList;
 	ArrayList<BadObject> badObjectList;
 

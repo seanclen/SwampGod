@@ -5,6 +5,11 @@ import java.util.Arrays;
 import org.junit.Test;
 
 public class GameTest implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4704623357378697027L;
+
 	@Test
 	public void gameStateTest() {
 		Game g1 = new Game();

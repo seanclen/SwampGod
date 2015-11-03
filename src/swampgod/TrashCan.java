@@ -7,6 +7,10 @@ package swampgod;
 import java.awt.Point;
 
 public class TrashCan implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3980290562068932623L;
 	Point Position;
 	int radius;
 	

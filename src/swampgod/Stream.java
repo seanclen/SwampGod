@@ -10,6 +10,10 @@ import java.util.ArrayList;
 
 public class Stream implements java.io.Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6262605183165485618L;
 	ArrayList<GoodObject> goodObjects;
 	ArrayList<BadObject> badObjects;
 	Rectangle bounds;

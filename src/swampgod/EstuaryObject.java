@@ -12,6 +12,10 @@ package swampgod;
 import java.awt.Point;
 
 public class EstuaryObject implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1216807115822693876L;
 	Point position;
 	boolean isGood;
 	int pointValue;

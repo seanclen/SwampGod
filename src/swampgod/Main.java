@@ -10,6 +10,11 @@ import javax.swing.JPanel;
 
 public class Main extends JPanel implements java.io.Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5996796492194730157L;
+
 	public enum GameState {
 		TITLE_STATE,
 		MENU_STATE,
