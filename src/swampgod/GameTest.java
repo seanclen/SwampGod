@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.junit.Test;
 
 public class GameTest implements java.io.Serializable{
-
+//PLEASE DEAR GOD LET THIS WORK
 	@Test
 	public void gameStateTest() {
 		Game g1 = new Game();
