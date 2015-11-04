@@ -16,13 +16,22 @@ public class EstuaryObject implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1216807115822693876L;
+	
 	Point position;
 	boolean isGood;
+	//how many points are added when in estuary/removed when in trash
+	//goo have positive values, bad have negative
 	int pointValue;
+	//how much health it adds or removes when in estuary
 	int healthValue;
+	//What creature it is
+	//bad - "crab" "algea" "waste"
+	//good - "fish" "clam" "lily pad"
 	String type;
+	//How fast it will move
 	int speed;
-	
+	//What stream it will be contained in
+	int stream;
 	
 	
 	/**
@@ -33,7 +42,7 @@ public class EstuaryObject implements java.io.Serializable{
 	}
 	
 	/**
-	 * checks to see if element is in the estuary needs to be removed.
+	 * checks to see if element is in the estuary needs to be removed from stream.
 	 * return - 1 if the object is past line and 0 if it's still in stream
 	 */
 	public boolean checkPosition(){

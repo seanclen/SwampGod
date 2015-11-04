@@ -7,6 +7,7 @@
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Stream implements java.io.Serializable{
 	
