@@ -152,14 +152,14 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	
 	public void streamObjectTest(){
 		Stream stream1 = new Stream();
-		stream1.createBadObject();
-		stream1.createBadObject();
-		stream1.createBadObject();
+		stream1.createBadObjects(1);
+		stream1.createBadObjects(1);
+		stream1.createBadObjects(1);
 		assertEquals(3, stream1.badObjects.size());
 		
-		stream1.createGoodObject();
-		stream1.createGoodObject();
-		stream1.createGoodObject();
+		stream1.createGoodObjects(1);
+		stream1.createGoodObjects(1);
+		stream1.createGoodObjects(1);
 		assertEquals(3, stream1.goodObjects.size());
 	}
 	 

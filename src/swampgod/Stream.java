@@ -29,14 +29,14 @@ public class Stream implements java.io.Serializable{
 	/**
 	 * initializes bad objects 
 	 */
-	void createBadObject(){
+	void createBadObjects(int num){
 
 	}
 	
 	/**
 	 * initializes good objects
 	 */
-	void createGoodObject(){
+	void createGoodObjects(int num){
 		
 	}
 	

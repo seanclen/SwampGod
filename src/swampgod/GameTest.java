@@ -54,7 +54,7 @@ public class GameTest implements java.io.Serializable{
 		Game g1 = new Game();
 		EstuaryObject obj = g1.createObject("fish");
 		g1.addObject(1, obj);
-		assertTrue(Arrays.asList(g1.Streams[1].goodObjects).contains(obj));
+		assertTrue(Arrays.asList(g1.streams[1].goodObjects).contains(obj));
 	}
 	
 	@Test
@@ -63,7 +63,7 @@ public class GameTest implements java.io.Serializable{
 		EstuaryObject obj = g1.createObject("fish");
 		g1.addObject(1, obj);
 		g1.removeObjects(obj);
-		assertFalse(Arrays.asList(g1.Streams[1].goodObjects).contains(obj));
+		assertFalse(Arrays.asList(g1.streams[1].goodObjects).contains(obj));
 	}
 	
 	@Test
@@ -71,7 +71,7 @@ public class GameTest implements java.io.Serializable{
 		Game g1 = new Game();
 		EstuaryObject obj = g1.createObject("crab");
 		g1.addObject(1, obj);
-		assertTrue(Arrays.asList(g1.Streams[1].badObjects).contains(obj));
+		assertTrue(Arrays.asList(g1.streams[1].badObjects).contains(obj));
 	}
 	
 	@Test
@@ -80,7 +80,7 @@ public class GameTest implements java.io.Serializable{
 		EstuaryObject obj = g1.createObject("crab");
 		g1.addObject(1, obj);
 		g1.removeObjects(obj);
-		assertFalse(Arrays.asList(g1.Streams[1].badObjects).contains(obj));
+		assertFalse(Arrays.asList(g1.streams[1].badObjects).contains(obj));
 	}
 	
 	@Test

@@ -13,35 +13,32 @@ public class Game implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -8247021508864248922L;
+	
+	//Halth range -100 to 100. 100 = max health. -100 = dead
 	int health;
 	int points;
 	ArrayList<Plant> plants;
 	int waveNumber;
-	Stream[] Streams = new Stream[3];
+	Stream[] streams = new Stream[3];
 	Estuary estuary;
-	int gameState;
-	//3 game states 1- running	2-inbetween waves	3- end of game
+	GameState gameState;
+	//TITLE_STATE, MENU_STATE, PAUSE_STATE, RUNNING_STATE, UPGRADE_STATE, ENDGAME_STATE
 	
 	/**
 	 * constructs the objects
 	 */
 	public Game(){
+		health = 0;
+		points = 0;
+		gameState = GameState.TITLE_STATE;
+		waveNumber = 0;
+		streams[0].createBadObjects(10);
+		streams[0].createGoodObjects(10);
+		streams[1].createBadObjects(10);
+		streams[1].createGoodObjects(10);
+		streams[2].createBadObjects(10);
+		streams[2].createGoodObjects(10);
 		
-	}
-	
-	/**
-	 * @return - game status int
-	 */
-	public int getGameStatus(){
-		return 0;		
-	}
-	
-	/**
-	 * returns points
-	 */
-			
-	public int getPoints(){
-		return points;
 	}
 	
 	/**
@@ -59,22 +56,39 @@ public class Game implements java.io.Serializable{
 	}
 	
 	/**
+	 * @return - game state
+	 */
+	public GameState getGameStatus(){
+		return gameState;		
+	}
+	
+	/**
+	 * returns points
+	 */
+			
+	public int getPoints(){
+		return points;
+	}
+	
+	/**
 	 * Changes the score based on input
 	 * @param value - how much the score will change
 	 */
 	public void updateScore(int value){
-		
+		points += value;
 	}
 	
 	/**
-	 * Value-how much the heakth should change
+	 * Value-how much the health should change
 	 * Takes in an int, adds that to the health
 	 */
 	public void updateHealth(int value){
-		health = value;
+		health += value;
+		if(health < -99){
+			lose();
+		}
 		
 	}
-	
 	
 	/**
 	 * 
@@ -85,11 +99,13 @@ public class Game implements java.io.Serializable{
 	public void removeObjects(Object obj){
 		
 	}
+	
 	/**
 	 * if the player collects fish this modifies the score and health
 	 */
 	public void collectFish(){
-	
+	 updateHealth(-50);
+	 updateScore(50);
 	}
 	
 	/**
@@ -109,19 +125,6 @@ public class Game implements java.io.Serializable{
 		return null;
 	}
 	
-	/**
-	 * @return - if the player wins or not
-	 */
-	public boolean win(){
-		return false;
-	}
-	
-	/**
-	 * @return - if its the end or not
-	 */
-	public boolean lose(){
-		return false;
-	}
 	
 	/**
 	 * @param t - type
@@ -159,6 +162,20 @@ public class Game implements java.io.Serializable{
 	}
 	
 	/**
+	 * @return - call the end of game functions, end screen and clean up
+	 */
+	public void lose(){
+
+	}
+	
+	/**
+	 * @return - End of game, player has won call win screen
+	 */
+	public void win(){
+
+	}
+	
+	/**
 	 * @return - is it the end of the game
 	 */
 	public boolean isEnd(){
@@ -171,11 +188,5 @@ public class Game implements java.io.Serializable{
 	public void startWave(){
 		
 	}
-	
-	/**
-	 * Gets status of the game
-	 */
-	public void getStatus(){
-		
-	}
+
 }
