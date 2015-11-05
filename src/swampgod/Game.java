@@ -169,11 +169,11 @@ public class Game implements java.io.Serializable{
 	public EstuaryObject createObject(String t){
 
 		if(t=="crab" || t== "algea" || t == "waste"){
-			EstuaryObject o = new BadObject(t);
+			EstuaryObject o = new BadObject();
 			return o;
 		}
 		else if(t=="fish"||t=="clam"||t=="lily pad"){
-			EstuaryObject o = new GoodObject(t);
+			EstuaryObject o = new GoodObject();
 			return o;
 		}
 		return null;

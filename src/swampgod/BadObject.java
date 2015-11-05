@@ -2,7 +2,7 @@ package swampgod;
 
 
 /**
- * This class is a sub class of EstuaryObject its main purpose is to be a constructor for bad ojects
+ * This class is a sub class of Estuaryobject its main purpose is to be a constructor for bad ojects
  */
 public class BadObject extends EstuaryObject{
 
@@ -15,7 +15,7 @@ public class BadObject extends EstuaryObject{
 	 * @param t - a type of plant used to set that specific plants attributes
 	 * constructs a instance of object with type t
 	 */
-	public BadObject(String t){
+	public BadObject(){
 		
 	}
 	
