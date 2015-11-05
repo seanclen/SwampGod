@@ -10,7 +10,7 @@ public class TrashCan implements java.io.Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3980290562068932623L;
+	private static final long serialVersionUID = 1152015;
 	Point Position;
 	int radius;
 	
@@ -19,7 +19,8 @@ public class TrashCan implements java.io.Serializable{
 	 * Constructs a trash can with a position and radius
 	 */
 	public TrashCan(){
-		
+		Position.setLocation(100, 500);
+		radius =200;
 	}
 }
 
