@@ -169,7 +169,16 @@ public class Game implements java.io.Serializable{
 	public void addObject(int stream,EstuaryObject obj ){
 
 	}
-
+	
+	/*
+	 * makes a random object then returns it
+	 * will be used with add object to add an object to a stream
+	 * will use the objects pick stream function to pick one for the add
+	 */
+	public EstuaryObject createObject(){
+		return null;
+		
+	}
 	/**
 	 * selects the object at the current position of the mouse pointer
 	 */
