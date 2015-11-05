@@ -52,35 +52,35 @@ public class GameTest implements java.io.Serializable{
 	@Test
 	public void addGoodObjTest() {
 		Game g1 = new Game();
-		EstuaryObject obj = g1.createObject("fish");
-		g1.addObject(1, obj);
-		assertTrue(Arrays.asList(g1.streams[1].goodObjects).contains(obj));
+		Fish f = new Fish();
+		g1.addObject(1, f);
+		assertTrue(Arrays.asList(g1.streams[1].goodObjects).contains(f));
 	}
 	
 	@Test
 	public void removeGoodObjTest(){
 		Game g1 = new Game();
-		EstuaryObject obj = g1.createObject("fish");
-		g1.addObject(1, obj);
-		g1.removeObjects(obj);
-		assertFalse(Arrays.asList(g1.streams[1].goodObjects).contains(obj));
+		Fish f = new Fish();
+		g1.addObject(1, f);
+		g1.removeObjects(f);
+		assertFalse(Arrays.asList(g1.streams[1].goodObjects).contains(f));
 	}
 	
 	@Test
 	public void addBadObjTest() {
 		Game g1 = new Game();
-		EstuaryObject obj = g1.createObject("crab");
-		g1.addObject(1, obj);
-		assertTrue(Arrays.asList(g1.streams[1].badObjects).contains(obj));
+		Crab c = new Crab();
+		g1.addObject(1, c);
+		assertTrue(Arrays.asList(g1.streams[1].badObjects).contains(c));
 	}
 	
 	@Test
 	public void removeBadObjTest(){
 		Game g1 = new Game();
-		EstuaryObject obj = g1.createObject("crab");
-		g1.addObject(1, obj);
-		g1.removeObjects(obj);
-		assertFalse(Arrays.asList(g1.streams[1].badObjects).contains(obj));
+		Crab c = new Crab();
+		g1.addObject(1, c);
+		g1.removeObjects(c);
+		assertFalse(Arrays.asList(g1.streams[1].badObjects).contains(c));
 	}
 	
 	@Test

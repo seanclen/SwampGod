@@ -160,26 +160,6 @@ public class Game implements java.io.Serializable{
 		return null;
 	}
 
-
-	/**
-	 * @param t - type
-	 * @return - an object
-	 * creates an object of t type
-	 */
-	public EstuaryObject createObject(String t){
-
-		if(t=="crab" || t== "algea" || t == "waste"){
-			EstuaryObject o = new BadObject();
-			return o;
-		}
-		else if(t=="fish"||t=="clam"||t=="lily pad"){
-			EstuaryObject o = new GoodObject();
-			return o;
-		}
-		return null;
-
-	}
-
 	/**
 	 * 
 	 * @param stream - which stream to add the obj to
