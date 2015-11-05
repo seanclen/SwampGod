@@ -14,4 +14,6 @@ public class Estuary implements java.io.Serializable {
 	ArrayList<GoodObject> goodObjectList;
 	ArrayList<BadObject> badObjectList;
 	
+	public static Rectangle est;
+	
 }

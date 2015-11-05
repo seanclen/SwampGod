@@ -15,7 +15,7 @@ public class EstuaryObject implements java.io.Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1216807115822693876L;
+	private static final long serialVersionUID = 11515;
 	
 	Point position;
 	boolean isGood;
@@ -33,6 +33,9 @@ public class EstuaryObject implements java.io.Serializable{
 	//What stream it will be contained in
 	int stream;
 	
+	boolean inStream; // Is the object in a stream?
+	boolean inEstuary; // Is the object in the estuary?
+	
 	
 	/**
 	 * Moves the object down the stream towards the estuary
@@ -47,8 +50,12 @@ public class EstuaryObject implements java.io.Serializable{
 	 */
 	public boolean checkPosition(){
 		
-		return true;
-		// :)
+		if (est.contains(position) && (inEstuary == false)){
+			inEstuary = true;
+			return true;
+		}
+
+		return false;
 		
 	}
 	/**
