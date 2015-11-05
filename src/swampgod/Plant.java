@@ -17,11 +17,10 @@ public class Plant implements java.io.Serializable{
 	int percentEat;
 	
 	/**
-	 * @param t - type of plant 
 	 * @param p - the place on the board it is placed at
 	 */
-	public Plant(String t, Point p){
-		
+	public Plant(Point p){
+		position=p;
 	}
 	
 	/**
