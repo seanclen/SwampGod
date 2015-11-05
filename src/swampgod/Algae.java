@@ -10,6 +10,7 @@ public class Algae extends BadObject{
 		speed = 2;
 		stream = this.pickStream();
 		isGood=false;
+		type="Algae";
 		
 	}
 

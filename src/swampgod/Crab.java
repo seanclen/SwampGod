@@ -10,7 +10,7 @@ public class Crab extends BadObject {
 		healthValue = 11;
 		speed = 5;
 		stream = this.pickStream();
-		
+		type="Crab";
 	}
 
 }

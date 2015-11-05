@@ -67,9 +67,9 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	public void eatTest(){
 		Bush bush= new Bush(p);
 		ArrayList<BadObject> bo= new ArrayList<BadObject>(2);
-		BadObject a= new BadObject("Crabs");
+		Crab a= new Crab();
 		bo.add(a);
-		BadObject b= new BadObject("Algae");
+		Algae b= new Algae();
 		bo.add(b);
 		assertTrue(bo.contains(a));
 		bush.eat();
@@ -79,14 +79,14 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	@Test
 	public void checkRadiusTest(){
 		Bush bush= new Bush(p);
-		BadObject a= new BadObject("Crabs");
+		Crab a= new Crab();
 		assertEquals(a, bush.checkRadius());
 	}
 	
 	
 //BAD OBJECTS
 	public void crabTest(){
-		BadObject crab = new BadObject("Crab");
+		Crab crab = new Crab();
 		assertEquals(2, crab.getHealthValue());
 		assertFalse(crab.isGood());
 		assertEquals(3, crab.getPointValue());
@@ -95,7 +95,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	}
 	
 	public void algaeTest(){
-		BadObject algae = new BadObject("Algae");
+		Algae algae = new Algae();
 		assertEquals(3, algae .getHealthValue());
 		assertFalse(algae .isGood());
 		assertEquals(4, algae .getPointValue());
@@ -104,7 +104,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	}
 	
 	public void hazardWasteTest(){
-		BadObject hazardWaste = new BadObject("Hazard Waste");
+		HazardWaste hazardWaste = new HazardWaste();
 		assertEquals(4, hazardWaste.getHealthValue());
 		assertFalse(hazardWaste.isGood());
 		assertEquals(5, hazardWaste.getPointValue());

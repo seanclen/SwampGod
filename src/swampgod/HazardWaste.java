@@ -10,6 +10,7 @@ public class HazardWaste extends BadObject{
 		speed = 7;
 		stream = pickStream();
 		isGood=false;
+		type = "Hazard Waste";
 		
 	}
 }
