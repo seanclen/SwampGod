@@ -33,8 +33,8 @@ public class EstuaryObject implements java.io.Serializable{
 	//What stream it will be contained in
 	int stream;
 	
-	boolean inStream; // Is the object in a stream?
-	boolean inEstuary; // Is the object in the estuary?
+	boolean inStream = false; // Is the object in a stream?
+	boolean inEstuary = false; // Is the object in the estuary?
 	
 	
 	/**
@@ -50,8 +50,9 @@ public class EstuaryObject implements java.io.Serializable{
 	 */
 	public boolean checkPosition(){
 		
-		if (est.contains(position) && (inEstuary == false)){
-			inEstuary = true;
+		if (est.contains(position)){
+			if (inEstuary == false)
+				inEstuary = true;
 			return true;
 		}
 
@@ -72,7 +73,7 @@ public class EstuaryObject implements java.io.Serializable{
 	 */
 	public int pickStream(){
 		
-		return 0;
+		return 1 + (Math.floor(Math.random() * 3)); // random int 1, 2, or 3
 	}
 	
 	/**
