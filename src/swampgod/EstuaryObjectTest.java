@@ -53,19 +53,19 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	}
 	
 	public void plantTest(){
-		Plant tree = new Plant("Tree", p);
+		Tree tree = new Tree(p);
 		assertEquals("Tree", obj1.type);
 		assertEquals(10, tree.radius);
 		assertEquals(20, tree.percentEat);
 		
-		Plant bush = new Plant("Bush", p);
+		Bush bush= new Bush(p);
 		assertEquals("Bush", obj1.type);
 		assertEquals(5, bush.radius);
 		assertEquals(40, bush.percentEat);
 	}
 	
 	public void eatTest(){
-		Plant bush = new Plant("Bush", p);
+		Bush bush= new Bush(p);
 		ArrayList<BadObject> bo= new ArrayList<BadObject>(2);
 		BadObject a= new BadObject("Crabs");
 		bo.add(a);
@@ -78,7 +78,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	
 	@Test
 	public void checkRadiusTest(){
-		Plant bush = new Plant("Bush", p);
+		Bush bush= new Bush(p);
 		BadObject a= new BadObject("Crabs");
 		assertEquals(a, bush.checkRadius());
 	}
@@ -114,7 +114,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 
 //GOOD OBJECTS
 	public void fishTest(){
-		GoodObject fish = new GoodObject("Fish");
+		Fish fish= new Fish();
 		assertEquals(4, fish.getHealthValue());
 		assertTrue(fish.isGood());
 		assertEquals(3, fish.getPointValue());
@@ -123,7 +123,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	}
 	
 	public void clamTest(){
-		GoodObject clam = new GoodObject("Clam");
+		Clam clam = new Clam();
 		assertEquals(3, clam.getHealthValue());
 		assertTrue(clam.isGood());
 		assertEquals(4, clam.getPointValue());
@@ -132,7 +132,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	}
 
 	public void lilyPadTest(){
-		GoodObject lilyPad = new GoodObject("Lily Pad");
+		LilyPad lilyPad = new LilyPad();
 		assertEquals(2, lilyPad.getHealthValue());
 		assertTrue(lilyPad.isGood());
 		assertEquals(2, lilyPad.getPointValue());
