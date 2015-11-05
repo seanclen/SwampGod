@@ -8,7 +8,7 @@ public class GameTest implements java.io.Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4704623357378697027L;
+	private static final long serialVersionUID = 11052015;
 
 	@Test
 	public void gameStateTest() {

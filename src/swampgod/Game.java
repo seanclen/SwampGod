@@ -12,7 +12,7 @@ public class Game implements java.io.Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8247021508864248922L;
+	private static final long serialVersionUID = 11052015;
 
 	//Health range 0 to 100. 100 = max health. -0 = dead
 	int health;
