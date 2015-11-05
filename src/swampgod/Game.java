@@ -14,7 +14,7 @@ public class Game implements java.io.Serializable{
 	 */
 	private static final long serialVersionUID = -8247021508864248922L;
 
-	//Halth range -100 to 100. 100 = max health. -100 = dead
+	//Health range 0 to 100. 100 = max health. -0 = dead
 	int health;
 	int points;
 	ArrayList<Plant> plants;
@@ -28,7 +28,7 @@ public class Game implements java.io.Serializable{
 	 * constructs the objects
 	 */
 	public Game(){
-		health = 0;
+		health = 50;
 		points = 0;
 		gameState = GameState.TITLE_STATE;
 		waveNumber = 0;
@@ -84,7 +84,7 @@ public class Game implements java.io.Serializable{
 	 */
 	public void updateHealth(int value){
 		health += value;
-		if(health < -99){
+		if(health < 1){
 			lose();
 		}
 
@@ -116,8 +116,8 @@ public class Game implements java.io.Serializable{
 	 * if the player collects fish this modifies the score and health
 	 */
 	public void collectFish(){
-		updateHealth(-50);
-		updateScore(50);
+		updateHealth(-25);
+		updateScore(25);
 		//NEEDS TO REMOVE FISH FROM DISPLAY SOMEHOW -- MAYBE REMOVE FROM THE ESTUARY LIST?
 	}
 
