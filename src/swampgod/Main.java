@@ -8,12 +8,12 @@ import java.io.ObjectOutputStream;
 
 import javax.swing.JPanel;
 
-public class Main extends JPanel implements java.io.Serializable{
+public class Main implements java.io.Serializable{
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5996796492194730157L;
+	private static final long serialVersionUID = 11082015;
 
 	public enum GameState {
 		TITLE_STATE,
@@ -31,7 +31,8 @@ public class Main extends JPanel implements java.io.Serializable{
 	public static void main(String[] args) {
 		System.out.println("Swamp God");
 		
-		Game game = new Game();
+		GameView GameWindow = new GameView();
+		GameWindow.presentWindow();
 
 	}
 	

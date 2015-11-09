@@ -6,11 +6,11 @@ package swampgod;
 
 import java.awt.Point;
 
-public class Plant implements java.io.Serializable{
+public class Plant extends EstuaryObject implements java.io.Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3281254137011811480L;
+	private static final long serialVersionUID = 11082015;
 	String type;
 	Point position;
 	int radius;

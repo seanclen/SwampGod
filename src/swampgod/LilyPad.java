@@ -5,7 +5,7 @@ public class LilyPad extends GoodObject{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 11052015;
+	private static final long serialVersionUID = 11082015;
 
 	public LilyPad() {
 		isGood= true;
@@ -13,7 +13,6 @@ public class LilyPad extends GoodObject{
 		healthValue= 15;
 		type= "LilyPad";
 		speed= 20;
-		stream= this.pickStream();
 	}
 
 }

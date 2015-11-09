@@ -10,14 +10,16 @@ package swampgod;
  */
 
 import java.awt.Point;
+import java.awt.Rectangle;
 
 public class EstuaryObject implements java.io.Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 11515;
+	private static final long serialVersionUID = 11082015;
 	
-	Point position;
+	Point position = new Point();
+	Rectangle bounds = new Rectangle();
 	boolean isGood;
 	//how many points are added when in estuary/removed when in trash
 	//goo have positive values, bad have negative
@@ -48,32 +50,55 @@ public class EstuaryObject implements java.io.Serializable{
 	 * checks to see if element is in the estuary needs to be removed from stream.
 	 * return - 1 if the object is past line and 0 if it's still in stream
 	 */
+	
+	//TODO 
 	public boolean checkPosition(){
-		
-		if (est.contains(position)){
-			if (inEstuary == false)
-				inEstuary = true;
-			return true;
-		}
+//		if (est.contains(position)){
+//			if (inEstuary == false)
+//				inEstuary = true;
+//			return true;
+//		}
 
 		return false;
-		
 	}
+	
 	/**
 	 * Sets the location of the object setPosition is being used on
 	 * @param l - takes in a Point of the location you want to set
 	 */
 	public void setPosition(Point l) {
 		this.position = l;
+		bounds.x = l.x;
+		bounds.y = l.y;
+	}
+	
+	public Point getPosition() {
+		return this.position;
+	}
+	
+	public void setBounds(int x, int y, int width, int height) {
+		this.bounds = new Rectangle(x, y, width, height);
+	}
+	
+	public Rectangle getBounds() {
+		return this.bounds;
 	}
 	
 	/**
 	 * Randomly generates what stream the object being called on is going to go down
 	 * @return an int based on the which stream it picks
 	 */
-	public int pickStream(){
+	public static int pickStream(){
 		
-		return 1 + (Math.floor(Math.random() * 3)); // random int 1, 2, or 3
+		return (int) (Math.floor(Math.random() * 3)); // random int 0, 1, or 2
+	}
+	
+	public int getStream() {
+		return this.stream;
+	}
+	
+	public void setStream(int i) {
+		this.stream = i;
 	}
 	
 	/**

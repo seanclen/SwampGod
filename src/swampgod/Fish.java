@@ -5,7 +5,7 @@ public class Fish extends GoodObject{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 11052015;
+	private static final long serialVersionUID = 11082015;
 
 	public Fish(){
 		isGood= true;
@@ -13,6 +13,5 @@ public class Fish extends GoodObject{
 		healthValue= 7;
 		type= "Fish";
 		speed= 18;
-		stream= this.pickStream();
 	}
 }

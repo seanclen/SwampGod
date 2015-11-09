@@ -13,7 +13,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5055127386658248567L;
+	private static final long serialVersionUID = -11082015;
 	Game g1 = new Game();
 	EstuaryObject obj1 = new EstuaryObject();
 	Point p = new Point();
@@ -151,7 +151,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	}
 	
 	public void streamObjectTest(){
-		Stream stream1 = new Stream();
+		Stream stream1 = new Stream(1);
 		stream1.createBadObjects(1);
 		stream1.createBadObjects(1);
 		stream1.createBadObjects(1);

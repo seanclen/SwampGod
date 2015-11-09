@@ -9,7 +9,7 @@ public class BadObject extends EstuaryObject{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5736531456396992386L;
+	private static final long serialVersionUID = 11082015;
 
 	/**
 	 * @param t - a type of plant used to set that specific plants attributes
@@ -23,7 +23,21 @@ public class BadObject extends EstuaryObject{
 	 * @return a boolean
 	 * how to find out if the objects edible or not
 	 */
-//	public boolean edible(){
-//		return true;
-//	}
+	public boolean edible(){
+		return true;
+	}
+	
+	public static BadObject createRandom() {
+		BadObject returnObject = null;
+		int randomInt = (int) (1 + (Math.floor(Math.random() * 3))); // random int 1, 2, or 3
+		switch (randomInt) {
+		case 1:
+			returnObject = new Algae();
+		case 2:
+			returnObject = new Crab();
+		case 3:
+			returnObject = new HazardWaste();
+		}
+		return returnObject;
+	}
 }

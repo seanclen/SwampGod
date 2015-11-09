@@ -3,6 +3,7 @@
  */
 package swampgod;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class Estuary implements java.io.Serializable {
@@ -10,22 +11,31 @@ public class Estuary implements java.io.Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5964163876971167697L;
-	ArrayList<GoodObject> goodObjectList;
-	ArrayList<BadObject> badObjectList;
+	private static final long serialVersionUID = 11082015;
+	ArrayList<GoodObject> goodObjects;
+	ArrayList<BadObject> badObjects;
+	private Rectangle bounds;
 	
-	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public Estuary() {
+		goodObjects = new ArrayList<GoodObject>();
+		badObjects = new ArrayList<BadObject>();
+		bounds = new Rectangle(0, 400, 960, 240);
+	}
 	
-	// location of top-left point of the rectangle
-	static int startX = 0;
-	static int startY = screenSize.getHeight() * 0.75;
+	/**
+	 * Implement this to get the objects that have changed and must be redrawn.
+	 * @return list of objects to be updated
+	 */
+	public ArrayList<EstuaryObject> getObjectsToDraw() {
+		ArrayList<EstuaryObject> updatedObjects = new ArrayList<EstuaryObject>();
+		//TODO need to come back and implement a check
+		updatedObjects.addAll(badObjects);
+		updatedObjects.addAll(goodObjects);
+		return updatedObjects;
+	}
 	
-	// width and height of the estuary
-	static double estWidth = screenSize.getWidth();
-	static double estHeight = screenSize.getHeight() * 0.25;
-	
-	// a rectangle that defines the boundaries of the estuary
-	public static Rectangle est;
-	est = new Rectangle(startX, startY, estWidth, estHeight);
+	public Rectangle getBounds() {
+		return this.bounds;
+	}
 	
 }

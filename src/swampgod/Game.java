@@ -12,7 +12,7 @@ public class Game implements java.io.Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 11052015;
+	private static final long serialVersionUID = 11082015;
 
 	//Health range 0 to 100. 100 = max health. -0 = dead
 	int health;
@@ -28,16 +28,7 @@ public class Game implements java.io.Serializable{
 	 * constructs the objects
 	 */
 	public Game(){
-		health = 50;
-		points = 0;
-		gameState = GameState.TITLE_STATE;
-		waveNumber = 0;
-		streams[0].createBadObjects(10);
-		streams[0].createGoodObjects(10);
-		streams[1].createBadObjects(10);
-		streams[1].createGoodObjects(10);
-		streams[2].createBadObjects(10);
-		streams[2].createGoodObjects(10);
+		initialize();
 
 	}
 
@@ -45,7 +36,29 @@ public class Game implements java.io.Serializable{
 	 * builds the menu
 	 */
 	public void initialize(){
-
+		health = 50;
+		points = 0;
+		gameState = GameState.TITLE_STATE;
+		waveNumber = 0;
+		estuary = new Estuary();
+		
+		//Instantiate and initialize streams
+		for (int i = 0; i < streams.length; i++) {
+			streams[i] = new Stream(i);
+		}
+		
+		//Good Objects
+		for (int i = 0; i < 10; i++) {
+			int streamId = EstuaryObject.pickStream();
+			streams[streamId].createBadObjects(1);
+		}
+		
+		//Bad Objects
+		for (int i = 0; i < 10; i++) {
+			int streamId = EstuaryObject.pickStream();
+			streams[streamId].createGoodObjects(1);
+		}
+		
 	}
 
 	/**
@@ -76,6 +89,14 @@ public class Game implements java.io.Serializable{
 	 */
 	public void updateScore(int value){
 		points += value;
+	}
+	
+	public Stream[] getStreams() {
+		return streams;
+	}
+	
+	public Estuary getEstuary() {
+		return estuary;
 	}
 
 	/**
