@@ -19,9 +19,9 @@ public class GameTest implements java.io.Serializable{
 	@Test
 	public void healthTest() {
 		Game g1 = new Game();
-		assertEquals(0,g1.health);
+		assertEquals(50,g1.health);
 		g1.updateHealth(30);
-		assertEquals(30, g1.health);
+		assertEquals(80, g1.health);
 	}
 	
 	@Test
@@ -87,7 +87,7 @@ public class GameTest implements java.io.Serializable{
 	public void updateHeathTest(){
 		Game g1 = new Game();
 		g1.updateHealth(2);
-		assertEquals(2,g1.health);
+		assertEquals(52,g1.health);
 		
 	}
 	
@@ -95,8 +95,8 @@ public class GameTest implements java.io.Serializable{
 	public void collectFishTest(){
 		Game g1 = new Game();
 		g1.collectFish();
-		assertEquals(-1,g1.health);
-		assertEquals(5,g1.getPoints());
+		assertEquals(25,g1.health);
+		assertEquals(25,g1.getPoints());
 
 	}
 }

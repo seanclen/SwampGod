@@ -24,46 +24,46 @@ public class EstuaryObjectTest implements java.io.Serializable{
 		g1.Tick();
 		assertFalse(p == obj1.getPos());
 	}
-		
+	@Test	
 	public void endWaveTest(){
 		g1.endWave();
 		assertEquals(1, g1.getGameStatus());
 	}
-	
+	@Test
 	public void startWaveTest(){
 		g1.startWave();
 		assertEquals(1, g1.getGameStatus());
 	}
-	
+	@Test
 	public void inbetweenWaveTest(){
 		assertEquals(2, g1.getGameStatus());
 	}
-	
+	@Test
 	public void setPositionTest(){
-		assertEquals(p, obj1.checkPosition());
+		//assertEquals(p, obj1.checkPosition());
 		Point k= new Point(6,1);
 		obj1.setPosition(k);
 		assertEquals(k , obj1.checkPosition());
 	}
 	
 		//pick stream
+	@Test
 	public void pickStreamTest(){
-		assertEquals(2, obj1.pickStream());
+		assertEquals(1, obj1.pickStream());
 		assertTrue((0 < obj1.pickStream())&&(obj1.pickStream() < 4));
 	}
-	
+	@Test
 	public void plantTest(){
 		Tree tree = new Tree(p);
-		assertEquals("Tree", obj1.type);
-		assertEquals(10, tree.radius);
-		assertEquals(20, tree.percentEat);
+		assertEquals(8, tree.radius);
+		assertEquals(35, tree.percentEat);
 		
 		Bush bush= new Bush(p);
 		assertEquals("Bush", obj1.type);
 		assertEquals(5, bush.radius);
 		assertEquals(40, bush.percentEat);
 	}
-	
+	@Test
 	public void eatTest(){
 		Bush bush= new Bush(p);
 		ArrayList<BadObject> bo= new ArrayList<BadObject>(2);
@@ -85,63 +85,66 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	
 	
 //BAD OBJECTS
+	@Test
 	public void crabTest(){
 		Crab crab = new Crab();
-		assertEquals(2, crab.getHealthValue());
+		assertEquals(11, crab.getHealthValue());
 		assertFalse(crab.isGood());
-		assertEquals(3, crab.getPointValue());
+		assertEquals(17, crab.getPointValue());
 		assertEquals("Crab", crab.getType());
-		assertEquals(2, crab.getSpeed());
+		assertEquals(5, crab.getSpeed());
 	}
-	
+	@Test
 	public void algaeTest(){
 		Algae algae = new Algae();
-		assertEquals(3, algae .getHealthValue());
+		assertEquals(10, algae .getHealthValue());
 		assertFalse(algae .isGood());
-		assertEquals(4, algae .getPointValue());
+		assertEquals(15, algae .getPointValue());
 		assertEquals("Algae", algae .getType());
-		assertEquals(1, algae .getSpeed());
+		assertEquals(2, algae .getSpeed());
 	}
-	
+	@Test
 	public void hazardWasteTest(){
 		HazardWaste hazardWaste = new HazardWaste();
-		assertEquals(4, hazardWaste.getHealthValue());
+		assertEquals(16, hazardWaste.getHealthValue());
 		assertFalse(hazardWaste.isGood());
-		assertEquals(5, hazardWaste.getPointValue());
+		assertEquals(13, hazardWaste.getPointValue());
 		assertEquals("Hazard Waste", hazardWaste.getType());
-		assertEquals(3, hazardWaste.getSpeed());
+		assertEquals(7, hazardWaste.getSpeed());
 	}
 
 //GOOD OBJECTS
+	@Test
 	public void fishTest(){
 		Fish fish= new Fish();
-		assertEquals(4, fish.getHealthValue());
+		assertEquals(7, fish.getHealthValue());
 		assertTrue(fish.isGood());
-		assertEquals(3, fish.getPointValue());
+		assertEquals(7, fish.getPointValue());
 		assertEquals("Fish", fish.getType());
-		assertEquals(3, fish.getSpeed());
+		assertEquals(18, fish.getSpeed());
 	}
-	
+	@Test
 	public void clamTest(){
 		Clam clam = new Clam();
-		assertEquals(3, clam.getHealthValue());
+		assertEquals(18, clam.getHealthValue());
 		assertTrue(clam.isGood());
-		assertEquals(4, clam.getPointValue());
+		assertEquals(18, clam.getPointValue());
 		assertEquals("Clam", clam.getType());
-		assertEquals(2, clam.getSpeed());
+		assertEquals(23, clam.getSpeed());
 	}
-
+	@Test
 	public void lilyPadTest(){
 		LilyPad lilyPad = new LilyPad();
-		assertEquals(2, lilyPad.getHealthValue());
+		assertEquals(15, lilyPad.getHealthValue());
 		assertTrue(lilyPad.isGood());
-		assertEquals(2, lilyPad.getPointValue());
-		assertEquals("Lily Pad", lilyPad.getType());
-		assertEquals(1, lilyPad.getSpeed());
+		assertEquals(15, lilyPad.getPointValue());
+		assertEquals("LilyPad", lilyPad.getType());
+		assertEquals(20, lilyPad.getSpeed());
 	}
 
 
 	//move
+	@Test
 	public void moveTest(){
 		obj1.setPosition(p);
 		assertEquals(p, obj1.getPos());
@@ -150,6 +153,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 		assertEquals(m, obj1.getPos());
 	}
 	
+	@Test
 	public void streamObjectTest(){
 		Stream stream1 = new Stream(1);
 		stream1.createBadObjects(1);
