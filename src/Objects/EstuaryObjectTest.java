@@ -162,12 +162,12 @@ public class EstuaryObjectTest implements java.io.Serializable{
 		stream1.createBadObjects(1);
 		stream1.createBadObjects(1);
 		stream1.createBadObjects(1);
-		assertEquals(3, stream1.badObjects.size());
+		assertEquals(3, stream1.getbadObjects().size());
 		
 		stream1.createGoodObjects(1);
 		stream1.createGoodObjects(1);
 		stream1.createGoodObjects(1);
-		assertEquals(3, stream1.goodObjects.size());
+		assertEquals(3, stream1.getgoodObjects().size());
 	}
 	 
 	

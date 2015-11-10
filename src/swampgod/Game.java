@@ -126,13 +126,13 @@ public class Game implements java.io.Serializable{
 
 		boolean removed;
 		//remove from streams
-		if(obj.isGood){			
-			updateScore(obj.pointValue);
-			removed = streams[obj.stream].goodObjects.remove(obj);
+		if(obj.isGood()){			
+			updateScore(obj.getPointValue());
+			removed = streams[obj.getStream()].goodObjects.remove(obj);
 		}
 		else{
-			updateScore(obj.pointValue);
-			removed = streams[obj.stream].badObjects.remove(obj);
+			updateScore(obj.getPointValue());
+			removed = streams[obj.getStream()].badObjects.remove(obj);
 		}
 
 		return removed;

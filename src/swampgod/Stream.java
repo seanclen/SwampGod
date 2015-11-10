@@ -47,6 +47,15 @@ public class Stream implements java.io.Serializable{
 		return this.id;
 	}
 	
+	public ArrayList<BadObject> getbadObjects(){
+		return badObjects;
+	}
+	
+	public ArrayList<GoodObject> getgoodObjects(){
+		return goodObjects;
+		
+	}
+	
 	public Rectangle getBounds() {
 		return this.bounds;
 	}
