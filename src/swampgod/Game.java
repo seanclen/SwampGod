@@ -2,6 +2,11 @@ package swampgod;
 
 import java.awt.Point;
 import java.util.ArrayList;
+
+import Objects.BadObject;
+import Objects.EstuaryObject;
+import Objects.GoodObject;
+import Objects.Plant;
 import swampgod.Main.GameState;
 
 /**

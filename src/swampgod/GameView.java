@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Objects.EstuaryObject;
+
 public class GameView extends JPanel implements MouseListener {
 	/**
 	 * 

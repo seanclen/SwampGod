@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import org.junit.Test;
 
+import Objects.Crab;
+import Objects.Fish;
+
 public class GameTest implements java.io.Serializable{
 	/**
 	 * 

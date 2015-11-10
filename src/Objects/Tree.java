@@ -1,20 +1,20 @@
-package swampgod;
+package Objects;
 
 import java.awt.Point;
 
-public class Bush extends Plant{
+public class Tree extends Plant{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 11052015;
 
-	public Bush(Point p) {
+	public Tree(Point p) {
 		super(p);
-		type= "Bush";
+		type= "Tree";
 		position= p;
-		radius = 5;
-		percentEat= 55;
+		radius = 8;
+		percentEat= 35;
 	}
 
 }

@@ -1,4 +1,4 @@
-package swampgod;
+package Objects;
 
 /**
   * This class represents possible plants that can be placed in the estuary

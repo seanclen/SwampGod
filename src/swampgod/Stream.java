@@ -12,6 +12,11 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import Objects.BadObject;
+import Objects.EstuaryObject;
+import Objects.GoodObject;
+import Objects.Plant;
+
 public class Stream implements java.io.Serializable{
 	
 	/**

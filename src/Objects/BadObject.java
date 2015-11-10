@@ -1,5 +1,4 @@
-package swampgod;
-
+package Objects;
 
 /**
  * This class is a sub class of Estuaryobject its main purpose is to be a constructor for bad ojects

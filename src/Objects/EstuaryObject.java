@@ -1,4 +1,4 @@
-package swampgod;
+package Objects;
 /**
  * This class is the superclass for all objects good and bad
  * 

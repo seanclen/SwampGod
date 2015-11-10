@@ -1,4 +1,4 @@
-package swampgod;
+package Objects;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import org.junit.Test;
+
+import swampgod.Game;
+import swampgod.Stream;
 
 
 public class EstuaryObjectTest implements java.io.Serializable{

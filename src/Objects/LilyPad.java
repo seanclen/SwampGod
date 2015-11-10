@@ -1,4 +1,4 @@
-package swampgod;
+package Objects;
 
 public class LilyPad extends GoodObject{
 

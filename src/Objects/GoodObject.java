@@ -1,4 +1,4 @@
-package swampgod;
+package Objects;
 
 /**
  * This class creates good instances of object
