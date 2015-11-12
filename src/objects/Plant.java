@@ -26,7 +26,13 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 	/**
 	 * removes the object from the list of objects
 	 */
-	public void eat(){
+	public EstuaryObject eat(ArrayList<BadObject> bobj){
+		for(BadObject bo : bobj){
+			if (abs(bo.position.getX() - this.position.getX()) <= 10 
+					&& abs(bo.position.getY() - this.position.getY()) <= 10){
+				return bo;
+			}
+		}
 		
 	}
 	

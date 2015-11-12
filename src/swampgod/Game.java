@@ -173,6 +173,11 @@ public class Game implements java.io.Serializable{
 			for(BadObject bo : streams[i].badObjects){
 				bo.move();
 			}
+			
+			// call eat function for plants
+			for(Plant pl : streams[i].plants){
+				removeObjects(pl.eat(streams[i].badObjects));
+			}
 		}
 		//CHECK IF ANY OBJECTS ARE NOT INSTREAMS, I.E. IN ESTUARY -- this probably happens in the move function
 
