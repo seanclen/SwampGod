@@ -36,9 +36,6 @@ public class EstuaryObject implements java.io.Serializable{
 	//What stream it will be contained in
 	int stream;
 	
-	boolean inStream = false; // Is the object in a stream?
-	boolean inEstuary = false; // Is the object in the estuary?
-	
 	
 	/**
 	 * Moves the object down the stream towards the estuary
