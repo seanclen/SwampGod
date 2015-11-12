@@ -55,14 +55,6 @@ public class Stream implements java.io.Serializable{
 		return goodObjects;
 	}
 	
-	public ArrayList<BadObject> getbadObjects(){
-		return badObjects;
-	}
-	
-	public ArrayList<GoodObject> getgoodObjects(){
-		return goodObjects;
-	}
-	
 	public Rectangle getBounds() {
 		return this.bounds;
 	}
@@ -128,34 +120,36 @@ public class Stream implements java.io.Serializable{
 	 * [x,y]=(1–t)^3*P0+3(1–t)^2*t*P1+3(1–t)t^2*P2+t^3*P3
 	 * t is time(value of 0.0f-1.0f; 0 is the start 1 is the end) 
 	 * */
-	Point CalculateBezierPoint(float t, Point2D start, Point2D ctrlP1, Point2D ctrlP2, Point2D end)
+	Point CalculateBezierPoint(float t)
 	{
-	  float u = (1 - t);
-	  float tt = t*t;
-	  float uu = u*u;
-	  float uuu = uu * u;
-	  float ttt = tt * t;
+		Point2D start = streamCurve.getP1(), ctrlP1 = streamCurve.getCtrlP1(),
+				ctrlP2 = streamCurve.getCtrlP2(), end = streamCurve.getCtrlP2();
+		float u = (1 - t);
+		float tt = t*t;
+		float uu = u*u;
+		float uuu = uu * u;
+		float ttt = tt * t;
 
-	  Point p = new Point((int)(start.getX() * uuu), (int)(start.getY() * uuu));
-	  p.x += 3 * uu * t * ctrlP1.getX();
-	  p.y += 3 * uu * t * ctrlP1.getY();
-	  p.x += 3 * u * tt * ctrlP2.getX();
-	  p.y += 3 * u * tt * ctrlP2.getY();
-	  p.x += ttt * end.getX();
-	  p.y += ttt * end.getY();
+		Point p = new Point((int)(start.getX() * uuu), (int)(start.getY() * uuu));
+		p.x += 3 * uu * t * ctrlP1.getX();
+		p.y += 3 * uu * t * ctrlP1.getY();
+		p.x += 3 * u * tt * ctrlP2.getX();
+		p.y += 3 * u * tt * ctrlP2.getY();
+		p.x += ttt * end.getX();
+		p.y += ttt * end.getY();
 
-	  return p;
+		return p;
 	}
 	
 	int percentMovedPerFrame = 1;// Will complete path in 100 frames
-	int currentPercent = 0;
 	
 	private void update(EstuaryObject obj) {
-	   if (currentPercent < 500) {
-	      Point p = CalculateBezierPoint(currentPercent / 500.0f, getStreamCurve().getP1(), getStreamCurve().getCtrlP1(), getStreamCurve().getCtrlP2(), getStreamCurve().getP2());
-	      currentPercent += percentMovedPerFrame;
-	      obj.setPosition(p);
-	   }
+		float currentPercent = obj.getStreamCompletion();
+		if (obj.getStreamCompletion() < 1) {
+			Point p = CalculateBezierPoint(obj.getStreamCompletion());
+			currentPercent += (obj.getSpeed()/1000);
+			obj.setStreamCompletion(currentPercent);
+		}
 	}
 
 	public CubicCurve2D getStreamCurve() {

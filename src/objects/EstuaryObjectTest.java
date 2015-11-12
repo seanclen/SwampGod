@@ -34,7 +34,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	}
 	@Test
 	public void startWaveTest(){
-		g1.startWave();
+		g1.startGame();
 		assertEquals(1, g1.getGameStatus());
 	}
 	@Test
@@ -162,15 +162,15 @@ public class EstuaryObjectTest implements java.io.Serializable{
 		stream1.createBadObjects(1);
 		stream1.createBadObjects(1);
 		stream1.createBadObjects(1);
-		assertEquals(3, stream1.getbadObjects().size());
-		assertEquals(3, stream1.getbadObjects().size());
+		assertEquals(3, stream1.getBadObjects().size());
+		assertEquals(3, stream1.getBadObjects().size());
 		
 		stream1.createGoodObjects(1);
 		stream1.createGoodObjects(1);
 		stream1.createGoodObjects(1);
-		assertEquals(3, stream1.getgoodObjects().size());
 		assertEquals(3, stream1.getGoodObjects().size());
-		assertEquals(3, stream1.getgoodObjects().size());
+		assertEquals(3, stream1.getGoodObjects().size());
+		assertEquals(3, stream1.getGoodObjects().size());
 	}
 	 
 	

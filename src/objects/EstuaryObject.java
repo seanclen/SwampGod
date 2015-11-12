@@ -6,7 +6,7 @@ package objects;
  * @author Kate Travers
  * @author Jarrod Bieber
  * @author Zac Merrit
- * @author Sean Clending
+ * @author Sean Clendening
  */
 
 import java.awt.Point;
@@ -19,24 +19,22 @@ public class EstuaryObject implements java.io.Serializable{
 	private static final long serialVersionUID = 11082015;
 	
 	Point position = new Point();
+	float streamCompletion = 0;
 	Rectangle bounds = new Rectangle();
 	boolean isGood;
 	//how many points are added when in estuary/removed when in trash
+<<<<<<< HEAD
 	//good have positive values, bad have negative
+=======
+>>>>>>> origin/master
 	int pointValue;
 	//how much health it adds or removes when in estuary
 	int healthValue;
-	//What creature it is
-	//bad - "crab" "algea" "waste"
-	//good - "fish" "clam" "lily pad"
 	String type;
 	//How fast it will move
 	int speed;
 	//What stream it will be contained in
 	int stream;
-	
-	boolean inStream = false; // Is the object in a stream?
-	boolean inEstuary = false; // Is the object in the estuary?
 	
 	
 	/**
@@ -74,6 +72,14 @@ public class EstuaryObject implements java.io.Serializable{
 	
 	public Point getPosition() {
 		return this.position;
+	}
+	
+	public void setStreamCompletion(float percentage) {
+		this.streamCompletion = percentage;
+	}
+	
+	public float getStreamCompletion() {
+		return this.streamCompletion;
 	}
 	
 	public void setBounds(int x, int y, int width, int height) {

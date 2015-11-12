@@ -35,8 +35,8 @@ public class Game implements java.io.Serializable{
 	public Game(){
 		gameState = GameState.MENU_STATE;
 		switch (gameState) {
-		case MENU_STATE: break;
-		default: initialize();
+			case MENU_STATE: break;
+			default: initialize();
 		}
 		initialize();
 
@@ -67,13 +67,16 @@ public class Game implements java.io.Serializable{
 		}
 		
 		//Good Objects
-		for (int i = 0; i < 10; i++) {
+		Level level= new Level();
+		int goodObjects = level.getTotalGoodObjects(waveNumber);
+		for (int i = 0; i < goodObjects; i++) {
 			int streamId = EstuaryObject.pickStream();
 			streams[streamId].createBadObjects(1);
 		}
 		
 		//Bad Objects
-		for (int i = 0; i < 10; i++) {
+		int badObjects= level.getTotalBadObjects(waveNumber);
+		for (int i = 0; i < badObjects; i++){
 			int streamId = EstuaryObject.pickStream();
 			streams[streamId].createGoodObjects(1);
 		}
@@ -198,28 +201,10 @@ public class Game implements java.io.Serializable{
 	 * @return - an object
 	 */
 	public Object placePlant(Point pos, String t){
+		
 		return null;
-	}
-
-	/**
-	 * 
-	 * @param stream - which stream to add the obj to
-	 * @param obj - takes in an object (use createObject to make one
-	 * adds the input object to a stream
-	 */
-	public void addObject(int stream,EstuaryObject obj ){
-
 	}
 	
-	/*
-	 * makes a random object then returns it
-	 * will be used with add object to add an object to a stream
-	 * will use the objects pick stream function to pick one for the add
-	 */
-	public EstuaryObject createObject(){
-		return null;
-		
-	}
 	/**
 	 * selects the object at the current position of the mouse pointer
 	 */
@@ -232,14 +217,14 @@ public class Game implements java.io.Serializable{
 	 * changes the game state
 	 */
 	public void endWave(){
-
+		
 	}
 
 	/**
 	 * @return - call the end of game functions, end screen and clean up
 	 */
 	public void lose(){
-
+		
 	}
 
 	/**
@@ -253,14 +238,15 @@ public class Game implements java.io.Serializable{
 	 * @return - is it the end of the game
 	 */
 	public boolean isEnd(){
+		if(health ==0){
+			return true;
+		}
+		if(waveNumber == 3 && streams[1].getBadObjects().size()==0 && streams[2].getBadObjects().size()==0 &&
+				streams[3].getBadObjects().size()==0 && streams[1].getGoodObjects().size()==0 && 
+				streams[2].getGoodObjects().size()==0 && streams[3].getGoodObjects().size()==0){
+			return true;
+		}
 		return false;
-	}
-
-	/**
-	 * starts the next wave
-	 */
-	public void startWave(){
-
 	}
 
 }
