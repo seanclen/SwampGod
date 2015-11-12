@@ -47,28 +47,20 @@ public class Stream implements java.io.Serializable{
 		return this.id;
 	}
 	
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
 	public ArrayList<BadObject> getBadObjects() {
 		return badObjects;
 	}
 	
 	public ArrayList<GoodObject> getGoodObjects() {
 		return goodObjects;
-=======
->>>>>>> Stashed changes
+	}
+	
 	public ArrayList<BadObject> getbadObjects(){
 		return badObjects;
 	}
 	
 	public ArrayList<GoodObject> getgoodObjects(){
 		return goodObjects;
-		
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/master
->>>>>>> Stashed changes
 	}
 	
 	public Rectangle getBounds() {

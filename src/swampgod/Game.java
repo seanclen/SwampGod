@@ -135,15 +135,7 @@ public class Game implements java.io.Serializable{
 
 		boolean removed;
 		//remove from streams
-<<<<<<< Updated upstream
-		if(obj.isGood()){			
-=======
-<<<<<<< HEAD
-		if(obj.isGood()){
-=======
-		if(obj.isGood()){			
->>>>>>> origin/master
->>>>>>> Stashed changes
+		if(obj.isGood()){		
 			updateScore(obj.getPointValue());
 			removed = streams[obj.getStream()].goodObjects.remove(obj);
 		}
