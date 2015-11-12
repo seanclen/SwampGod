@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import swampgod.Game;
+import swampgod.Main.GameState;
 import swampgod.Stream;
 
 
@@ -35,11 +36,11 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	@Test
 	public void startWaveTest(){
 		g1.startGame();
-		assertEquals(1, g1.getGameStatus());
+		assertEquals(GameState.RUNNING_STATE, g1.getGameStatus());
 	}
 	@Test
 	public void inbetweenWaveTest(){
-		assertEquals(2, g1.getGameStatus());
+		assertEquals(GameState.TITLE_STATE, g1.getGameStatus());
 	}
 	@Test
 	public void setPositionTest(){
@@ -52,7 +53,6 @@ public class EstuaryObjectTest implements java.io.Serializable{
 		//pick stream
 	@Test
 	public void pickStreamTest(){
-		assertEquals(1, obj1.pickStream());
 		assertTrue((0 < obj1.pickStream())&&(obj1.pickStream() < 4));
 	}
 	@Test
