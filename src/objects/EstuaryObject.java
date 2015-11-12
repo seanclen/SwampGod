@@ -6,7 +6,7 @@ package objects;
  * @author Kate Travers
  * @author Jarrod Bieber
  * @author Zac Merrit
- * @author Sean Clending
+ * @author Sean Clendening
  */
 
 import java.awt.Point;
@@ -19,6 +19,7 @@ public class EstuaryObject implements java.io.Serializable{
 	private static final long serialVersionUID = 11082015;
 	
 	Point position = new Point();
+	float streamCompletion = 0;
 	Rectangle bounds = new Rectangle();
 	boolean isGood;
 	//how many points are added when in estuary/removed when in trash
@@ -74,6 +75,14 @@ public class EstuaryObject implements java.io.Serializable{
 	
 	public Point getPosition() {
 		return this.position;
+	}
+	
+	public void setStreamCompletion(float percentage) {
+		this.streamCompletion = percentage;
+	}
+	
+	public float getStreamCompletion() {
+		return this.streamCompletion;
 	}
 	
 	public void setBounds(int x, int y, int width, int height) {

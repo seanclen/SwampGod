@@ -54,40 +54,6 @@ public class GameTest implements java.io.Serializable{
 	}
 	
 	@Test
-	public void addGoodObjTest() {
-		Game g1 = new Game();
-		Fish f = new Fish();
-		g1.addObject(1, f);
-		assertTrue(Arrays.asList(g1.streams[1].goodObjects).contains(f));
-	}
-	
-	@Test
-	public void removeGoodObjTest(){
-		Game g1 = new Game();
-		Fish f = new Fish();
-		g1.addObject(1, f);
-		g1.removeObjects(f);
-		assertFalse(Arrays.asList(g1.streams[1].goodObjects).contains(f));
-	}
-	
-	@Test
-	public void addBadObjTest() {
-		Game g1 = new Game();
-		Crab c = new Crab();
-		g1.addObject(1, c);
-		assertTrue(Arrays.asList(g1.streams[1].badObjects).contains(c));
-	}
-	
-	@Test
-	public void removeBadObjTest(){
-		Game g1 = new Game();
-		Crab c = new Crab();
-		g1.addObject(1, c);
-		g1.removeObjects(c);
-		assertFalse(Arrays.asList(g1.streams[1].badObjects).contains(c));
-	}
-	
-	@Test
 	public void updateHeathTest(){
 		Game g1 = new Game();
 		g1.updateHealth(2);

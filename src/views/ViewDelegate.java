@@ -10,9 +10,14 @@ public class ViewDelegate extends JPanel {
 	private static final long serialVersionUID = 20151111;
 	JFrame currentView;
 	
+	public ViewDelegate() {
+		
+	}
+	
 	public void showTitleView(){
-		TitleView window = new TitleView(this);
-		window.presentView();
+		TitleView title = new TitleView(this);
+		add(title);
+		
 	}
 	
 }
