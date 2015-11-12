@@ -1,4 +1,4 @@
-package Objects;
+package objects;
 
 /**
   * This class represents possible plants that can be placed in the estuary

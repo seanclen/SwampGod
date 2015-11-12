@@ -3,10 +3,10 @@ package swampgod;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import Objects.BadObject;
-import Objects.EstuaryObject;
-import Objects.GoodObject;
-import Objects.Plant;
+import objects.BadObject;
+import objects.EstuaryObject;
+import objects.GoodObject;
+import objects.Plant;
 import swampgod.Main.GameState;
 
 /**
@@ -18,13 +18,13 @@ public class Game implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUsID = 11082015;
-
+	int tickCount = 0;
 	//Health range 0 to 100. 100 = max health. -0 = dead
 	int health;
 	int points;
 	ArrayList<Plant> plants;
 	int waveNumber;
-	Stream[] streams = new Stream[3];
+	Stream[] streams;
 	Estuary estuary;
 	GameState gameState;
 	//TITLE_STATE, MENU_STATE, PAUSE_STATE, RUNNING_STATE, UPGRADE_STATE, ENDGAME_STATE
@@ -33,6 +33,11 @@ public class Game implements java.io.Serializable{
 	 * constructs the objects
 	 */
 	public Game(){
+		gameState = GameState.MENU_STATE;
+		switch (gameState) {
+		case MENU_STATE: break;
+		default: initialize();
+		}
 		initialize();
 
 	}
@@ -43,9 +48,18 @@ public class Game implements java.io.Serializable{
 	public void initialize(){
 		health = 50;
 		points = 0;
-		gameState = GameState.TITLE_STATE;
-		waveNumber = 0;
 		estuary = new Estuary();
+		streams  = new Stream[3];
+		waveNumber = 0;
+		gameState = GameState.TITLE_STATE;
+	}
+
+	/**
+	 * starts ticker and starts first wave
+	 */
+	public void startGame(){
+		gameState = GameState.RUNNING_STATE;
+		waveNumber++;
 		
 		//Instantiate and initialize streams
 		for (int i = 0; i < streams.length; i++) {
@@ -63,14 +77,9 @@ public class Game implements java.io.Serializable{
 			int streamId = EstuaryObject.pickStream();
 			streams[streamId].createGoodObjects(1);
 		}
-		
-	}
-
-	/**
-	 * starts ticker and starts first wave
-	 */
-	public void startGame(){
-
+		while (gameState == GameState.RUNNING_STATE) {
+			this.tick();
+		}
 	}
 
 	/**
@@ -126,7 +135,15 @@ public class Game implements java.io.Serializable{
 
 		boolean removed;
 		//remove from streams
+<<<<<<< Updated upstream
 		if(obj.isGood()){			
+=======
+<<<<<<< HEAD
+		if(obj.isGood()){
+=======
+		if(obj.isGood()){			
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 			updateScore(obj.getPointValue());
 			removed = streams[obj.getStream()].goodObjects.remove(obj);
 		}
@@ -151,7 +168,8 @@ public class Game implements java.io.Serializable{
 	 * controls the timing of the game
 	 * updates & movements & draw happens on ticks
 	 */
-	public void Tick(){
+	
+	public void tick(){
 		//CALL MOVE ON ALL OBJECTS IN ALL STREAMS
 		//iterate through all streams
 		for(int i = 0; i<3; i++){

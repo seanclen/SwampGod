@@ -1,4 +1,4 @@
-package swampgod;
+package views;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -13,18 +13,20 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import Objects.EstuaryObject;
+import objects.EstuaryObject;
+import swampgod.Estuary;
+import swampgod.Game;
+import swampgod.Stream;
 
 public class GameView extends JPanel implements MouseListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 11082015;
-	private static Game game = new Game();
+	private static Game game;
 	static int frameWidth = 960, frameHeight = 640;
 
 	public GameView() {
-		
 	}
 
 	private static void loadView() {
@@ -77,7 +79,7 @@ public class GameView extends JPanel implements MouseListener {
 		g.setColor(Color.blue);
 		Stroke temp = g.getStroke();
 		g.setStroke(new BasicStroke(120f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
-		g.draw(stream.streamCurve);
+		g.draw(stream.getStreamCurve());
 		g.setStroke(temp);
 		
 		//Paint objects

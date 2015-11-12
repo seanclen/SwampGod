@@ -1,4 +1,4 @@
-package Objects;
+package objects;
 /**
  * This class is the superclass for all objects good and bad
  * 

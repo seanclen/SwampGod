@@ -5,16 +5,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import javax.swing.JPanel;
+import views.*;
+import objects.*;
 
 public class Main implements java.io.Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 11082015;
-
+	protected static ViewDelegate viewDelegate;
 	public enum GameState {
 		TITLE_STATE,
 		MENU_STATE,
@@ -24,18 +21,23 @@ public class Main implements java.io.Serializable{
 		ENDGAME_STATE
 	}
 	
-	public void updateGameState() {
-		
-	}
-	
 	public static void main(String[] args) {
 		System.out.println("Swamp God");
 		
-		GameView GameWindow = new GameView();
-		GameWindow.presentWindow();
+		viewDelegate = new ViewDelegate();
+		viewDelegate.showTitleView();
+		
+//		TitleView titleScreen = new TitleView();
+//		titleScreen.presentView();
+		
+//		GameView GameWindow = new GameView();
+//		GameWindow.presentWindow();
 
 	}
-	
+		public void updateGameState() {
+		
+	}
+		
 	public static void saveGame(String fileName, Object obj) throws IOException{
 		FileOutputStream fileOut = new FileOutputStream(fileName);
 

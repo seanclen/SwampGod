@@ -6,9 +6,9 @@ package swampgod;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import Objects.BadObject;
-import Objects.EstuaryObject;
-import Objects.GoodObject;
+import objects.BadObject;
+import objects.EstuaryObject;
+import objects.GoodObject;
 
 public class Estuary implements java.io.Serializable {
 	

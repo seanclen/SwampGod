@@ -12,10 +12,10 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Objects.BadObject;
-import Objects.EstuaryObject;
-import Objects.GoodObject;
-import Objects.Plant;
+import objects.BadObject;
+import objects.EstuaryObject;
+import objects.GoodObject;
+import objects.Plant;
 
 public class Stream implements java.io.Serializable{
 	
@@ -28,7 +28,7 @@ public class Stream implements java.io.Serializable{
 	ArrayList<BadObject> badObjects;
 	ArrayList<Plant> plants;
 	private Rectangle bounds;
-	CubicCurve2D streamCurve;
+	private CubicCurve2D streamCurve;
 	/**
 	 * constructs the stream (rectangle)
 	 */
@@ -38,15 +38,26 @@ public class Stream implements java.io.Serializable{
 		goodObjects = new ArrayList<GoodObject>();
 		plants = new ArrayList<Plant>();
 		bounds = new Rectangle((this.id * 320), 0, 320, 400);
-		streamCurve = new CubicCurve2D.Double();
+		setStreamCurve(new CubicCurve2D.Double());
 		// draw CubicCurve2D.Double with set coordinates
-		streamCurve.setCurve(bounds.x, 0, bounds.x+280, 200, bounds.x+100, 250, bounds.x+200, 400);
+		getStreamCurve().setCurve(bounds.x, 0, bounds.x+280, 200, bounds.x+100, 250, bounds.x+200, 400);
 	}
 	
 	public int getId() {
 		return this.id;
 	}
 	
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+	public ArrayList<BadObject> getBadObjects() {
+		return badObjects;
+	}
+	
+	public ArrayList<GoodObject> getGoodObjects() {
+		return goodObjects;
+=======
+>>>>>>> Stashed changes
 	public ArrayList<BadObject> getbadObjects(){
 		return badObjects;
 	}
@@ -54,6 +65,10 @@ public class Stream implements java.io.Serializable{
 	public ArrayList<GoodObject> getgoodObjects(){
 		return goodObjects;
 		
+<<<<<<< Updated upstream
+=======
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 	}
 	
 	public Rectangle getBounds() {
@@ -142,12 +157,21 @@ public class Stream implements java.io.Serializable{
 	
 	int percentMovedPerFrame = 1;// Will complete path in 100 frames
 	int currentPercent = 0;
+	
 	private void update(EstuaryObject obj) {
 	   if (currentPercent < 500) {
-	      Point p = CalculateBezierPoint(currentPercent / 500.0f, streamCurve.getP1(), streamCurve.getCtrlP1(), streamCurve.getCtrlP2(), streamCurve.getP2());
+	      Point p = CalculateBezierPoint(currentPercent / 500.0f, getStreamCurve().getP1(), getStreamCurve().getCtrlP1(), getStreamCurve().getCtrlP2(), getStreamCurve().getP2());
 	      currentPercent += percentMovedPerFrame;
 	      obj.setPosition(p);
 	   }
+	}
+
+	public CubicCurve2D getStreamCurve() {
+		return streamCurve;
+	}
+
+	public void setStreamCurve(CubicCurve2D streamCurve) {
+		this.streamCurve = streamCurve;
 	}
 
 }

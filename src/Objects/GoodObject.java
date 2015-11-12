@@ -1,4 +1,4 @@
-package Objects;
+package objects;
 
 /**
  * This class creates good instances of object
