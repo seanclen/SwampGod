@@ -67,13 +67,16 @@ public class Game implements java.io.Serializable{
 		}
 		
 		//Good Objects
-		for (int i = 0; i < 10; i++) {
+		Level level= new Level();
+		int goodObjects = level.getTotalGoodObjects(waveNumber);
+		for (int i = 0; i < goodObjects; i++) {
 			int streamId = EstuaryObject.pickStream();
 			streams[streamId].createBadObjects(1);
 		}
 		
 		//Bad Objects
-		for (int i = 0; i < 10; i++) {
+		int badObjects= level.getTotalBadObjects(waveNumber);
+		for (int i = 0; i < badObjects; i++){
 			int streamId = EstuaryObject.pickStream();
 			streams[streamId].createGoodObjects(1);
 		}
@@ -248,6 +251,7 @@ public class Game implements java.io.Serializable{
 	 * @return - is it the end of the game
 	 */
 	public boolean isEnd(){
+		
 		return false;
 	}
 
