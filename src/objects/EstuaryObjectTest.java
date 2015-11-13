@@ -75,7 +75,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 		Algae b= new Algae();
 		bo.add(b);
 		assertTrue(bo.contains(a));
-		bush.eat();
+		bush.eat(bo);
 		assertFalse(bo.contains(a));
 	}
 	

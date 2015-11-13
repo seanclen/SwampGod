@@ -23,10 +23,7 @@ public class EstuaryObject implements java.io.Serializable{
 	Rectangle bounds = new Rectangle();
 	boolean isGood;
 	//how many points are added when in estuary/removed when in trash
-<<<<<<< HEAD
 	//good have positive values, bad have negative
-=======
->>>>>>> origin/master
 	int pointValue;
 	//how much health it adds or removes when in estuary
 	int healthValue;

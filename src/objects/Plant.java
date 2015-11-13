@@ -5,6 +5,7 @@ package objects;
   */
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class Plant extends EstuaryObject implements java.io.Serializable{
 	/**
@@ -28,11 +29,12 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 	 */
 	public EstuaryObject eat(ArrayList<BadObject> bobj){
 		for(BadObject bo : bobj){
-			if (abs(bo.position.getX() - this.position.getX()) <= 10 
-					&& abs(bo.position.getY() - this.position.getY()) <= 10){
+			if (Math.abs(bo.position.getX() - this.position.getX()) <= 10 
+					&& Math.abs(bo.position.getY() - this.position.getY()) <= 10){
 				return bo;
 			}
 		}
+		return null;
 		
 	}
 	
