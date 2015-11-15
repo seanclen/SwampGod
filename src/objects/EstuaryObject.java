@@ -32,13 +32,14 @@ public class EstuaryObject implements java.io.Serializable{
 	int speed;
 	//What stream it will be contained in
 	int stream;
+	double streamPosition=0;
 	
 	
 	/**
 	 * Moves the object down the stream towards the estuary
 	 */
 	public void move(){
-		
+		streamPosition+=speed;
 	}
 	
 	/**
