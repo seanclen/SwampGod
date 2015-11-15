@@ -80,8 +80,11 @@ public class Game implements java.io.Serializable{
 			int streamId = EstuaryObject.pickStream();
 			streams[streamId].createGoodObjects(1);
 		}
-		while (gameState == GameState.RUNNING_STATE) {
+		//while (gameState == GameState.RUNNING_STATE) {
+		int count=0;
+		while (count < 10) {
 			this.tick();
+			count ++;
 		}
 	}
 
@@ -220,7 +223,12 @@ public class Game implements java.io.Serializable{
 	 * changes the game state
 	 */
 	public void endWave(){
-		
+		if(waveNumber == 3){
+			gameState= GameState.ENDGAME_STATE;
+		}
+		else{
+			gameState = GameState.UPGRADE_STATE;
+		}
 	}
 
 	/**
@@ -234,7 +242,7 @@ public class Game implements java.io.Serializable{
 	 * @return - End of game, player has won call win screen
 	 */
 	public void win(){
-
+		
 	}
 
 	/**
@@ -242,11 +250,13 @@ public class Game implements java.io.Serializable{
 	 */
 	public boolean isEnd(){
 		if(health ==0){
+			lose();
 			return true;
 		}
 		if(waveNumber == 3 && streams[1].getBadObjects().size()==0 && streams[2].getBadObjects().size()==0 &&
 				streams[3].getBadObjects().size()==0 && streams[1].getGoodObjects().size()==0 && 
 				streams[2].getGoodObjects().size()==0 && streams[3].getGoodObjects().size()==0){
+			win();
 			return true;
 		}
 		return false;

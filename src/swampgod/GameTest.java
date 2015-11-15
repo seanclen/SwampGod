@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import objects.Crab;
 import objects.Fish;
+import swampgod.Main.GameState;
 
 public class GameTest implements java.io.Serializable{
 	/**
@@ -17,7 +18,7 @@ public class GameTest implements java.io.Serializable{
 	@Test
 	public void gameStateTest() {
 		Game g1 = new Game();
-		assertEquals(1,g1.gameState);
+		assertEquals(GameState.TITLE_STATE,g1.gameState);
 	}
 	
 	@Test
