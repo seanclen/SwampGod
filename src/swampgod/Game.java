@@ -28,7 +28,8 @@ public class Game implements java.io.Serializable{
 	Estuary estuary;
 	GameState gameState;
 	//TITLE_STATE, MENU_STATE, PAUSE_STATE, RUNNING_STATE, UPGRADE_STATE, ENDGAME_STATE
-
+	int fishCount;
+	
 	/**
 	 * constructs the objects
 	 */
@@ -52,6 +53,7 @@ public class Game implements java.io.Serializable{
 		streams  = new Stream[3];
 		waveNumber = 0;
 		gameState = GameState.TITLE_STATE;
+		fishCount=0;
 	}
 
 	/**
@@ -162,6 +164,7 @@ public class Game implements java.io.Serializable{
 	public void collectFish(){
 		updateHealth(-25);
 		updateScore(25);
+		fishCount=0;
 		//NEEDS TO REMOVE FISH FROM DISPLAY SOMEHOW -- MAYBE REMOVE FROM THE ESTUARY LIST?
 	}
 
@@ -235,14 +238,14 @@ public class Game implements java.io.Serializable{
 	 * @return - call the end of game functions, end screen and clean up
 	 */
 	public void lose(){
-		
+		gameState = GameState.ENDGAME_STATE;
 	}
 
 	/**
 	 * @return - End of game, player has won call win screen
 	 */
 	public void win(){
-		
+		gameState = GameState.ENDGAME_STATE;
 	}
 
 	/**

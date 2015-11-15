@@ -19,7 +19,7 @@ public class EstuaryObject implements java.io.Serializable{
 	private static final long serialVersionUID = 11082015;
 	
 	Point position = new Point();
-	float streamCompletion = 0;
+	double streamCompletion = 0;
 	Rectangle bounds = new Rectangle();
 	boolean isGood;
 	//how many points are added when in estuary/removed when in trash
@@ -32,14 +32,15 @@ public class EstuaryObject implements java.io.Serializable{
 	int speed;
 	//What stream it will be contained in
 	int stream;
-	double streamPosition=0;
 	
 	
 	/**
 	 * Moves the object down the stream towards the estuary
 	 */
-	public void move(){
-		streamPosition+=speed;
+	public boolean move(){
+		streamCompletion+=speed;
+		return checkPosition();
+		
 	}
 	
 	/**
@@ -49,13 +50,12 @@ public class EstuaryObject implements java.io.Serializable{
 	
 	//TODO 
 	public boolean checkPosition(){
-//		if (est.contains(position)){
-//			if (inEstuary == false)
-//				inEstuary = true;
-//			return true;
-//		}
-
-		return false;
+		if(streamCompletion == 1){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class EstuaryObject implements java.io.Serializable{
 		this.streamCompletion = percentage;
 	}
 	
-	public float getStreamCompletion() {
+	public double getStreamCompletion() {
 		return this.streamCompletion;
 	}
 	
