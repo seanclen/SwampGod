@@ -6,6 +6,7 @@ package objects;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Plant extends EstuaryObject implements java.io.Serializable{
 	/**
@@ -21,6 +22,10 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 	 * @param p - the place on the board it is placed at
 	 */
 	public Plant(Point p){
+		position=p;
+	}
+	
+	public void setPosition(Point p){
 		position=p;
 	}
 	
@@ -43,6 +48,9 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 	 * if it should be eaten, calls the eat function
 	 */
 	public EstuaryObject checkRadius(){
+		Random rn = new Random();
+		int chance = rn.nextInt(100)+1;
+		
 		return null;
 	}
 }
