@@ -17,7 +17,7 @@ public class Game implements java.io.Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUsID = 11082015;
+	private static final long serialVersionUID = 11082015;
 	int tickCount = 0;
 	//Health range 0 to 100. 100 = max health. -0 = dead
 	int health;
