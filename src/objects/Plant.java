@@ -47,10 +47,15 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 	 * @return an object in the radius of the plant and computes the percentage to decide
 	 * if it should be eaten, calls the eat function
 	 */
-	public EstuaryObject checkRadius(){
+	public EstuaryObject checkRadius(ArrayList<BadObject> boObj){
 		Random rn = new Random();
 		int chance = rn.nextInt(100)+1;
-		
-		return null;
+		if (chance <= percentEat){
+			EstuaryObject eatObj = eat(boObj);
+			return eatObj;
+		}
+		else{
+			return null;
+		}
 	}
 }
