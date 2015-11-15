@@ -85,7 +85,8 @@ public class Stream implements java.io.Serializable{
 	 * @param pos - a point on the board
 	 */
 	public void placePlantAt(Plant pl, Point pos){
-		
+		pl.setPosition(pos);
+		plants.add(pl);
 	}
 	
 	/**
