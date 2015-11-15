@@ -81,9 +81,11 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	
 	@Test
 	public void checkRadiusTest(){
+		ArrayList<BadObject> bo= new ArrayList<BadObject>(2);
 		Bush bush= new Bush(p);
 		Crab a= new Crab();
-		assertEquals(a, bush.checkRadius());
+		bo.add(a);
+		assertEquals(a, bush.checkRadius(bo));
 	}
 	
 	
