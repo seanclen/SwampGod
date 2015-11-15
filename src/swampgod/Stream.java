@@ -123,15 +123,15 @@ public class Stream implements java.io.Serializable{
 	 * [x,y]=(1–t)^3*P0+3(1–t)^2*t*P1+3(1–t)t^2*P2+t^3*P3
 	 * t is time where 0 is the start 1 is the end)
 	 * */
-	Point CalculateBezierPoint(float t)
+	Point CalculateBezierPoint(double t)
 	{
 		Point2D start = streamCurve.getP1(), ctrlP1 = streamCurve.getCtrlP1(),
 				ctrlP2 = streamCurve.getCtrlP2(), end = streamCurve.getCtrlP2();
-		float u = (1 - t);
-		float tt = t*t;
-		float uu = u*u;
-		float uuu = uu * u;
-		float ttt = tt * t;
+		double u = (1 - t);
+		double tt = t*t;
+		double uu = u*u;
+		double uuu = uu * u;
+		double ttt = tt * t;
 
 		Point p = new Point((int)(start.getX() * uuu), (int)(start.getY() * uuu));
 		p.x += 3 * uu * t * ctrlP1.getX();
@@ -150,7 +150,7 @@ public class Stream implements java.io.Serializable{
 	 * @param obj the EstuaryObject to move down the stream
 	 */
 	private void moveDownStream(EstuaryObject obj) {
-		float currentPercent = obj.getStreamCompletion();
+		double currentPercent = obj.getStreamCompletion();
 		if (obj.getStreamCompletion() < 1) {
 			Point p = CalculateBezierPoint(obj.getStreamCompletion());
 			currentPercent += (obj.getSpeed()/1000);

@@ -72,7 +72,7 @@ public class EstuaryObject implements java.io.Serializable{
 		return this.position;
 	}
 	
-	public void setStreamCompletion(float percentage) {
+	public void setStreamCompletion(double percentage) {
 		this.streamCompletion = percentage;
 	}
 	
