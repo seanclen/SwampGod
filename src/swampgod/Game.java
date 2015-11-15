@@ -86,11 +86,9 @@ public class Game implements java.io.Serializable{
 			int streamId = EstuaryObject.pickStream();
 			streams[streamId].createGoodObjects(1);
 		}
-		//while (gameState == GameState.RUNNING_STATE) {
-		int count=0;
-		while (count < 10) {
+		
+		while (gameState == GameState.RUNNING_STATE) {
 			this.tick();
-			count ++;
 		}
 	}
 
