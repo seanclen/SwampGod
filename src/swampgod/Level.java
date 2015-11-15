@@ -1,9 +1,11 @@
 package swampgod;
 
-public class Level {
+import java.awt.geom.CubicCurve2D;
+
+public final class Level {
 	
 	/**
-	 * Declare variables to use in differenct levels.
+	 * Constant datatypes to use in different levels.
 	 * Each position in the array is a different level
 	 * 
 	 * i.e. int[3] foo = {23, 5, 12} has three levels such that:
@@ -11,11 +13,22 @@ public class Level {
 	 *      level 2  : foo = 5
 	 *      level 12 : foo = 12
 	 */
-	int[] goodObjectReleaseFrequency = {80, 45, 3};
-	int[] badObjectReleaseFrequency = {45, 34, 3};
-	int[] plantEatFrequency = {424, 34, 2};
-	int[] totalGoodObjects = {10, 15, 20};
-	int[] totalBadObjects = {15, 20, 17000000};
+	final public static int[] goodObjectReleaseFrequency = {80, 45, 3};
+	final public static int[] badObjectReleaseFrequency = {45, 34, 3};
+	final public static int[] plantEatFrequency = {424, 34, 2};
+	final public static int[] totalGoodObjects = {10, 15, 20};
+	final public static int[] totalBadObjects = {15, 20, 17000000};
+	/**
+	 * Float parameters represents location to percentage of space from the origin.
+	 * i.e. a stream with bounds (0, 0, 100, 100) with CubicCurve(x, y, ... )
+	 *     x = 1 gives 100
+	 *     x = 0 gives 0
+	 *     x = .5 gives 5
+	 */ 
+	final public static CubicCurve2D[] streamCurves = {
+			new CubicCurve2D.Double(0, 0, 0.75, 0.3, .4, .7, .7, 1),
+			new CubicCurve2D.Double(0, 0, 0.75, 0.3, .4, .7, .7, 1),
+			new CubicCurve2D.Double(0, 0, 0.75, 0.3, .4, .7, .7, 1)};
 	
 	public int getGoodObjectReleaseFrequency (int level) {
 		return goodObjectReleaseFrequency[level];
@@ -35,5 +48,9 @@ public class Level {
 	
 	public int getTotalBadObjects (int level) {
 		return totalBadObjects[level];
+	}
+	
+	public CubicCurve2D getStreamCurveByPercentage(int level){
+		return streamCurves[level];
 	}
 }

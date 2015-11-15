@@ -7,21 +7,17 @@ package swampgod;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.CubicCurve2D;
-import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import objects.BadObject;
 import objects.EstuaryObject;
 import objects.GoodObject;
 import objects.Plant;
+import static swampgod.Level.*;
 
 public class Stream implements java.io.Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 11082015;
 	private int id; // 0, 1, 2
 	ArrayList<GoodObject> goodObjects;
@@ -29,6 +25,7 @@ public class Stream implements java.io.Serializable{
 	ArrayList<Plant> plants;
 	private Rectangle bounds;
 	private CubicCurve2D streamCurve;
+	
 	/**
 	 * constructs the stream (rectangle)
 	 */
@@ -38,25 +35,7 @@ public class Stream implements java.io.Serializable{
 		goodObjects = new ArrayList<GoodObject>();
 		plants = new ArrayList<Plant>();
 		bounds = new Rectangle((this.id * 320), 0, 320, 400);
-		setStreamCurve(new CubicCurve2D.Double());
-		// draw CubicCurve2D.Double with set coordinates
-		getStreamCurve().setCurve(bounds.x, 0, bounds.x+280, 200, bounds.x+100, 250, bounds.x+200, 400);
-	}
-	
-	public int getId() {
-		return this.id;
-	}
-	
-	public ArrayList<BadObject> getBadObjects() {
-		return badObjects;
-	}
-	
-	public ArrayList<GoodObject> getGoodObjects() {
-		return goodObjects;
-	}
-	
-	public Rectangle getBounds() {
-		return this.bounds;
+		streamCurve = generateCurveFromPercentage(streamCurves[id]);
 	}
 	
 	/**
@@ -71,7 +50,6 @@ public class Stream implements java.io.Serializable{
 			newObject.setBounds(this.bounds.x + 100, 0, 32, 32);
 			badObjects.add(newObject);
 		}
-		
 	}
 	
 	/**
@@ -110,15 +88,39 @@ public class Stream implements java.io.Serializable{
 		
 	}
 	
+	/**
+	 * Moves all visible objects down the stream
+	 * Calls the moveDownStream() function
+	 */
 	private void moveObjects() {
 		for (GoodObject obj : goodObjects) {
-			update(obj);
+			moveDownStream(obj);
+		}
+		for (BadObject obj : badObjects) {
+			moveDownStream(obj);
 		}
 	}
 	
+	/**
+	 * Generates a new CubicCurve2D from double percentage parameters. This way
+	 * the curves can resize and are independent on the screen resolution.
+	 * @param pCurve
+	 * @return CubicCurve2D
+	 */
+	private CubicCurve2D generateCurveFromPercentage(CubicCurve2D pCurve) { //TODO
+		double xStart = pCurve.getX1(),
+				yStart = pCurve.getY1(),
+				ctrlx1 = pCurve.getCtrlX1(),
+				ctrly1 = pCurve.getCtrlY1(),
+				ctrlx2 = pCurve.getCtrlX2(),
+				ctrly2 = pCurve.getCtrlY1(),
+				xEnd = pCurve.getX2(),
+				yEnd = pCurve.getY2();
+		return new CubicCurve2D.Double(xStart, yStart, ctrlx1, ctrly1, ctrlx2, ctrly2, xEnd, yEnd);
+	}
 	/* Bezier Curve in the form of:
 	 * [x,y]=(1–t)^3*P0+3(1–t)^2*t*P1+3(1–t)t^2*P2+t^3*P3
-	 * t is time(value of 0.0f-1.0f; 0 is the start 1 is the end) 
+	 * t is time where 0 is the start 1 is the end)
 	 * */
 	Point CalculateBezierPoint(float t)
 	{
@@ -141,14 +143,18 @@ public class Stream implements java.io.Serializable{
 		return p;
 	}
 	
-	int percentMovedPerFrame = 1;// Will complete path in 100 frames
-	
-	private void update(EstuaryObject obj) {
+	/**
+	 * Moves an object down the stream by calculating cartesian points
+	 * based on the objects progress down the stream (streamCompletion).
+	 * @param obj the EstuaryObject to move down the stream
+	 */
+	private void moveDownStream(EstuaryObject obj) {
 		float currentPercent = obj.getStreamCompletion();
 		if (obj.getStreamCompletion() < 1) {
 			Point p = CalculateBezierPoint(obj.getStreamCompletion());
 			currentPercent += (obj.getSpeed()/1000);
 			obj.setStreamCompletion(currentPercent);
+			obj.setPosition(p);
 		}
 	}
 
@@ -158,6 +164,22 @@ public class Stream implements java.io.Serializable{
 
 	public void setStreamCurve(CubicCurve2D streamCurve) {
 		this.streamCurve = streamCurve;
+	}
+	
+	public int getId() {
+		return this.id;
+	}
+	
+	public ArrayList<BadObject> getBadObjects() {
+		return badObjects;
+	}
+	
+	public ArrayList<GoodObject> getGoodObjects() {
+		return goodObjects;
+	}
+	
+	public Rectangle getBounds() {
+		return this.bounds;
 	}
 
 }
