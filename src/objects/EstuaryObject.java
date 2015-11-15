@@ -18,6 +18,7 @@ public class EstuaryObject implements java.io.Serializable{
 	 */
 	private static final long serialVersionUID = 11082015;
 	
+	boolean moving = false;
 	Point position = new Point();
 	double streamCompletion = 0;
 	Rectangle bounds = new Rectangle();
@@ -33,10 +34,18 @@ public class EstuaryObject implements java.io.Serializable{
 	//What stream it will be contained in
 	int stream;
 	
+
+	public boolean getMoving(){
+		return moving;
+	}
+	public void setMoving(){
+		moving = true;
+	}
 	
 	/**
 	 * Moves the object down the stream towards the estuary
 	 */
+
 	public boolean move(){
 		streamCompletion+=speed;
 		return checkPosition();

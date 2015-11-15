@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import objects.BadObject;
 import objects.Bush;
+
+import objects.Fish;
 import objects.EstuaryObject;
 import objects.GoodObject;
 import objects.Plant;
@@ -165,7 +167,8 @@ public class Game implements java.io.Serializable{
 	 */
 	public void collectFish(){
 		updateHealth(-25);
-		updateScore(25);
+		Fish f = new Fish();
+		updateScore(f.getPointValue()*fishCount);
 		fishCount=0;
 		//NEEDS TO REMOVE FISH FROM DISPLAY SOMEHOW -- MAYBE REMOVE FROM THE ESTUARY LIST?
 	}
@@ -178,14 +181,28 @@ public class Game implements java.io.Serializable{
 	public void tick(){
 		//CALL MOVE ON ALL OBJECTS IN ALL STREAMS
 		//iterate through all streams
+		
 		for(int i = 0; i<3; i++){
+			
 			//move all objects in a streams good objects
-			for(GoodObject go : streams[i].goodObjects){
-				go.move();
+			for(GoodObject go:  streams[i].goodObjects){
+				if(go.getMoving()){go.move();}
+				else{
+					if (tickCount%Level.goodObjectReleaseFrequency[i]==0){
+						go.setMoving();
+					}
+					break;
+				}
 			}
 			//move all objects in a streams bad objects
 			for(BadObject bo : streams[i].badObjects){
-				bo.move();
+				if(bo.getMoving()){bo.move();}
+				else{
+					if (tickCount%Level.badObjectReleaseFrequency[i]==0){
+						bo.setMoving();
+					}
+					break;
+				}
 			}
 			
 		}
