@@ -24,14 +24,15 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	
 	@Test
 	public void tickTest() {
-		assertEquals(0, obj1.getPos());
+		Point pt = new Point(0,0);
+		assertEquals(pt, obj1.getPos());
 		g1.tick();
 		assertFalse(p == obj1.getPos());
 	}
 	@Test	
 	public void endWaveTest(){
 		g1.endWave();
-		assertEquals(1, g1.getGameStatus());
+		assertEquals(GameState.UPGRADE_STATE, g1.getGameStatus());
 	}
 	@Test
 	public void startWaveTest(){
@@ -62,9 +63,9 @@ public class EstuaryObjectTest implements java.io.Serializable{
 		assertEquals(35, tree.percentEat);
 		
 		Bush bush= new Bush(p);
-		assertEquals("Bush", obj1.type);
+		assertEquals("Bush", bush.type);
 		assertEquals(5, bush.radius);
-		assertEquals(40, bush.percentEat);
+		assertEquals(55, bush.percentEat);
 	}
 	@Test
 	public void eatTest(){
