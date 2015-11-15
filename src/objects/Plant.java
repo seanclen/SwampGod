@@ -25,6 +25,10 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 		position=p;
 	}
 	
+	public int getRadius(){
+		return radius;
+	}
+	
 	public void setPosition(Point p){
 		position=p;
 	}

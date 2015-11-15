@@ -4,9 +4,11 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import objects.BadObject;
+import objects.Bush;
 import objects.EstuaryObject;
 import objects.GoodObject;
 import objects.Plant;
+import objects.Tree;
 import swampgod.Main.GameState;
 
 /**
@@ -186,11 +188,20 @@ public class Game implements java.io.Serializable{
 				bo.move();
 			}
 			
-			// call eat function for plants
-			for(Plant pl : streams[i].plants){
-				removeObjects(pl.eat(streams[i].badObjects));
-			}
 		}
+			// call eat function for plants
+			for(Plant pl : plants){
+				double x = pl.getPos().getX();
+				double y= pl.getPos().getY();
+				
+				for(Stream st : streams){
+					if(st.getBounds().contains(x,y) || st.getBounds().contains(x+pl.getRadius(),y) || 
+							st.getBounds().contains(x-pl.getRadius(), y)){
+						removeObjects(pl.eat(st.badObjects));
+					}
+				}
+				
+			}
 		//CHECK IF ANY OBJECTS ARE NOT INSTREAMS, I.E. IN ESTUARY -- this probably happens in the move function
 
 		//RELEASE NEW OBJECTS FROM PURGATORY
@@ -210,8 +221,16 @@ public class Game implements java.io.Serializable{
 	 * @return - an object
 	 */
 	public Object placePlant(Point pos, String t){
-		
-		return null;
+		Plant pl;
+		if(t == "Bush"){
+			pl = new Bush(pos);
+		}
+		else {
+			pl = new Tree(pos);
+		}
+		pl.setPosition(pos);
+		plants.add(pl);;
+		return pl;
 	}
 	
 	/**

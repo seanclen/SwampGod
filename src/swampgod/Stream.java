@@ -22,7 +22,7 @@ public class Stream implements java.io.Serializable{
 	private int id; // 0, 1, 2
 	ArrayList<GoodObject> goodObjects;
 	ArrayList<BadObject> badObjects;
-	ArrayList<Plant> plants;
+	//ArrayList<Plant> plants;
 	private Rectangle bounds;
 	private CubicCurve2D streamCurve;
 	
@@ -33,7 +33,7 @@ public class Stream implements java.io.Serializable{
 		this.id = streamNumber;
 		badObjects = new ArrayList<BadObject>();
 		goodObjects = new ArrayList<GoodObject>();
-		plants = new ArrayList<Plant>();
+		//plants = new ArrayList<Plant>();
 		bounds = new Rectangle((this.id * 320), 0, 320, 400);
 		streamCurve = generateCurveFromPercentage(streamCurves[id]);
 	}
@@ -74,19 +74,9 @@ public class Stream implements java.io.Serializable{
 		//TODO need to come back and implement a check
 		updatedObjects.addAll(badObjects);
 		updatedObjects.addAll(goodObjects);
-		updatedObjects.addAll(plants);
+		//updatedObjects.addAll(plants);
 		moveObjects();
 		return updatedObjects;
-	}
-	
-	/**
-	 * sets the plant object at the position entered
-	 * @param pl - an object plant
-	 * @param pos - a point on the board
-	 */
-	public void placePlantAt(Plant pl, Point pos){
-		pl.setPosition(pos);
-		plants.add(pl);
 	}
 	
 	/**
