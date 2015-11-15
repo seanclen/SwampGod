@@ -122,6 +122,9 @@ public class Game implements java.io.Serializable{
 	 */
 	public void updateHealth(int value){
 		health += value;
+		if(health > 100){
+			health = 100;
+		}
 		if(health < 1){
 			lose();
 		}
