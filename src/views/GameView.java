@@ -2,6 +2,7 @@ package views;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -58,7 +59,7 @@ public class GameView extends JPanel implements MouseListener {
     	try {
     		imgAlgae = ImageIO.read(new File("pics/algea.png"));
 			imgClam = ImageIO.read(new File("pics/clam.png"));
-			imgTrash = ImageIO.read(new File("pics/trash.png"));
+			imgTrash = ImageIO.read(new File("pics/trash_can.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,6 +91,7 @@ public class GameView extends JPanel implements MouseListener {
 			paintStream(stream, g2);
 		}
 		paintEstuary(game.getEstuary(), g2);
+		paintHUD(g2);
 	}
 
 	private void paintStream(Stream stream, Graphics2D g) {
@@ -152,11 +154,29 @@ public class GameView extends JPanel implements MouseListener {
 		g.fillRect(x, y, width, height);
 		g.setColor(Color.red);
 		g.drawRect(x, y, width, height);
-		
-//		for(EstuaryObject obj : estuaryObjects) {
-//			g.setColor(Color.green);
-//			g.drawRect(obj.getPosition().x, obj.getPosition().y, width, height);
-//		}
+	}
+	
+	private void paintHUD(Graphics2D g2d) {
+		Rectangle healthBar = new Rectangle(250, 500, 500, 100);
+		Rectangle trash = new Rectangle(game.getTrashCan().getBounds());
+		int health = game.getHealth();
+		if (health < 30) {
+			g2d.setColor(Color.RED);
+		}
+		else if (health < 70) {
+			g2d.setColor(Color.YELLOW);
+		}
+		else {
+			g2d.setColor(Color.GREEN);
+		}
+		g2d.fillRoundRect(healthBar.x, healthBar.y, healthBar.width, healthBar.height, 15, 15);
+		g2d.setColor(Color.BLACK);
+		g2d.setFont(new Font("Purisa", Font.BOLD, 15));
+		g2d.drawString("Health: " + health + "    Points: " +game.getPoints(), healthBar.x + 100, healthBar.y + 60);
+		g2d.setColor(Color.GRAY);
+		g2d.setStroke(new BasicStroke(10f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+		g2d.drawRoundRect(healthBar.x, healthBar.y, healthBar.width, healthBar.height, 15, 15);
+		g2d.drawImage(imgTrash, trash.x, trash.y, trash.width, trash.height,this);
 	}
 
 	@Override

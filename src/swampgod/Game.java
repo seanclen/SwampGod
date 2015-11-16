@@ -164,7 +164,7 @@ public class Game implements java.io.Serializable{
 	 * changes the score
 	 */
 	public boolean removeObjects(EstuaryObject obj){
-
+		// TODO Three cases when the score should be updated
 		boolean removed;
 		//remove from streams
 		if(obj.isGood()){		

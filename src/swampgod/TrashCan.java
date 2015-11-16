@@ -21,9 +21,9 @@ public class TrashCan implements java.io.Serializable{
 	 * Constructs a trash can with a position and radius
 	 */
 	public TrashCan(){
-		Point pt = new Point(100, 500);
+		Point pt = new Point(800, 100);
 		position = pt;
-		setBounds(position.x, position.y, 200, 200);
+		setBounds(position.x, position.y, 100, 100);
 		radius =200;
 	}
 	public void setBounds(int x, int y, int width, int height) {
