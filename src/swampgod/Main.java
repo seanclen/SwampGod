@@ -41,10 +41,7 @@ public class Main implements java.io.Serializable{
 		GameView gameView = new GameView(g);
 		
 		while (g.gameState == GameState.RUNNING_STATE) {
-			if(g.gameState==GameState.PAUSE_STATE){
-
-			}
-			while(!(g.gameState==GameState.PAUSE_STATE)){
+			if(!(g.gameState==GameState.PAUSE_STATE)){
 				gameView.paintIt();
 				Thread.sleep(100);
 				g.tick();

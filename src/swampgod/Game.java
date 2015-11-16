@@ -341,7 +341,7 @@ public class Game implements java.io.Serializable{
 	 * @return - is it the end of the game
 	 */
 	public boolean isEnd(){
-		if(health ==0){
+		if(health <=0){
 			lose();
 			return true;
 		}
