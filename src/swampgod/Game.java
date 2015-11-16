@@ -191,7 +191,7 @@ public class Game implements java.io.Serializable{
 					go.setPosition(streams[i].CalculateBezierPoint(go.getStreamCompletion()));
 				}
 				else{
-					if (tickCount%Level.goodObjectReleaseFrequency[i]==0){
+					if (tickCount%Level.goodObjectReleaseFrequency[waveNumber]==0){
 						go.setMoving();
 					}
 					break;
@@ -206,7 +206,7 @@ public class Game implements java.io.Serializable{
 					bo.setPosition(streams[i].CalculateBezierPoint(bo.getStreamCompletion()));	
 				}
 				else{
-					if (tickCount%Level.badObjectReleaseFrequency[i]==0){
+					if (tickCount%Level.badObjectReleaseFrequency[waveNumber]==0){
 						bo.setMoving();
 					}
 					break;
