@@ -154,7 +154,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	public void moveTest(){
 		obj1.setPosition(p);
 		assertEquals(p, obj1.getPos());
-		obj1.move();
+		obj1.move(g1.getWaveNumber());
 		Point m=new Point();
 		assertEquals(m, obj1.getPos());
 	}

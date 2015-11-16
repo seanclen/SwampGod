@@ -12,7 +12,7 @@ package objects;
 import java.awt.Point;
 import java.awt.Rectangle;
 import swampgod.Stream;
-
+import swampgod.Level;
 public class EstuaryObject implements java.io.Serializable{
 	/**
 	 * 
@@ -24,6 +24,7 @@ public class EstuaryObject implements java.io.Serializable{
 	double streamCompletion = 0;
 	Rectangle bounds = new Rectangle();
 	boolean isGood;
+	
 	//how many points are added when in estuary/removed when in trash
 	//good have positive values, bad have negative
 	int pointValue;
@@ -47,8 +48,8 @@ public class EstuaryObject implements java.io.Serializable{
 	 * Moves the object down the stream towards the estuary
 	 */
 
-	public boolean move(){
-		streamCompletion+=(speed/1000);
+	public boolean move(int level){
+		streamCompletion+=(speed/10000*Level.speedMultiplier[level]);
 		return checkPosition();
 	}
 	

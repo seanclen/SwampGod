@@ -99,6 +99,17 @@ public class Game implements java.io.Serializable{
 
 		
 	}
+	public EstuaryObject getClickedObject(){
+		return clickedObject;
+	}
+	
+	public Point getPreviousPosition(){
+		return previousPosition;
+	}
+	
+	public int getWaveNumber(){
+		return waveNumber;
+	}
 
 	/**
 	 * @return - game state
@@ -194,7 +205,7 @@ public class Game implements java.io.Serializable{
 			//move all objects in a streams good objects
 			for(GoodObject go:  streams[i].goodObjects){
 				if(go.getMoving()){
-					if(go.move()){
+					if(go.move(waveNumber)){
 						temp=go;
 					}
 					go.setPosition(streams[i].CalculateBezierPoint(go.getStreamCompletion()));
@@ -209,7 +220,7 @@ public class Game implements java.io.Serializable{
 			//move all objects in a streams bad objects
 			for(BadObject bo : streams[i].badObjects){
 				if(bo.getMoving()){
-					if(bo.move()){
+					if(bo.move(waveNumber)){
 						temp= bo;
 					}
 					bo.setPosition(streams[i].CalculateBezierPoint(bo.getStreamCompletion()));	
@@ -287,7 +298,11 @@ public class Game implements java.io.Serializable{
 		plants.add(pl);;
 		return pl;
 	}
-
+	
+	public int getHealth(){
+		return health;
+	}
+	
 	/**
 	 * selects the object at the current position of the mouse pointer
 	 */
