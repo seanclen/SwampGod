@@ -26,9 +26,9 @@ public final class Level {
 	 *     x = .5 gives 5
 	 */ 
 	final public static CubicCurve2D[] streamCurves = {
-			new CubicCurve2D.Double(0, 0, 0.75, 0.3, .4, .7, .7, 1),
-			new CubicCurve2D.Double(0, 0, 0.75, 0.3, .4, .7, .7, 1),
-			new CubicCurve2D.Double(0, 0, 0.75, 0.3, .4, .7, .7, 1)};
+			new CubicCurve2D.Double(0, 0, 200, 150, 75, 300, 200, 400),
+			new CubicCurve2D.Double(300, 0, 500, 150, 375, 300, 500, 400),
+			new CubicCurve2D.Double(600, 0, 800, 150, 475, 300, 800, 400)};
 	
 	public int getGoodObjectReleaseFrequency (int level) {
 		return goodObjectReleaseFrequency[level];
