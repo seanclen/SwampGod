@@ -258,7 +258,7 @@ public class Game implements java.io.Serializable{
 		//this happens in the move thing
 		
 		//CHECK IF GAME IS OGRE (HEALTH TOO LOW, ALL WAVES DONE)
-	//isEnd();
+		isEnd();
 		//CHECK IF WAVE OVER (IF SO CHANGE TO UPGRADE SCREEN OR GAME OGRE -- MORE LIKELY CALL END WAVE AND IT DOES THAT)
 		if(isEndWave()){
 			endWave();
