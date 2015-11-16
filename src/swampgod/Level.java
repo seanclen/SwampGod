@@ -13,9 +13,9 @@ public final class Level {
 	 *      level 2  : foo = 5
 	 *      level 12 : foo = 12
 	 */
-	final public static int[] goodObjectReleaseFrequency = {124, 18, 12};
+	final public static int[] goodObjectReleaseFrequency = {204, 18, 12};
 	final public static int[] badObjectReleaseFrequency = {215, 20, 12};
-	final public static int[] speedMultiplier = {5,8,11};
+	final public static int[] speedMultiplier = {90,8,11};
 	final public static int[] plantEatFrequency = {424, 34, 2};
 	final public static int[] totalGoodObjects = {10, 15, 20};
 	final public static int[] totalBadObjects = {15, 20, 17000000};

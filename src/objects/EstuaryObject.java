@@ -49,7 +49,7 @@ public class EstuaryObject implements java.io.Serializable{
 	 */
 
 	public boolean move(int level){
-		streamCompletion+=(speed/10000*Level.speedMultiplier[level]);
+		streamCompletion+=((speed/1000)*Level.speedMultiplier[level]);
 		return checkPosition();
 	}
 	
