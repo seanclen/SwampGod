@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import objects.EstuaryObject;
 import swampgod.Estuary;
 import swampgod.Game;
+import swampgod.MouseMovement;
 import swampgod.Stream;
 
 public class GameView extends JPanel implements MouseListener {
@@ -49,6 +50,10 @@ public class GameView extends JPanel implements MouseListener {
     	frame.setSize(frameWidth, frameHeight);
     	frame.setTitle("SwampGod");
     	frame.setVisible(true);
+    	MouseMovement m = new MouseMovement(game);
+    	frame.addMouseMotionListener(m);
+    	frame.addMouseListener(m);
+    	
     	
     	try {
     		imgAlgae = ImageIO.read(new File("pics/algea.png"));
@@ -106,6 +111,20 @@ public class GameView extends JPanel implements MouseListener {
 		
 		//Paint objects
 		for(EstuaryObject obj : streamObjects) {
+			Image img = null;
+			if (obj.getType() == "Algae" || obj.getType() == "Clam" || obj.getType() == "LilyPad") {
+				img = imgAlgae;
+			} else {
+				img = imgClam;
+			}
+			g.drawImage(img,
+					obj.getBounds().x, 
+					obj.getBounds().y, 
+					obj.getBounds().width, 
+					obj.getBounds().height,this);
+		}
+		EstuaryObject obj = game.getClickedObject();
+		if (obj!=null) {
 			Image img = null;
 			if (obj.getType() == "Algae" || obj.getType() == "Clam" || obj.getType() == "LilyPad") {
 				img = imgAlgae;
