@@ -33,15 +33,15 @@ public class Game implements java.io.Serializable{
 	GameState gameState;
 	//TITLE_STATE, MENU_STATE, PAUSE_STATE, RUNNING_STATE, UPGRADE_STATE, ENDGAME_STATE
 	int fishCount;
-	
+
 	/**
 	 * constructs the objects
 	 */
 	public Game(){
 		gameState = GameState.MENU_STATE;
 		switch (gameState) {
-			case MENU_STATE: break;
-			default: initialize();
+		case MENU_STATE: break;
+		default: initialize();
 		}
 		initialize();
 
@@ -66,12 +66,12 @@ public class Game implements java.io.Serializable{
 	public void startGame(){
 		gameState = GameState.RUNNING_STATE;
 		waveNumber++;
-		
+
 		//Instantiate and initialize streams
 		for (int i = 0; i < streams.length; i++) {
 			streams[i] = new Stream(i);
 		}
-		
+
 		//Good Objects
 		Level level= new Level();
 		int goodObjects = level.getTotalGoodObjects(waveNumber);
@@ -79,15 +79,18 @@ public class Game implements java.io.Serializable{
 			int streamId = EstuaryObject.pickStream();
 			streams[streamId].createBadObjects(1);
 		}
-		
+
 		//Bad Objects
 		int badObjects= level.getTotalBadObjects(waveNumber);
 		for (int i = 0; i < badObjects; i++){
 			int streamId = EstuaryObject.pickStream();
 			streams[streamId].createGoodObjects(1);
 		}
-		
+
 		while (gameState == GameState.RUNNING_STATE) {
+			if(gameState==GameState.PAUSE_STATE){
+				
+			}
 			this.tick();
 		}
 	}
@@ -114,11 +117,11 @@ public class Game implements java.io.Serializable{
 	public void updateScore(int value){
 		points += value;
 	}
-	
+
 	public Stream[] getStreams() {
 		return streams;
 	}
-	
+
 	public Estuary getEstuary() {
 		return estuary;
 	}
@@ -175,13 +178,13 @@ public class Game implements java.io.Serializable{
 	 * controls the timing of the game
 	 * updates & movements & draw happens on ticks
 	 */
-	
+
 	public void tick(){
 		//CALL MOVE ON ALL OBJECTS IN ALL STREAMS
 		//iterate through all streams
-		
+
 		for(int i = 0; i<3; i++){
-			
+
 			//move all objects in a streams good objects
 			for(GoodObject go:  streams[i].goodObjects){
 				if(go.getMoving()){go.move();}
@@ -202,34 +205,50 @@ public class Game implements java.io.Serializable{
 					break;
 				}
 			}
-			
+
 		}
-			// call eat function for plants
-			for(Plant pl : plants){
-				double x = pl.getPos().getX();
-				double y= pl.getPos().getY();
-				
-				for(Stream st : streams){
-					if(st.getBounds().contains(x,y) || st.getBounds().contains(x+pl.getRadius(),y) || 
-							st.getBounds().contains(x-pl.getRadius(), y)){
-						removeObjects(pl.eat(st.badObjects));
-					}
+		// call eat function for plants
+		for(Plant pl : plants){
+			double x = pl.getPos().getX();
+			double y= pl.getPos().getY();
+
+			for(Stream st : streams){
+				if(st.getBounds().contains(x,y) || st.getBounds().contains(x+pl.getRadius(),y) || 
+						st.getBounds().contains(x-pl.getRadius(), y)){
+					removeObjects(pl.eat(st.badObjects));
 				}
-				
 			}
+
+		}
 		//CHECK IF ANY OBJECTS ARE NOT INSTREAMS, I.E. IN ESTUARY -- this probably happens in the move function
-
-		//RELEASE NEW OBJECTS FROM PURGATORY
-
-		//CHECK IF WAVE OVER (IF SO CHANGE TO UPGRADE SCREEN OR GAME OGRE -- MORE LIKELY CALL END WAVE AND IT DOES THAT)
-
-		//CHECK IF GAME IS OGRE (HEALTH TOO LOW, ALL WAVES DONE)
-
-		//WAIT SOME AMOUNT OF TIME BEFORE NEXT ( SLEEP )
+		// this also happens in the move thing
 		
+		//RELEASE NEW OBJECTS FROM PURGATORY
+		//this happens in the move thing
+		
+		//CHECK IF GAME IS OGRE (HEALTH TOO LOW, ALL WAVES DONE)
+		isEnd();
+		//CHECK IF WAVE OVER (IF SO CHANGE TO UPGRADE SCREEN OR GAME OGRE -- MORE LIKELY CALL END WAVE AND IT DOES THAT)
+		if(isEndWave()){
+			endWave();
+		}
+		
+		//WAIT SOME AMOUNT OF TIME BEFORE NEXT ( SLEEP )
+
 		//AM I MISSING ANYTHING THAT NEED TO HAPPEN HERE?
 	}
-
+	/*
+	 * reutrns if all streams are empty
+	 */
+	public boolean isEndWave(){
+		boolean empty=true;
+		for(int i = 0; i<3; i++){
+			if((!streams[i].badObjects.isEmpty()||!streams[i].goodObjects.isEmpty())){
+				empty = false;
+			}
+		}
+		return empty;
+	}
 	/**
 	 * @param pos - position
 	 * @param t - type
@@ -247,7 +266,7 @@ public class Game implements java.io.Serializable{
 		plants.add(pl);;
 		return pl;
 	}
-	
+
 	/**
 	 * selects the object at the current position of the mouse pointer
 	 */
@@ -290,9 +309,9 @@ public class Game implements java.io.Serializable{
 			lose();
 			return true;
 		}
-		if(waveNumber == 3 && streams[1].getBadObjects().size()==0 && streams[2].getBadObjects().size()==0 &&
-				streams[3].getBadObjects().size()==0 && streams[1].getGoodObjects().size()==0 && 
-				streams[2].getGoodObjects().size()==0 && streams[3].getGoodObjects().size()==0){
+		if(waveNumber == 3 && streams[1].getBadObjects().isEmpty() && streams[2].getBadObjects().size()==0 &&
+				streams[3].getBadObjects().isEmpty() && streams[1].getGoodObjects().isEmpty() && 
+				streams[2].getGoodObjects().isEmpty() && streams[3].getGoodObjects().isEmpty()){
 			win();
 			return true;
 		}

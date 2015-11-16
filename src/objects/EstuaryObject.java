@@ -48,6 +48,7 @@ public class EstuaryObject implements java.io.Serializable{
 
 	public boolean move(){
 		streamCompletion+=speed;
+		
 		return checkPosition();
 		
 	}
@@ -59,7 +60,8 @@ public class EstuaryObject implements java.io.Serializable{
 	
 	//TODO 
 	public boolean checkPosition(){
-		if(streamCompletion == 1){
+		if(streamCompletion >= 1){
+		
 			return true;
 		}
 		else{
