@@ -33,6 +33,9 @@ public class Game implements java.io.Serializable{
 	GameState gameState;
 	//TITLE_STATE, MENU_STATE, PAUSE_STATE, RUNNING_STATE, UPGRADE_STATE, ENDGAME_STATE
 	int fishCount;
+	TrashCan trashcan = new TrashCan();
+	EstuaryObject clickedObject;
+	Point previousPosition;
 
 	/**
 	 * constructs the objects
@@ -59,6 +62,12 @@ public class Game implements java.io.Serializable{
 		gameState = GameState.TITLE_STATE;
 		fishCount=0;
 		plants = new ArrayList<Plant>();
+		clickedObject = null;
+		previousPosition = null;
+	}
+	
+	public TrashCan getTrashCan(){
+		return trashcan;
 	}
 
 	/**

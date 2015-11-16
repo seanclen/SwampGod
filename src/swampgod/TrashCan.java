@@ -13,7 +13,7 @@ public class TrashCan implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1152015;
-	Point Position;
+	Point position;
 	int radius;
 	Rectangle bounds = new Rectangle();
 	
@@ -21,13 +21,17 @@ public class TrashCan implements java.io.Serializable{
 	 * Constructs a trash can with a position and radius
 	 */
 	public TrashCan(){
-		Position.setLocation(100, 500);
-		setBounds(Position.x, Position.y, 200, 200);
-		
+		Point pt = new Point(100, 500);
+		position = pt;
+		setBounds(position.x, position.y, 200, 200);
 		radius =200;
 	}
 	public void setBounds(int x, int y, int width, int height) {
 		this.bounds = new Rectangle(x, y, width, height);
+	}
+	
+	public Point getTrashPosition(){
+		return position;
 	}
 	
 	public Rectangle getBounds() {
