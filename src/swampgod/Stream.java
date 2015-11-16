@@ -75,22 +75,22 @@ public class Stream implements java.io.Serializable{
 		updatedObjects.addAll(badObjects);
 		updatedObjects.addAll(goodObjects);
 		//updatedObjects.addAll(plants);
-		moveObjects();
+		//moveObjects();
 		return updatedObjects;
 	}
 	
-	/**
-	 * Moves all visible objects down the stream
-	 * Calls the moveDownStream() function
-	 */
-	private void moveObjects() {
-		for (GoodObject obj : goodObjects) {
-			moveDownStream(obj);
-		}
-		for (BadObject obj : badObjects) {
-			moveDownStream(obj);
-		}
-	}
+//	/**
+//	 * Moves all visible objects down the stream
+//	 * Calls the moveDownStream() function
+//	 */
+//	private void moveObjects() {
+//		for (GoodObject obj : goodObjects) {
+//			moveDownStream(obj);
+//		}
+//		for (BadObject obj : badObjects) {
+//			moveDownStream(obj);
+//		}
+//	}
 	
 	/**
 	 * Generates a new CubicCurve2D from double percentage parameters. This way
@@ -113,10 +113,9 @@ public class Stream implements java.io.Serializable{
 	 * [x,y]=(1–t)^3*P0+3(1–t)^2*t*P1+3(1–t)t^2*P2+t^3*P3
 	 * t is time where 0 is the start 1 is the end)
 	 * */
-	Point CalculateBezierPoint(double t)
-	{
+	Point CalculateBezierPoint(double t){
 		Point2D start = streamCurve.getP1(), ctrlP1 = streamCurve.getCtrlP1(),
-				ctrlP2 = streamCurve.getCtrlP2(), end = streamCurve.getCtrlP2();
+				ctrlP2 = streamCurve.getCtrlP2(), end = streamCurve.getP2();
 		double u = (1 - t);
 		double tt = t*t;
 		double uu = u*u;
@@ -134,20 +133,20 @@ public class Stream implements java.io.Serializable{
 		return p;
 	}
 	
-	/**
-	 * Moves an object down the stream by calculating cartesian points
-	 * based on the objects progress down the stream (streamCompletion).
-	 * @param obj the EstuaryObject to move down the stream
-	 */
-	private void moveDownStream(EstuaryObject obj) {
-		double currentPercent = obj.getStreamCompletion();
-		if (obj.getStreamCompletion() < 1) {
-			Point p = CalculateBezierPoint(obj.getStreamCompletion());
-			currentPercent += (obj.getSpeed()/1000);
-			obj.setStreamCompletion(currentPercent);
-			obj.setPosition(p);
-		}
-	}
+//	/**
+//	 * Moves an object down the stream by calculating cartesian points
+//	 * based on the objects progress down the stream (streamCompletion).
+//	 * @param obj the EstuaryObject to move down the stream
+//	 */
+//	private void moveDownStream(EstuaryObject obj) {
+//		double currentPercent = obj.getStreamCompletion();
+//		if (obj.getStreamCompletion() < 1) {
+//			Point p = CalculateBezierPoint(obj.getStreamCompletion());
+//			currentPercent += (obj.getSpeed()/1000);
+//			obj.setStreamCompletion(currentPercent);
+//			obj.setPosition(p);
+//		}
+//	}
 
 	public CubicCurve2D getStreamCurve() {
 		return streamCurve;

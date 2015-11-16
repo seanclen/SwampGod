@@ -11,6 +11,7 @@ package objects;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import swampgod.Stream;
 
 public class EstuaryObject implements java.io.Serializable{
 	/**
@@ -30,7 +31,7 @@ public class EstuaryObject implements java.io.Serializable{
 	int healthValue;
 	String type;
 	//How fast it will move
-	int speed;
+	double speed;
 	//What stream it will be contained in
 	int stream;
 	
@@ -59,7 +60,6 @@ public class EstuaryObject implements java.io.Serializable{
 	//TODO 
 	public boolean checkPosition(){
 		if(streamCompletion >= 1){
-		
 			return true;
 		}
 		else{
@@ -158,7 +158,7 @@ public class EstuaryObject implements java.io.Serializable{
 	 * 
 	 * @return - the speed at which a certain object is traveling at
 	 */
-	public int getSpeed(){
+	public double getSpeed(){
 		return this.speed;
 	}
 }

@@ -181,15 +181,17 @@ public class Game implements java.io.Serializable{
 
 		for(int i = 0; i<3; i++){
 
+			EstuaryObject temp = null;
 			//move all objects in a streams good objects
 			for(GoodObject go:  streams[i].goodObjects){
 				if(go.getMoving()){
-					go.move();
+					if(go.move()){
+						temp=go;
+					}
 					go.setPosition(streams[i].CalculateBezierPoint(go.getStreamCompletion()));
 				}
 				else{
 					if (tickCount%Level.goodObjectReleaseFrequency[i]==0){
-						System.out.println("ok");
 						go.setMoving();
 					}
 					break;
@@ -198,9 +200,10 @@ public class Game implements java.io.Serializable{
 			//move all objects in a streams bad objects
 			for(BadObject bo : streams[i].badObjects){
 				if(bo.getMoving()){
-					bo.move();
+					if(bo.move()){
+						temp= bo;
+					}
 					bo.setPosition(streams[i].CalculateBezierPoint(bo.getStreamCompletion()));	
-					System.out.println(bo.getPosition().getX() + " " + bo.getPosition().getY());
 				}
 				else{
 					if (tickCount%Level.badObjectReleaseFrequency[i]==0){
@@ -209,7 +212,10 @@ public class Game implements java.io.Serializable{
 					break;
 				}
 			}
-
+			if(temp != null){
+				updateHealth(temp.getHealthValue());
+				removeObjects(temp);
+			}
 		}
 		// call eat function for plants
 		for(Plant pl : plants){
@@ -224,6 +230,7 @@ public class Game implements java.io.Serializable{
 			}
 
 		}
+		System.out.println("score: " + points + " health: " + health);
 		//CHECK IF ANY OBJECTS ARE NOT INSTREAMS, I.E. IN ESTUARY -- this probably happens in the move function
 		// this also happens in the move thing
 		
@@ -240,6 +247,7 @@ public class Game implements java.io.Serializable{
 		//WAIT SOME AMOUNT OF TIME BEFORE NEXT ( SLEEP )
 
 		//AM I MISSING ANYTHING THAT NEED TO HAPPEN HERE?
+		tickCount++;
 	}
 	/*
 	 * reutrns if all streams are empty
