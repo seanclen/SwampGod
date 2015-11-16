@@ -58,6 +58,7 @@ public class Game implements java.io.Serializable{
 		waveNumber = 0;
 		gameState = GameState.TITLE_STATE;
 		fishCount=0;
+		plants = new ArrayList<Plant>();
 	}
 
 	/**
@@ -87,12 +88,7 @@ public class Game implements java.io.Serializable{
 			streams[streamId].createGoodObjects(1);
 		}
 
-		while (gameState == GameState.RUNNING_STATE) {
-			if(gameState==GameState.PAUSE_STATE){
-				
-			}
-			this.tick();
-		}
+		
 	}
 
 	/**

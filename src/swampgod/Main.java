@@ -7,9 +7,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import views.*;
 import objects.*;
+import swampgod.Main.GameState;
 
 public class Main implements java.io.Serializable{
-	
+
 	private static final long serialVersionUID = 11082015;
 	protected static ViewDelegate viewDelegate;
 	public enum GameState {
@@ -20,24 +21,42 @@ public class Main implements java.io.Serializable{
 		UPGRADE_STATE,
 		ENDGAME_STATE
 	}
-	
-	public static void main(String[] args) {
+
+	public static void main(String[] args) throws InterruptedException {
 		System.out.println("Swamp God");
+
+//		viewDelegate = new ViewDelegate();
+//		viewDelegate.showGameView();
+
+		//		TitleView titleScreen = new TitleView();
+		//		titleScreen.presentView();
+
+		//		GameView GameWindow = new GameView();
+		//		GameWindow.presentWindow();
 		
-		viewDelegate = new ViewDelegate();
-		viewDelegate.showTitleView();
 		
-//		TitleView titleScreen = new TitleView();
-//		titleScreen.presentView();
+		Game g = new Game();
 		
-//		GameView GameWindow = new GameView();
-//		GameWindow.presentWindow();
+		g.startGame();
+		GameView gameView = new GameView(g);
+		
+		while (g.gameState == GameState.RUNNING_STATE) {
+			if(g.gameState==GameState.PAUSE_STATE){
+
+			}
+			while(!(g.gameState==GameState.PAUSE_STATE)){
+				gameView.paintIt();
+				System.out.println("after repaint");
+				Thread.sleep(1000);
+				g.tick();
+				
+			}
+		}
+	}
+	public void updateGameState() {
 
 	}
-		public void updateGameState() {
-		
-	}
-		
+
 	public static void saveGame(String fileName, Object obj) throws IOException{
 		FileOutputStream fileOut = new FileOutputStream(fileName);
 
@@ -45,7 +64,7 @@ public class Main implements java.io.Serializable{
 
 		objectOut.writeObject (obj);
 	}
-	
+
 	public static Game loadGame(String fileName) throws IOException, ClassNotFoundException {
 		FileInputStream fileIn = new FileInputStream(fileName);
 

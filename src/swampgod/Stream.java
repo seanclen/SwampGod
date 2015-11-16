@@ -35,7 +35,7 @@ public class Stream implements java.io.Serializable{
 		goodObjects = new ArrayList<GoodObject>();
 		//plants = new ArrayList<Plant>();
 		bounds = new Rectangle((this.id * 320), 0, 320, 400);
-		streamCurve = generateCurveFromPercentage(streamCurves[id]);
+		streamCurve = streamCurves[id];
 	}
 	
 	/**

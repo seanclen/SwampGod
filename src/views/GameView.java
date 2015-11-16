@@ -25,27 +25,30 @@ public class GameView extends JPanel implements MouseListener {
 	private static final long serialVersionUID = 11082015;
 	private static Game game;
 	static int frameWidth = 960, frameHeight = 640;
+	protected static JFrame frame;
 
-	public GameView() {
+	public GameView(Game newGame) {
+		game = newGame;
+		loadView();
 	}
 
 	private static void loadView() {
-		JFrame frame = new JFrame();
-    	frame.getContentPane().add(new GameView());
+		frame = new JFrame();
+    	//frame.getContentPane().add(new GameView());
     	frame.setBackground(Color.gray);
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setSize(frameWidth, frameHeight);
     	frame.setTitle("SwampGod");
     	frame.setVisible(true);
     	
-    	for(int i = 0; i < 1000; i++){
-    		frame.repaint();
-    		try {
-    			Thread.sleep(50);
-    		} catch (InterruptedException e) {
-    			e.printStackTrace();
-    		}
-    	}
+//    	for(int i = 0; i < 1000; i++){
+//    		frame.repaint();
+//    		try {
+//    			Thread.sleep(50);
+//    		} catch (InterruptedException e) {
+//    			e.printStackTrace();
+//    		}
+//    	}
 	}
 	
 	/**
@@ -55,8 +58,10 @@ public class GameView extends JPanel implements MouseListener {
 		loadView();
 	}
 	
-	@Override
-	public void paint(Graphics g) {
+	
+	public void paintIt() {
+		Graphics g = frame.getGraphics();
+		System.out.println("nnnnn");
 		Graphics2D g2 = (Graphics2D) g;
 		Stream[] streams = game.getStreams();
 		for (Stream stream : streams) {
