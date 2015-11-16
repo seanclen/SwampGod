@@ -4,12 +4,17 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -26,6 +31,10 @@ public class GameView extends JPanel implements MouseListener {
 	private static Game game;
 	static int frameWidth = 960, frameHeight = 640;
 	protected static JFrame frame;
+	
+	private static Image imgAlgae;
+	private static Image imgClam;
+	private static Image imgTrash;
 
 	public GameView(Game newGame) {
 		game = newGame;
@@ -40,6 +49,15 @@ public class GameView extends JPanel implements MouseListener {
     	frame.setSize(frameWidth, frameHeight);
     	frame.setTitle("SwampGod");
     	frame.setVisible(true);
+    	
+    	try {
+    		imgAlgae = ImageIO.read(new File("pics/algea.png"));
+			imgClam = ImageIO.read(new File("pics/clam.png"));
+			imgTrash = ImageIO.read(new File("pics/trash.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
 //    	for(int i = 0; i < 1000; i++){
 //    		frame.repaint();
@@ -88,10 +106,21 @@ public class GameView extends JPanel implements MouseListener {
 		
 		//Paint objects
 		for(EstuaryObject obj : streamObjects) {
-			g.setColor(Color.magenta);
-			g.fillRect(obj.getBounds().x, obj.getBounds().y, obj.getBounds().width, obj.getBounds().height);
+			Image img = null;
+			if (obj.getType() == "Algae" || obj.getType() == "Clam" || obj.getType() == "LilyPad") {
+				img = imgAlgae;
+			} else {
+				img = imgClam;
+			}
+			g.drawImage(img,
+					obj.getBounds().x, 
+					obj.getBounds().y, 
+					obj.getBounds().width, 
+					obj.getBounds().height,this);
 		}
 	}
+	
+	
 	
 	private void paintEstuary(Estuary estuary, Graphics2D g) {
 		ArrayList<EstuaryObject> estuaryObjects = estuary.getObjectsToDraw();
