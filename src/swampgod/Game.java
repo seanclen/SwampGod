@@ -183,9 +183,13 @@ public class Game implements java.io.Serializable{
 
 			//move all objects in a streams good objects
 			for(GoodObject go:  streams[i].goodObjects){
-				if(go.getMoving()){go.move();}
+				if(go.getMoving()){
+					go.move();
+					go.setPosition(streams[i].CalculateBezierPoint(go.getStreamCompletion()));
+				}
 				else{
 					if (tickCount%Level.goodObjectReleaseFrequency[i]==0){
+						System.out.println("ok");
 						go.setMoving();
 					}
 					break;
@@ -193,7 +197,11 @@ public class Game implements java.io.Serializable{
 			}
 			//move all objects in a streams bad objects
 			for(BadObject bo : streams[i].badObjects){
-				if(bo.getMoving()){bo.move();}
+				if(bo.getMoving()){
+					bo.move();
+					bo.setPosition(streams[i].CalculateBezierPoint(bo.getStreamCompletion()));	
+					System.out.println(bo.getPosition().getX() + " " + bo.getPosition().getY());
+				}
 				else{
 					if (tickCount%Level.badObjectReleaseFrequency[i]==0){
 						bo.setMoving();

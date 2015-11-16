@@ -61,7 +61,6 @@ public class GameView extends JPanel implements MouseListener {
 	
 	public void paintIt() {
 		Graphics g = frame.getGraphics();
-		System.out.println("nnnnn");
 		Graphics2D g2 = (Graphics2D) g;
 		Stream[] streams = game.getStreams();
 		for (Stream stream : streams) {
