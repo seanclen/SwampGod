@@ -12,7 +12,7 @@ public class LilyPad extends GoodObject{
 		pointValue= 15;
 		healthValue= 15;
 		type= "LilyPad";
-		speed= 60;
+		speed= 20;
 	}
 
 }

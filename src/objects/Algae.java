@@ -7,7 +7,7 @@ public class Algae extends BadObject{
 	public Algae() {
 		pointValue = -15;
 		healthValue = -10;
-		speed = 65;
+		speed = 12;
 		isGood=false;
 		type="Algae";
 	}
