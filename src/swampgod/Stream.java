@@ -79,19 +79,6 @@ public class Stream implements java.io.Serializable{
 		return updatedObjects;
 	}
 	
-//	/**
-//	 * Moves all visible objects down the stream
-//	 * Calls the moveDownStream() function
-//	 */
-//	private void moveObjects() {
-//		for (GoodObject obj : goodObjects) {
-//			moveDownStream(obj);
-//		}
-//		for (BadObject obj : badObjects) {
-//			moveDownStream(obj);
-//		}
-//	}
-	
 	/**
 	 * Generates a new CubicCurve2D from double percentage parameters. This way
 	 * the curves can resize and are independent on the screen resolution.
@@ -138,15 +125,6 @@ public class Stream implements java.io.Serializable{
 //	 * based on the objects progress down the stream (streamCompletion).
 //	 * @param obj the EstuaryObject to move down the stream
 //	 */
-//	private void moveDownStream(EstuaryObject obj) {
-//		double currentPercent = obj.getStreamCompletion();
-//		if (obj.getStreamCompletion() < 1) {
-//			Point p = CalculateBezierPoint(obj.getStreamCompletion());
-//			currentPercent += (obj.getSpeed()/1000);
-//			obj.setStreamCompletion(currentPercent);
-//			obj.setPosition(p);
-//		}
-//	}
 
 	public CubicCurve2D getStreamCurve() {
 		return streamCurve;

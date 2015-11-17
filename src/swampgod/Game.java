@@ -42,10 +42,7 @@ public class Game implements java.io.Serializable{
 	 */
 	public Game(){
 		gameState = GameState.MENU_STATE;
-		switch (gameState) {
-		case MENU_STATE: break;
-		default: initialize();
-		}
+		
 		initialize();
 
 	}
@@ -75,7 +72,6 @@ public class Game implements java.io.Serializable{
 	 */
 	public void startGame(){
 		gameState = GameState.RUNNING_STATE;
-		waveNumber++;
 
 		//Instantiate and initialize streams
 		for (int i = 0; i < streams.length; i++) {
