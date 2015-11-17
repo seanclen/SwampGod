@@ -54,7 +54,7 @@ public class MouseMovement implements MouseInputListener {
 		}
 		g.clickedObject = obj;
 		g.previousPosition= obj.getPos();
-		g.removeObjects(obj);
+		g.removeObjToTrash(obj);
 		
 	}
 
@@ -66,7 +66,7 @@ public class MouseMovement implements MouseInputListener {
 			int y=e.getY();
 			if(g.getTrashCan().getBounds().contains(x,y)){
 				if(!g.clickedObject.isGood()){
-					g.updateScore(g.clickedObject.getPointValue());
+					//g.updateScore(g.clickedObject.getPointValue());
 				}
 				g.clickedObject = null;
 			}

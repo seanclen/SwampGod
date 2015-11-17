@@ -1,5 +1,7 @@
 package objects;
 
+import java.util.Random;
+
 /**
  * This class creates good instances of object
  */
@@ -23,8 +25,10 @@ public class GoodObject extends EstuaryObject{
 		switch (randomInt) {
 		case 1:
 			returnObject = new Clam();
+			break;
 		case 2:
 			returnObject = new Fish();
+			break;
 		case 3:
 			returnObject = new LilyPad();
 		}

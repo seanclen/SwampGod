@@ -37,6 +37,8 @@ public class GameView extends JPanel implements MouseListener {
 	private static Image imgAlgae;
 	private static Image imgClam;
 	private static Image imgTrash;
+	private static Image imgTrashBag;
+	private static Image imgMussel;
 
 	public GameView(Game newGame) {
 		game = newGame;
@@ -60,6 +62,8 @@ public class GameView extends JPanel implements MouseListener {
     		imgAlgae = ImageIO.read(new File("pics/algea.png"));
 			imgClam = ImageIO.read(new File("pics/clam.png"));
 			imgTrash = ImageIO.read(new File("pics/trash_can.png"));
+			imgTrashBag = ImageIO.read(new File("pics/trash.png"));
+			imgMussel = ImageIO.read(new File("pics/zebra_musscle.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,9 +118,14 @@ public class GameView extends JPanel implements MouseListener {
 		//Paint objects
 		for(EstuaryObject obj : streamObjects) {
 			Image img = null;
-			if (obj.getType() == "Algae" || obj.getType() == "Clam" || obj.getType() == "LilyPad") {
+			if (obj.getType() == "Algae") {
 				img = imgAlgae;
-			} else {
+			}else if(obj.getType() == "Crab"){
+				img = imgMussel;
+			}else if(obj.getType() == "Hazard Waste"){
+				img = imgTrashBag;
+			}
+			else {
 				img = imgClam;
 			}
 			g.drawImage(img,
@@ -128,9 +137,14 @@ public class GameView extends JPanel implements MouseListener {
 		EstuaryObject obj = game.getClickedObject();
 		if (obj!=null) {
 			Image img = null;
-			if (obj.getType() == "Algae" || obj.getType() == "Clam" || obj.getType() == "LilyPad") {
+			if (obj.getType() == "Algae") {
 				img = imgAlgae;
-			} else {
+			}else if(obj.getType() == "Crab"){
+				img = imgMussel;
+			}else if(obj.getType() == "Hazard Waste"){
+				img = imgTrashBag;
+			}
+			else {
 				img = imgClam;
 			}
 			g.drawImage(img,
