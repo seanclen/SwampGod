@@ -12,6 +12,6 @@ public class Clam extends GoodObject{
 		pointValue= 18;
 		healthValue= 18;
 		type= "Clam";
-		speed= 23;
+		speed= 84;
 	}
 }
