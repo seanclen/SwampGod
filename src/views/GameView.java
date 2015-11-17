@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -191,6 +192,11 @@ public class GameView extends JPanel implements MouseListener {
 		g2d.setStroke(new BasicStroke(10f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 		g2d.drawRoundRect(healthBar.x, healthBar.y, healthBar.width, healthBar.height, 15, 15);
 		g2d.drawImage(imgTrash, trash.x, trash.y, trash.width, trash.height,this);
+//		JButton fishButton = new JButton("Collect Fish");
+//		fishButton.setBounds(75, 75, healthBar.x, healthBar.y);
+//		frame.add(fishButton);
+		
+		
 	}
 
 	@Override
