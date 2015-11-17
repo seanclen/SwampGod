@@ -174,6 +174,25 @@ public class Game implements java.io.Serializable{
 
 		return removed;
 	}
+	
+	/**
+	 * Remove without Updates
+	 * @param obj
+	 * @return
+	 */
+	public boolean removeObjToTrash(EstuaryObject obj){
+		// TODO Three cases when the score should be updated
+		boolean removed;
+		//remove from streams
+		if(obj.isGood()){		
+			removed = streams[obj.getStream()].goodObjects.remove(obj);
+		}
+		else{
+			removed = streams[obj.getStream()].badObjects.remove(obj);
+		}
+
+		return removed;
+	}
 
 	/**
 	 * if the player collects fish this modifies the score and health
