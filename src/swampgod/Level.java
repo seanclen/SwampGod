@@ -21,6 +21,7 @@ public final class Level {
 	final public static int[] totalGoodObjects = {14, 15, 20};
 	final public static int[] totalBadObjects = {15, 20, 17000000};
 	final public static int[] totalFish= {25, 20, 10};
+	
 	/**
 	 * Float parameters represents location to percentage of space from the origin.
 	 * i.e. a stream with bounds (0, 0, 100, 100) with CubicCurve(x, y, ... )

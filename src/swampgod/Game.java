@@ -164,6 +164,9 @@ public class Game implements java.io.Serializable{
 		boolean removed;
 		//remove from streams
 		if(obj.isGood()){		
+			if(obj.getType()== "Fish"){
+				fishCount++;
+			}
 			updateScore(obj.getPointValue());
 			removed = streams[obj.getStream()].goodObjects.remove(obj);
 		}
