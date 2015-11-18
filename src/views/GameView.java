@@ -40,6 +40,7 @@ public class GameView extends JPanel implements MouseListener {
 	private static Image imgTrash;
 	private static Image imgTrashBag;
 	private static Image imgMussel;
+	private static Image imgFish;
 
 	public GameView(Game newGame) {
 		game = newGame;
@@ -65,6 +66,7 @@ public class GameView extends JPanel implements MouseListener {
 			imgTrash = ImageIO.read(new File("pics/trash_can.png"));
 			imgTrashBag = ImageIO.read(new File("pics/trash.png"));
 			imgMussel = ImageIO.read(new File("pics/zebra_musscle.png"));
+			imgFish = ImageIO.read(new File("pics/Gnome.png")); 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -125,8 +127,9 @@ public class GameView extends JPanel implements MouseListener {
 				img = imgMussel;
 			}else if(obj.getType() == "Hazard Waste"){
 				img = imgTrashBag;
-			}
-			else {
+			}else if(obj.getType()== "Fish"){
+				img = imgFish;
+			}else {
 				img = imgClam;
 			}
 			g.drawImage(img,
@@ -144,8 +147,9 @@ public class GameView extends JPanel implements MouseListener {
 				img = imgMussel;
 			}else if(obj.getType() == "Hazard Waste"){
 				img = imgTrashBag;
-			}
-			else {
+			}else if(obj.getType()== "Fish"){
+				img = imgFish;
+			}else {
 				img = imgClam;
 			}
 			g.drawImage(img,

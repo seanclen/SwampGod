@@ -57,10 +57,10 @@ public class Game implements java.io.Serializable{
 		streams  = new Stream[3];
 		waveNumber = 0;
 		gameState = GameState.TITLE_STATE;
-		fishCount=0;
 		plants = new ArrayList<Plant>();
 		clickedObject = null;
 		previousPosition = null;
+		fishCount=0;
 	}
 	
 	public TrashCan getTrashCan(){
@@ -265,7 +265,7 @@ public class Game implements java.io.Serializable{
 			}
 
 		}
-		System.out.println("score: " + points + " health: " + health);
+		System.out.println("score: " + points + " health: " + health + " fish count: " + fishCount);
 		//CHECK IF ANY OBJECTS ARE NOT INSTREAMS, I.E. IN ESTUARY -- this probably happens in the move function
 		// this also happens in the move thing
 		

@@ -15,10 +15,12 @@ public final class Level {
 	 */
 	final public static int[] goodObjectReleaseFrequency = {54, 18, 12};
 	final public static int[] badObjectReleaseFrequency = {42, 20, 12};
+	final public static int[] fishReleaseFrequency = {42, 20, 12};
 	final public static int[] speedMultiplier = {6,7,12};
 	final public static int[] plantEatFrequency = {424, 34, 2};
 	final public static int[] totalGoodObjects = {14, 15, 20};
 	final public static int[] totalBadObjects = {15, 20, 17000000};
+	final public static int[] totalFish= {25, 20, 10};
 	/**
 	 * Float parameters represents location to percentage of space from the origin.
 	 * i.e. a stream with bounds (0, 0, 100, 100) with CubicCurve(x, y, ... )
@@ -37,6 +39,14 @@ public final class Level {
 	
 	public int getBadObjectReleaseFrequency (int level) {
 		return badObjectReleaseFrequency[level];
+	}
+	
+	public int getFishReleaseFrequency (int level) {
+		return fishReleaseFrequency[level];
+	}
+	
+	public int getTotalFish(int level){
+		return totalFish[level];
 	}
 	
 	public int getPlantEatFrequency (int level) {
