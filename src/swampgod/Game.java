@@ -83,14 +83,14 @@ public class Game implements java.io.Serializable{
 		int goodObjects = level.getTotalGoodObjects(waveNumber);
 		for (int i = 0; i < goodObjects; i++) {
 			int streamId = EstuaryObject.pickStream();
-			streams[streamId].createBadObjects(1);
+			streams[streamId].createGoodObjects(1);
 		}
 
 		//Bad Objects
 		int badObjects= level.getTotalBadObjects(waveNumber);
 		for (int i = 0; i < badObjects; i++){
 			int streamId = EstuaryObject.pickStream();
-			streams[streamId].createGoodObjects(1);
+			streams[streamId].createBadObjects(1);
 		}
 
 		
