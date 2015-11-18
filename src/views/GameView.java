@@ -16,13 +16,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import controllers.GameMouseController;
 import objects.EstuaryObject;
 import swampgod.Estuary;
 import swampgod.Game;
-import swampgod.MouseMovement;
 import swampgod.Stream;
 
 public class GameView extends JPanel implements MouseListener {
@@ -31,8 +30,9 @@ public class GameView extends JPanel implements MouseListener {
 	 */
 	private static final long serialVersionUID = 11082015;
 	private static Game game;
-	static int frameWidth = 960, frameHeight = 640;
-	protected static JFrame frame;
+	static int panelWidth = 960, panelHeight = 640;
+	protected static JPanel panel;
+	private Graphics viewGraphics;
 	
 	private static Image imgAlgae;
 	private static Image imgClam;
@@ -44,16 +44,14 @@ public class GameView extends JPanel implements MouseListener {
 	}
 
 	private static void loadView() {
-		frame = new JFrame();
-    	//frame.getContentPane().add(new GameView());
-    	frame.setBackground(Color.gray);
-    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	frame.setSize(frameWidth, frameHeight);
-    	frame.setTitle("SwampGod");
-    	frame.setVisible(true);
-    	MouseMovement m = new MouseMovement(game);
-    	frame.addMouseMotionListener(m);
-    	frame.addMouseListener(m);
+		panel = new JPanel();
+    	//panel.getContentPane().add(new GameView());
+    	panel.setBackground(Color.gray);
+    	panel.setSize(panelWidth, panelHeight);
+    	panel.setVisible(true);
+    	//GameMouseController m = new GameMouseController(game);
+    	//panel.addMouseMotionListener(m);
+    	//panel.addMouseListener(m);
     	
     	
     	try {
@@ -64,27 +62,18 @@ public class GameView extends JPanel implements MouseListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
-//    	for(int i = 0; i < 1000; i++){
-//    		frame.repaint();
-//    		try {
-//    			Thread.sleep(50);
-//    		} catch (InterruptedException e) {
-//    			e.printStackTrace();
-//    		}
-//    	}
 	}
 	
-	/**
-	 * Calls loadView in GameView to create and paint frame.
-	 */
-	public void presentWindow() {
-		loadView();
+	public void updateGame(Game g) {
+		game = g;
 	}
 	
+	public void setGraphics(Graphics g) {
+		viewGraphics = g;
+	}
 	
 	public void paintIt() {
-		Graphics g = frame.getGraphics();
+		Graphics g = viewGraphics;
 		Graphics2D g2 = (Graphics2D) g;
 		Stream[] streams = game.getStreams();
 		for (Stream stream : streams) {

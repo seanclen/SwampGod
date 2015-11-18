@@ -1,4 +1,4 @@
-package swampgod;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import objects.Crab;
 import objects.Fish;
+import swampgod.Game;
 import swampgod.Main.GameState;
 
 public class GameTest implements java.io.Serializable{
@@ -18,21 +19,21 @@ public class GameTest implements java.io.Serializable{
 	@Test
 	public void gameStateTest() {
 		Game g1 = new Game();
-		assertEquals(GameState.TITLE_STATE,g1.gameState);
+		assertEquals(GameState.TITLE_STATE,g1.getGameState());
 	}
 	
 	@Test
 	public void healthTest() {
 		Game g1 = new Game();
-		assertEquals(50,g1.health);
+		assertEquals(50,g1.getHealth());
 		g1.updateHealth(30);
-		assertEquals(80, g1.health);
+		assertEquals(80, g1.getHealth());
 	}
 	
 	@Test
 	public void plantArrTest() {
 		Game g1 = new Game();
-		assertEquals(null,g1.plants);
+		assertEquals(null,g1.getPlants());
 	}
 	
 	@Test
@@ -44,7 +45,7 @@ public class GameTest implements java.io.Serializable{
 	@Test
 	public void waveTest() {
 		Game g1 = new Game();
-		assertEquals(0,g1.waveNumber);
+		assertEquals(0,g1.getWaveNumber());
 	}
 	
 	@Test
@@ -58,7 +59,7 @@ public class GameTest implements java.io.Serializable{
 	public void updateHeathTest(){
 		Game g1 = new Game();
 		g1.updateHealth(2);
-		assertEquals(52,g1.health);
+		assertEquals(52,g1.getHealth());
 		
 	}
 	
@@ -66,7 +67,7 @@ public class GameTest implements java.io.Serializable{
 	public void collectFishTest(){
 		Game g1 = new Game();
 		g1.collectFish();
-		assertEquals(25,g1.health);
+		assertEquals(25,g1.getHealth());
 		assertEquals(25,g1.getPoints());
 
 	}

@@ -3,43 +3,59 @@ package views;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import swampgod.Game;
+import swampgod.Main.GameState;
+
 import javax.swing.JButton;
 
 public class TitleView extends JPanel{
 
 	private static final long serialVersionUID = 11082015;
-	protected JButton btnChangeBG;
-	protected ViewDelegate viewDelegate;
+	private Game game;
+	private ViewDelegate view;
+	private Rectangle btnStart;
 	
-	public TitleView(ViewDelegate delegate) {
+	public TitleView(Game game, ViewDelegate view) {
 		System.out.println("Title View");
-		this.viewDelegate = delegate;
-	}
-	
-	public void presentView() {
-		JFrame frame = new JFrame();
-		//frame.setContentPane(this.viewDelegate);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setUndecorated(true);
-		frame.setBackground(new Color(100,150,70));
-    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+		this.game = game;
+		this.view = view;
 		
-//		for(int i = 0; i < 1000; i++){
-//    		frame.repaint();
-//    		try {
-//    			Thread.sleep(50);
-//    		} catch (InterruptedException e) {
-//    			e.printStackTrace();
-//    		}
-//    	}
+		JButton btnChangeBG = new JButton("Change Background");
+		btnChangeBG.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setBackground(Color.red);
+				update(GameState.MENU_STATE);
+			}
+		});
+		btnChangeBG.setBounds(500, 50, 178, 29);
+		add(btnChangeBG);
 		
+		// Make sure we can use the listeners
+		this.setFocusable(true);
 	}
 
 	protected void paintComponent(Graphics g) {
 		System.out.println("Paint Component");
+		super.paintComponent(g);
+		g.setColor(Color.BLUE);
+		g.fillRect(4, 4, 100, 100);
+		
+	}
+	
+	private boolean pointWithinStart(Point p) {
+		return btnStart.contains(p);
+	}
+	
+	private void update(GameState gameState) {
+		System.out.println("update");
+		view.updateGameState(gameState);
 	}
 }

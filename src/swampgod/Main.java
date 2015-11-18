@@ -5,14 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import javax.swing.*;
+
+import controllers.*;
 import views.*;
-import objects.*;
-import swampgod.Main.GameState;
 
 public class Main implements java.io.Serializable{
 
 	private static final long serialVersionUID = 11082015;
-	protected static ViewDelegate viewDelegate;
 	public enum GameState {
 		TITLE_STATE,
 		MENU_STATE,
@@ -22,35 +22,36 @@ public class Main implements java.io.Serializable{
 		ENDGAME_STATE
 	}
 
-	public static void main(String[] args) throws InterruptedException {
-		System.out.println("Swamp God");
-
-//		viewDelegate = new ViewDelegate();
-//		viewDelegate.showGameView();
-
-		//		TitleView titleScreen = new TitleView();
-		//		titleScreen.presentView();
-
-		//		GameView GameWindow = new GameView();
-		//		GameWindow.presentWindow();
+	public static void main(String[] args) {
+		System.out.println("Swamp Sweeper!");		
+		Game game = new Game();
+		ViewDelegate view = new ViewDelegate(game);
+		ViewRepaintController repaintController =
+				new ViewRepaintController(game, view);
+		TitleMouseController titleMouseController =
+				new TitleMouseController(game, view);
+		GameMouseController gameMouseController =
+				new GameMouseController(game, view);
 		
+		// a repaint timer so that the window will update every 25 ms
+		new Timer(25, repaintController).start();
 		
-		Game g = new Game();
+		// register controllers as listeners
+		view.registerListeners(titleMouseController, gameMouseController);
 		
-		g.startGame();
-		GameView gameView = new GameView(g);
+		// Set the final dimensions and jink and start!
+		view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		view.setSize(1000,700);
+		view.setVisible(true);
 		
-		while (g.gameState == GameState.RUNNING_STATE) {
-			if(!(g.gameState==GameState.PAUSE_STATE)){
-				gameView.paintIt();
-				Thread.sleep(100);
-				g.tick();
-				
-			}
-		}
-	}
-	public void updateGameState() {
-
+//		while (g.getGameState() == GameState.RUNNING_STATE) {
+//			if(!(g.getGameState()==GameState.PAUSE_STATE)){
+//				Thread.sleep(100);
+//				g.tick();
+//				viewController.updateGame(g);
+//				viewController.paintIt();
+//			}
+//		}
 	}
 
 	public static void saveGame(String fileName, Object obj) throws IOException{

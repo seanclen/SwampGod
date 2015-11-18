@@ -26,25 +26,22 @@ public class Game implements java.io.Serializable{
 	//Health range 0 to 100. 100 = max health. -0 = dead
 	int health;
 	int points;
-	ArrayList<Plant> plants;
+	private ArrayList<Plant> plants;
 	int waveNumber;
 	Stream[] streams;
 	Estuary estuary;
-	GameState gameState;
+	private GameState gameState;
 	//TITLE_STATE, MENU_STATE, PAUSE_STATE, RUNNING_STATE, UPGRADE_STATE, ENDGAME_STATE
 	int fishCount;
 	TrashCan trashcan = new TrashCan();
-	EstuaryObject clickedObject;
-	Point previousPosition;
+	private EstuaryObject clickedObject;
+	private Point previousPosition;
 
 	/**
 	 * constructs the objects
 	 */
 	public Game(){
-		gameState = GameState.MENU_STATE;
-		
-		initialize();
-
+		setGameState(GameState.TITLE_STATE);
 	}
 
 	/**
@@ -56,11 +53,17 @@ public class Game implements java.io.Serializable{
 		estuary = new Estuary();
 		streams  = new Stream[3];
 		waveNumber = 0;
-		gameState = GameState.TITLE_STATE;
 		fishCount=0;
-		plants = new ArrayList<Plant>();
-		clickedObject = null;
-		previousPosition = null;
+		setPlants(new ArrayList<Plant>());
+		setClickedObject(null);
+		setPreviousPosition(null);
+	}
+	
+	public void updateGameState(GameState gameState) {
+		if (this.gameState == GameState.TITLE_STATE &&
+				gameState == GameState.MENU_STATE) {
+			this.gameState = gameState;
+		}
 	}
 	
 	public TrashCan getTrashCan(){
@@ -71,7 +74,7 @@ public class Game implements java.io.Serializable{
 	 * starts ticker and starts first wave
 	 */
 	public void startGame(){
-		gameState = GameState.RUNNING_STATE;
+		setGameState(GameState.RUNNING_STATE);
 
 		//Instantiate and initialize streams
 		for (int i = 0; i < streams.length; i++) {
@@ -111,7 +114,7 @@ public class Game implements java.io.Serializable{
 	 * @return - game state
 	 */
 	public GameState getGameStatus(){
-		return gameState;		
+		return getGameState();		
 	}
 
 	/**
@@ -234,7 +237,7 @@ public class Game implements java.io.Serializable{
 			}
 		}
 		// call eat function for plants
-		for(Plant pl : plants){
+		for(Plant pl : getPlants()){
 			double x = pl.getPos().getX();
 			double y= pl.getPos().getY();
 
@@ -291,7 +294,7 @@ public class Game implements java.io.Serializable{
 			pl = new Tree(pos);
 		}
 		pl.setPosition(pos);
-		plants.add(pl);;
+		getPlants().add(pl);;
 		return pl;
 	}
 	
@@ -312,10 +315,10 @@ public class Game implements java.io.Serializable{
 	 */
 	public void endWave(){
 		if(waveNumber == 3){
-			gameState= GameState.ENDGAME_STATE;
+			setGameState(GameState.ENDGAME_STATE);
 		}
 		else{
-			gameState = GameState.UPGRADE_STATE;
+			setGameState(GameState.UPGRADE_STATE);
 		}
 	}
 
@@ -323,14 +326,14 @@ public class Game implements java.io.Serializable{
 	 * @return - call the end of game functions, end screen and clean up
 	 */
 	public void lose(){
-		gameState = GameState.ENDGAME_STATE;
+		setGameState(GameState.ENDGAME_STATE);
 	}
 
 	/**
 	 * @return - End of game, player has won call win screen
 	 */
 	public void win(){
-		gameState = GameState.ENDGAME_STATE;
+		setGameState(GameState.ENDGAME_STATE);
 	}
 
 	/**
@@ -348,6 +351,30 @@ public class Game implements java.io.Serializable{
 			return true;
 		}
 		return false;
+	}
+
+	public GameState getGameState() {
+		return gameState;
+	}
+
+	public void setGameState(GameState gameState) {
+		this.gameState = gameState;
+	}
+
+	public void setClickedObject(EstuaryObject clickedObject) {
+		this.clickedObject = clickedObject;
+	}
+
+	public void setPreviousPosition(Point previousPosition) {
+		this.previousPosition = previousPosition;
+	}
+
+	public ArrayList<Plant> getPlants() {
+		return plants;
+	}
+
+	public void setPlants(ArrayList<Plant> plants) {
+		this.plants = plants;
 	}
 
 }
