@@ -8,6 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -23,6 +25,7 @@ import javax.swing.JPanel;
 import objects.EstuaryObject;
 import swampgod.Estuary;
 import swampgod.Game;
+import swampgod.Main.GameState;
 import swampgod.MouseMovement;
 import swampgod.Stream;
 
@@ -196,13 +199,48 @@ public class GameView extends JPanel implements MouseListener {
 		g2d.setStroke(new BasicStroke(10f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 		g2d.drawRoundRect(healthBar.x, healthBar.y, healthBar.width, healthBar.height, 15, 15);
 		g2d.drawImage(imgTrash, trash.x, trash.y, trash.width, trash.height,this);
-//		JButton fishButton = new JButton("Collect Fish");
-//		fishButton.setBounds(75, 75, healthBar.x, healthBar.y);
-//		frame.add(fishButton);
+		JButton fishButton = new JButton("Collect Fish");
+		//fishButton.setBounds(75, 75, healthBar.x, healthBar.y);
+		
+		fishButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				System.out.println("You clicked the button");
+            }
+		});
+	}
 		
 		
 	}
 
+	private void upgradeStage(){
+		JButton treeButton = new JButton(imgClam + "10 points");
+		treeButton.setBounds(935, 640, 25, 25);
+		JButton bushButton = new JButton(imgAlgae + "15 points");
+		bushButton.setBounds(910, 615, 25, 25);
+		JButton doneButton = new JButton("Done");
+		bushButton.setBounds(875, 580, 25, 25);
+		
+		treeButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				//make a new tree 
+				//set chosen plant to current plant
+            }
+		});
+		
+		bushButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				System.out.println("You clicked the button");
+            }
+		});
+		
+		doneButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				game.setGameState(GameState.RUNNING_STATE);
+				game.startGame();
+            }
+		});
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub

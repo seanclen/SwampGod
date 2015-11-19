@@ -116,6 +116,11 @@ public class Game implements java.io.Serializable{
 		return gameState;		
 	}
 
+	public GameState setGameState(GameState gm){
+		gameState= gm;
+		return gameState;
+	}
+	
 	/**
 	 * returns points
 	 */
