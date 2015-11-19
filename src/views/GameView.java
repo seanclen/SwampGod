@@ -203,11 +203,10 @@ public class GameView extends JPanel implements MouseListener {
 		g2d.drawRoundRect(healthBar.x, healthBar.y, healthBar.width, healthBar.height, 15, 15);
 		g2d.drawImage(imgTrash, trash.x, trash.y, trash.width, trash.height,this);
 		JButton fishButton = new JButton("Collect Fish");
-		//fishButton.setBounds(75, 75, healthBar.x, healthBar.y);
 		
 		fishButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				System.out.println("You clicked the button");
+				game.collectFish();
             }
 		});
 	}
