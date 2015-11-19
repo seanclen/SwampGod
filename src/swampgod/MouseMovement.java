@@ -52,9 +52,11 @@ public class MouseMovement implements MouseInputListener {
 				}
 			}
 		}
-		g.clickedObject = obj;
-		g.previousPosition= obj.getPos();
-		g.removeObjToTrash(obj);
+		if(found){
+			g.clickedObject = obj;
+			g.previousPosition= obj.getPos();
+			g.removeObjToTrash(obj);
+		}
 		
 	}
 
