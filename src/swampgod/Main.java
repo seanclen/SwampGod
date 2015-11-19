@@ -5,15 +5,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.*;
 
 import controllers.*;
 import views.*;
 
-public class Main implements java.io.Serializable{
+public class Main {
 
 	private static final long serialVersionUID = 11082015;
+	private static Game game;
+
 	public enum GameState {
+		INITIALIZE,
 		TITLE_STATE,
 		MENU_STATE,
 		PAUSE_STATE,
@@ -23,26 +29,31 @@ public class Main implements java.io.Serializable{
 	}
 
 	public static void main(String[] args) {
-		System.out.println("Swamp Sweeper!");		
-		Game game = new Game();
-		ViewDelegate view = new ViewDelegate(game);
-		ViewRepaintController repaintController =
-				new ViewRepaintController(game, view);
-		TitleMouseController titleMouseController =
-				new TitleMouseController(game, view);
-		GameMouseController gameMouseController =
-				new GameMouseController(game, view);
+		game = new Game(GameState.INITIALIZE);
+		GameController controller = new GameController();
+		ViewDelegate view = new ViewDelegate();
+		game.addObserver(controller);
+		game.addObserver(view);
+		game.updateGameState(GameState.TITLE_STATE);
+//		ViewRepaintController repaintController =
+//				new ViewRepaintController(game, view);
+//		TitleMouseController titleMouseController =
+//				new TitleMouseController(game, view);
+//		GameMouseController gameMouseController =
+//				new GameMouseController(game, view);
+//		
+//		// a repaint timer so that the window will update every 25 ms
+//		new Timer(25, repaintController).start();
+//		
+//		// register controllers as listeners
+//		view.registerListeners(titleMouseController, gameMouseController);
+//		
+//		// Set the final dimensions and jink and start!
+//		view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		view.setSize(1000,700);
+//		view.setVisible(true);
 		
-		// a repaint timer so that the window will update every 25 ms
-		new Timer(25, repaintController).start();
 		
-		// register controllers as listeners
-		view.registerListeners(titleMouseController, gameMouseController);
-		
-		// Set the final dimensions and jink and start!
-		view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		view.setSize(1000,700);
-		view.setVisible(true);
 		
 //		while (g.getGameState() == GameState.RUNNING_STATE) {
 //			if(!(g.getGameState()==GameState.PAUSE_STATE)){
@@ -78,5 +89,4 @@ public class Main implements java.io.Serializable{
 			return null;
 		}
 	}
-
 }

@@ -2,6 +2,9 @@ package views;
 
 import java.awt.Color;
 import java.awt.LayoutManager;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -11,51 +14,38 @@ import controllers.*;
 import swampgod.*;
 import swampgod.Main.GameState;
 
-public class ViewDelegate extends JFrame {
+public class ViewDelegate extends JFrame implements Observer{
 
 	private static final long serialVersionUID = 20151111;
 	private JPanel currentPanel;
 	private Game game;
 
-	public ViewDelegate(Game game) {
-		this.game = game;
+	public ViewDelegate() {
 		
 		// Load the initial view, automatically Title Screen at init
-		if (game.getGameState() == GameState.TITLE_STATE) {
-			currentPanel = new TitleView(game, this);
-			currentPanel.setBackground(Color.GREEN);
-		}
-		add(currentPanel);
-		
-		//TODO should probably add dimension to game
-		
-		// Want to be able to click and/or press buttons
-		currentPanel.requestFocus();
+		TitleView titleView = new TitleView();
 	}
 	
-	public void registerListeners(TitleMouseController titleMouseController,
-			GameMouseController gameMouseController) {
-		if (game.getGameState() == GameState.TITLE_STATE) {
-			currentPanel.addMouseListener(titleMouseController);
-		}
-		else if (game.getGameState() == GameState.RUNNING_STATE) {
-			currentPanel.addMouseListener(gameMouseController);
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		if (o instanceof Game)
+		{
+			if (arg instanceof Game) {
+				game = (Game)arg;
+				System.out.println("Got the update in ViewDelegate : Changed GameState");
+			}
+			if (arg instanceof ArrayList) {
+				if (((ArrayList<?>) arg).get(0) instanceof Stream) {
+					//Then this is a stream!
+				}
+			}
+			
 		}
 	}
 	
-	public void updateGameState(GameState gameState) {
-		System.out.println("updateGameState:current " + game.getGameState().toString());
-		System.out.println("updateGameState:next" + gameState.toString());
-		if (game.getGameState() == GameState.TITLE_STATE &&
-				gameState == GameState.MENU_STATE) {
-			System.out.println("ViewDelegate:updateGameState");
-			game.updateGameState(gameState);
-			removeAll();
-			currentPanel = new MenuView(game, this);
-			currentPanel.setBackground(Color.MAGENTA);
-			add(currentPanel);
-			currentPanel.requestFocus();
-		}
+	public void updateView() {
+		
 	}
 
 

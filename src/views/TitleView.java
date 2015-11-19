@@ -23,16 +23,13 @@ public class TitleView extends JPanel{
 	private ViewDelegate view;
 	private Rectangle btnStart;
 	
-	public TitleView(Game game, ViewDelegate view) {
+	public TitleView() {
 		System.out.println("Title View");
-		this.game = game;
-		this.view = view;
 		
 		JButton btnChangeBG = new JButton("Change Background");
 		btnChangeBG.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setBackground(Color.red);
-				update(GameState.MENU_STATE);
 			}
 		});
 		btnChangeBG.setBounds(500, 50, 178, 29);
@@ -53,9 +50,5 @@ public class TitleView extends JPanel{
 	private boolean pointWithinStart(Point p) {
 		return btnStart.contains(p);
 	}
-	
-	private void update(GameState gameState) {
-		System.out.println("update");
-		view.updateGameState(gameState);
-	}
+
 }

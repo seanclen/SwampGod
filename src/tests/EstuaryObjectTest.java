@@ -1,4 +1,4 @@
-package objects;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -7,6 +7,16 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import objects.Algae;
+import objects.BadObject;
+import objects.Bush;
+import objects.Clam;
+import objects.Crab;
+import objects.EstuaryObject;
+import objects.Fish;
+import objects.HazardWaste;
+import objects.LilyPad;
+import objects.Tree;
 import swampgod.Game;
 import swampgod.Main.GameState;
 import swampgod.Stream;
@@ -18,7 +28,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -11082015;
-	Game g1 = new Game();
+	Game g1 = new Game(GameState.INITIALIZE);
 	EstuaryObject obj1 = new EstuaryObject();
 	Point p = new Point();
 	
@@ -55,17 +65,6 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	@Test
 	public void pickStreamTest(){
 		assertTrue((0 < obj1.pickStream())&&(obj1.pickStream() < 4));
-	}
-	@Test
-	public void plantTest(){
-		Tree tree = new Tree(p);
-		assertEquals(8, tree.radius);
-		assertEquals(35, tree.percentEat);
-		
-		Bush bush= new Bush(p);
-		assertEquals("Bush", bush.type);
-		assertEquals(5, bush.radius);
-		assertEquals(55, bush.percentEat);
 	}
 	@Test
 	public void eatTest(){

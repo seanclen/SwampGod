@@ -2,6 +2,7 @@ package swampgod;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import objects.BadObject;
 import objects.Bush;
@@ -17,10 +18,7 @@ import swampgod.Main.GameState;
  * This class contains all of the game logic and methods
  *
  */
-public class Game implements java.io.Serializable{
-	/**
-	 * 
-	 */
+public class Game extends Observable implements java.io.Serializable{
 	private static final long serialVersionUID = 11082015;
 	int tickCount = 0;
 	//Health range 0 to 100. 100 = max health. -0 = dead
@@ -31,7 +29,6 @@ public class Game implements java.io.Serializable{
 	Stream[] streams;
 	Estuary estuary;
 	private GameState gameState;
-	//TITLE_STATE, MENU_STATE, PAUSE_STATE, RUNNING_STATE, UPGRADE_STATE, ENDGAME_STATE
 	int fishCount;
 	TrashCan trashcan = new TrashCan();
 	private EstuaryObject clickedObject;
@@ -40,8 +37,22 @@ public class Game implements java.io.Serializable{
 	/**
 	 * constructs the objects
 	 */
-	public Game(){
-		setGameState(GameState.TITLE_STATE);
+	public Game(GameState gameState){
+		this.gameState = gameState;
+	}
+
+	public void updateGameState(GameState gameState) {
+		// if value has changed notify observers
+		if(!this.gameState.equals(gameState)) {
+			System.out.println("poo");
+		}
+		System.out.println("Value changed to new value: "+gameState.toString());
+		this.gameState = gameState;
+
+		// mark as value changed
+		setChanged();
+		// trigger notification
+		notifyObservers(this);
 	}
 
 	/**
@@ -58,14 +69,7 @@ public class Game implements java.io.Serializable{
 		setClickedObject(null);
 		setPreviousPosition(null);
 	}
-	
-	public void updateGameState(GameState gameState) {
-		if (this.gameState == GameState.TITLE_STATE &&
-				gameState == GameState.MENU_STATE) {
-			this.gameState = gameState;
-		}
-	}
-	
+
 	public TrashCan getTrashCan(){
 		return trashcan;
 	}
@@ -96,16 +100,16 @@ public class Game implements java.io.Serializable{
 			streams[streamId].createGoodObjects(1);
 		}
 
-		
+
 	}
 	public EstuaryObject getClickedObject(){
 		return clickedObject;
 	}
-	
+
 	public Point getPreviousPosition(){
 		return previousPosition;
 	}
-	
+
 	public int getWaveNumber(){
 		return waveNumber;
 	}
@@ -252,17 +256,17 @@ public class Game implements java.io.Serializable{
 		System.out.println("score: " + points + " health: " + health);
 		//CHECK IF ANY OBJECTS ARE NOT INSTREAMS, I.E. IN ESTUARY -- this probably happens in the move function
 		// this also happens in the move thing
-		
+
 		//RELEASE NEW OBJECTS FROM PURGATORY
 		//this happens in the move thing
-		
+
 		//CHECK IF GAME IS OGRE (HEALTH TOO LOW, ALL WAVES DONE)
 		isEnd();
 		//CHECK IF WAVE OVER (IF SO CHANGE TO UPGRADE SCREEN OR GAME OGRE -- MORE LIKELY CALL END WAVE AND IT DOES THAT)
 		if(isEndWave()){
 			endWave();
 		}
-		
+
 		//WAIT SOME AMOUNT OF TIME BEFORE NEXT ( SLEEP )
 
 		//AM I MISSING ANYTHING THAT NEED TO HAPPEN HERE?
@@ -297,11 +301,11 @@ public class Game implements java.io.Serializable{
 		getPlants().add(pl);;
 		return pl;
 	}
-	
+
 	public int getHealth(){
 		return health;
 	}
-	
+
 	/**
 	 * selects the object at the current position of the mouse pointer
 	 */
