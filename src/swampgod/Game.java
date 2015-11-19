@@ -36,6 +36,7 @@ public class Game implements java.io.Serializable{
 	TrashCan trashcan = new TrashCan();
 	EstuaryObject clickedObject;
 	Point previousPosition;
+	Plant chosenPlant;
 
 	/**
 	 * constructs the objects
@@ -60,6 +61,7 @@ public class Game implements java.io.Serializable{
 		plants = new ArrayList<Plant>();
 		clickedObject = null;
 		previousPosition = null;
+		chosenPlant=null;
 		fishCount=0;
 	}
 	
