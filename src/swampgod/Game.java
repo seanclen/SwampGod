@@ -279,22 +279,13 @@ public class Game implements java.io.Serializable{
 
 		}
 		System.out.println("score: " + points + " health: " + health + " fish count: " + fishCount);
-		//CHECK IF ANY OBJECTS ARE NOT INSTREAMS, I.E. IN ESTUARY -- this probably happens in the move function
-		// this also happens in the move thing
 		
-		//RELEASE NEW OBJECTS FROM PURGATORY
-		//this happens in the move thing
-		
-		//CHECK IF GAME IS OGRE (HEALTH TOO LOW, ALL WAVES DONE)
 		isEnd();
-		//CHECK IF WAVE OVER (IF SO CHANGE TO UPGRADE SCREEN OR GAME OGRE -- MORE LIKELY CALL END WAVE AND IT DOES THAT)
 		if(isEndWave()){
 			endWave();
 		}
 		
 		//WAIT SOME AMOUNT OF TIME BEFORE NEXT ( SLEEP )
-
-		//AM I MISSING ANYTHING THAT NEED TO HAPPEN HERE?
 		tickCount++;
 	}
 	/*
