@@ -22,7 +22,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import objects.Bush;
 import objects.EstuaryObject;
+import objects.Plant;
+import objects.Tree;
 import swampgod.Estuary;
 import swampgod.Game;
 import swampgod.Main.GameState;
@@ -208,9 +211,6 @@ public class GameView extends JPanel implements MouseListener {
             }
 		});
 	}
-		
-		
-	}
 
 	private void upgradeStage(){
 		JButton treeButton = new JButton(imgClam + "10 points");
@@ -222,14 +222,15 @@ public class GameView extends JPanel implements MouseListener {
 		
 		treeButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				//make a new tree 
-				//set chosen plant to current plant
+				Tree tr= new Tree(null);
+				game.setChosenPlant(tr);
             }
 		});
 		
 		bushButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				System.out.println("You clicked the button");
+				Bush bh= new Bush(null);
+				game.setChosenPlant(bh);
             }
 		});
 		

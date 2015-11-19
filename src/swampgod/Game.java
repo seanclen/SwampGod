@@ -108,6 +108,10 @@ public class Game implements java.io.Serializable{
 	public int getWaveNumber(){
 		return waveNumber;
 	}
+	
+	public void setChosenPlant(Plant n){
+		chosenPlant=n;
+	}
 
 	/**
 	 * @return - game state
@@ -116,9 +120,8 @@ public class Game implements java.io.Serializable{
 		return gameState;		
 	}
 
-	public GameState setGameState(GameState gm){
+	public void setGameState(GameState gm){
 		gameState= gm;
-		return gameState;
 	}
 	
 	/**
