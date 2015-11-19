@@ -185,6 +185,14 @@ public class GameView extends JPanel implements MouseListener {
 		Rectangle healthBar = new Rectangle(250, 500, 500, 100);
 		Rectangle trash = new Rectangle(game.getTrashCan().getBounds());
 		int health = game.getHealth();
+		
+		// health bar gray background
+		g2d.setColor(Color.GRAY);
+		g2d.setStroke(new BasicStroke(10f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+		g2d.drawRoundRect(healthBar.x, healthBar.y, healthBar.width, healthBar.height, 15, 15);
+		g2d.fillRoundRect(healthBar.x, healthBar.y, healthBar.width, healthBar.height, 15, 15);
+		
+		// health bar colored foreground
 		if (health < 30) {
 			g2d.setColor(Color.RED);
 		}
@@ -194,13 +202,11 @@ public class GameView extends JPanel implements MouseListener {
 		else {
 			g2d.setColor(Color.GREEN);
 		}
-		g2d.fillRoundRect(healthBar.x, healthBar.y, healthBar.width, healthBar.height, 15, 15);
+		g2d.fillRoundRect(healthBar.x, healthBar.y, health * 5, healthBar.height, 15, 15);
 		g2d.setColor(Color.BLACK);
 		g2d.setFont(new Font("Purisa", Font.BOLD, 15));
-		g2d.drawString("Health: " + health + "    Points: " +game.getPoints(), healthBar.x + 100, healthBar.y + 60);
-		g2d.setColor(Color.GRAY);
-		g2d.setStroke(new BasicStroke(10f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
-		g2d.drawRoundRect(healthBar.x, healthBar.y, healthBar.width, healthBar.height, 15, 15);
+		g2d.drawString("Health: " + health + "    Points: " +game.getPoints(), healthBar.x + 170, healthBar.y + 60);
+		
 		g2d.drawImage(imgTrash, trash.x, trash.y, trash.width, trash.height,this);
 		JButton fishButton = new JButton("Collect Fish");
 		
