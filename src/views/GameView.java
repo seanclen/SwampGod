@@ -182,7 +182,7 @@ public class GameView extends JPanel implements MouseListener {
 	}
 	
 	private void paintHUD(Graphics2D g2d) {
-		Rectangle healthBar = new Rectangle(250, 500, 500, 100);
+		Rectangle healthBar = new Rectangle((int)(frameWidth * 0.25), (int)(frameHeight * 0.85), 500, 80);
 		Rectangle trash = new Rectangle(game.getTrashCan().getBounds());
 		int health = game.getHealth();
 		
@@ -204,8 +204,8 @@ public class GameView extends JPanel implements MouseListener {
 		}
 		g2d.fillRoundRect(healthBar.x, healthBar.y, health * 5, healthBar.height, 15, 15);
 		g2d.setColor(Color.BLACK);
-		g2d.setFont(new Font("Purisa", Font.BOLD, 15));
-		g2d.drawString("Health: " + health + "    Points: " +game.getPoints(), healthBar.x + 170, healthBar.y + 60);
+		g2d.setFont(new Font("Purisa", Font.BOLD, 22));
+		g2d.drawString("Health: " + health + "    Points: " +game.getPoints(), healthBar.x + 140, healthBar.y + 50);
 		
 		g2d.drawImage(imgTrash, trash.x, trash.y, trash.width, trash.height,this);
 		JButton fishButton = new JButton("Collect Fish");
