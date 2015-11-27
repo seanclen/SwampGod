@@ -22,19 +22,17 @@ public class Main {
 		INITIALIZE,
 		TITLE_STATE,
 		MENU_STATE,
-		PAUSE_STATE,
+		NEWGAME_STATE,
 		RUNNING_STATE,
+		PAUSE_STATE,
 		UPGRADE_STATE,
 		ENDGAME_STATE
 	}
 
 	public static void main(String[] args) {
-		game = new Game(GameState.INITIALIZE);
-		GameController controller = new GameController();
-		ViewDelegate view = new ViewDelegate();
-		game.addObserver(controller);
-		game.addObserver(view);
-		game.updateGameState(GameState.TITLE_STATE);
+		game = new Game();
+		Controller controller = new Controller(game);
+		
 //		ViewRepaintController repaintController =
 //				new ViewRepaintController(game, view);
 //		TitleMouseController titleMouseController =

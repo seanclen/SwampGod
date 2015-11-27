@@ -37,28 +37,32 @@ public class Game extends Observable implements java.io.Serializable{
 	/**
 	 * constructs the objects
 	 */
-	public Game(GameState gameState){
-		this.gameState = gameState;
+	public Game(){
+		this.gameState = GameState.INITIALIZE;
+		//initialize();
 	}
 
 	public void updateGameState(GameState gameState) {
-		// if value has changed notify observers
+		System.out.println("\nGame:updateGameState() -- begin");
+		// Make sure value has changed
 		if(!this.gameState.equals(gameState)) {
-			System.out.println("poo");
+			this.gameState = gameState;
+			System.out.println("Game:updateGameState() -- " + this.gameState);
+			if (gameState.equals(GameState.NEWGAME_STATE))
+			{
+				initialize();
+				this.gameState = GameState.RUNNING_STATE;
+			}
+			setChanged();
+			notifyObservers(this.gameState);
+			clearChanged();
+			
 		}
-		System.out.println("Value changed to new value: "+gameState.toString());
-		this.gameState = gameState;
-
-		// mark as value changed
-		setChanged();
-		// trigger notification
-		notifyObservers(this);
+		System.out.println("Game:updateGameState() -- end");
 	}
 
-	/**
-	 * builds the menu
-	 */
 	public void initialize(){
+		System.out.println("\nGame:initialize() -- begin");
 		health = 50;
 		points = 0;
 		estuary = new Estuary();
@@ -68,19 +72,7 @@ public class Game extends Observable implements java.io.Serializable{
 		setPlants(new ArrayList<Plant>());
 		setClickedObject(null);
 		setPreviousPosition(null);
-	}
-
-	public TrashCan getTrashCan(){
-		return trashcan;
-	}
-
-	/**
-	 * starts ticker and starts first wave
-	 */
-	public void startGame(){
-		setGameState(GameState.RUNNING_STATE);
-
-		//Instantiate and initialize streams
+		
 		for (int i = 0; i < streams.length; i++) {
 			streams[i] = new Stream(i);
 		}
@@ -99,9 +91,18 @@ public class Game extends Observable implements java.io.Serializable{
 			int streamId = EstuaryObject.pickStream();
 			streams[streamId].createGoodObjects(1);
 		}
-
-
+		
+		System.out.println("Game:initialize() -- end");
 	}
+	
+	public void startGame() {
+		
+	}
+
+	public TrashCan getTrashCan(){
+		return trashcan;
+	}
+
 	public EstuaryObject getClickedObject(){
 		return clickedObject;
 	}
@@ -199,6 +200,7 @@ public class Game extends Observable implements java.io.Serializable{
 	 */
 
 	public void tick(){
+		System.out.println("tick");
 		//CALL MOVE ON ALL OBJECTS IN ALL STREAMS
 		//iterate through all streams
 

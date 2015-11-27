@@ -1,7 +1,9 @@
 package controllers;
 
 import java.awt.Point;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.util.Observable;
 
 import javax.swing.event.MouseInputListener;
 
@@ -9,20 +11,55 @@ import objects.BadObject;
 import objects.EstuaryObject;
 import objects.GoodObject;
 import swampgod.Game;
+import swampgod.Main.GameState;
 import views.ViewDelegate;
 
-public class GameMouseController implements MouseInputListener {
+public class GameViewController extends Observable implements MouseInputListener {
 	Game game;
 	ViewDelegate view;
 	
-	public GameMouseController(Game game, ViewDelegate view){
-		this.game = game;
-		this.view = view;
+	public GameViewController(){
+		
+	}
+	
+	public void updateGame(Game update) {
+		this.game = update;
+	}
+	
+	public Game getGame() {
+		return this.game;
+	}
+	
+	private void runGame() {
+		//game.getGameState().equals(GameState.RUNNING_STATE)
+		while (game.getGameState().equals(GameState.RUNNING_STATE)) {
+			System.out.println("GameController:runGame() -- tick");
+			game.tick();
+			setChanged();
+			notifyObservers(game);
+			clearChanged();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// If for whatever we can't put the thread to bed, "restart" the game
+				game.setGameState(GameState.TITLE_STATE);
+				//viewController.handleStateChange(GameState.TITLE_STATE);
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		System.out.println("POOP---------------------------------------------------------");
+		System.out.println("POOP---------------------------------------------------------");
+		System.out.println("POOP---------------------------------------------------------");
+		System.out.println("POOP---------------------------------------------------------");
+		System.out.println("POOP---------------------------------------------------------");
+		System.out.println("POOP---------------------------------------------------------");
+		System.out.println("POOP---------------------------------------------------------");
+		System.out.println("POOP---------------------------------------------------------");
+		System.out.println("POOP---------------------------------------------------------");
 		
 	}
 
@@ -59,7 +96,9 @@ public class GameMouseController implements MouseInputListener {
 		game.setClickedObject(obj);
 		game.setPreviousPosition(obj.getPos());
 		game.removeObjects(obj);
-		
+		setChanged();
+		notifyObservers(game);
+		clearChanged();
 	}
 
 	@Override
@@ -87,7 +126,9 @@ public class GameMouseController implements MouseInputListener {
 				}
 			}
 		}
-		
+		setChanged();
+		notifyObservers(game);
+		clearChanged();
 	}
 
 	@Override
@@ -104,17 +145,23 @@ public class GameMouseController implements MouseInputListener {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
 		Point p = new Point(e.getX(), e.getY());
 		if(game.getClickedObject()!=null){
 			game.getClickedObject().setPosition(p);
 		}
+		setChanged();
+		notifyObservers(game);
+		clearChanged();
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+	}
+
+	public void buttonClicked(ActionEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("____________________________________________________________________________");
 	}
 
 }

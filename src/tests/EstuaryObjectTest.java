@@ -28,7 +28,7 @@ public class EstuaryObjectTest implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -11082015;
-	Game g1 = new Game(GameState.INITIALIZE);
+	Game g1 = new Game();
 	EstuaryObject obj1 = new EstuaryObject();
 	Point p = new Point();
 	
