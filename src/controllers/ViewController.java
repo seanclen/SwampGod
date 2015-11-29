@@ -94,10 +94,7 @@ public class ViewController extends Observable implements Observer{
 		if (o instanceof GameViewController && arg instanceof Game) {
 			GameState state = ((Game) arg).getGameState();
 			System.out.println("Got the game change"+state);
-			if (state.equals(GameState.UPGRADE_STATE)) {
-				viewDelegate.presentPanelFromGameState(state);
-			}
-			else if (state.equals(GameState.ENDGAME_STATE)) {
+			if (state.equals(GameState.ENDGAME_STATE)) {
 				viewDelegate.presentPanelFromGameState(state);
 			}
 		}
@@ -196,15 +193,6 @@ public class ViewController extends Observable implements Observer{
 					gameView.setVisible(true);
 					gameViewController.updateGameSize(getBounds());
 					add(gameView);
-					repaint();
-					return true;
-				}
-				else if (gameState.equals(GameState.UPGRADE_STATE))
-				{
-					System.out.println("ViewController:update(UPGRADE_STATE)");
-					upgradeView.setSize(this.getSize());
-					upgradeView.setVisible(true);
-					add(upgradeView);
 					repaint();
 					return true;
 				}

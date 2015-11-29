@@ -34,6 +34,11 @@ public class GameViewController extends Observable implements MouseInputListener
 					setChanged();
 					notifyObservers(game);
 					clearChanged();
+				} else if (game.getGameState().equals(GameState.UPGRADE_STATE)) {
+					setChanged();
+					notifyObservers(game);
+					clearChanged();
+					cancel();
 				} else {
 					System.out.println("GameViewController:not running state");
 					setChanged();

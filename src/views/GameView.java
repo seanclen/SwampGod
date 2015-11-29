@@ -38,6 +38,7 @@ public class GameView extends JPanel implements Observer{
 	private static final long serialVersionUID = 11082015;
 	private Game game;
 	static int panelWidth = 960, panelHeight = 640;
+	private JPanel upgradesPanel;
 	
 	private static Image imgAlgae;
 	private static Image imgClam;
@@ -82,8 +83,9 @@ public class GameView extends JPanel implements Observer{
 		});
 		add(btnPause, BorderLayout.PAGE_START);
 		
-		JPanel upgradesPanel = new JPanel();
+		upgradesPanel = new JPanel();
 		upgradesPanel.setSize(300,100);
+		upgradesPanel.setVisible(false);
 		
 		JButton btnBush = new JButton("AddBush");
 		btnBush.addActionListener(new ActionListener() {
@@ -263,6 +265,9 @@ public class GameView extends JPanel implements Observer{
 			game = (Game) arg;
 			if (game.getGameState().equals(GameState.RUNNING_STATE)) {
 				paintSwamp();
+			} else if (game.getGameState().equals(GameState.UPGRADE_STATE)) {
+				upgradesPanel.setVisible(true);
+				repaint();
 			}
 		}
 	}
