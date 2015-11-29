@@ -13,6 +13,7 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 11082015;
+	int pointsPerPlant;
 	String type;
 	Point position;
 	int radius;

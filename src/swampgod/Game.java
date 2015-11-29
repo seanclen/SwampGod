@@ -183,6 +183,10 @@ public class Game extends Observable implements java.io.Serializable{
 	public int getPoints(){
 		return points;
 	}
+	
+	public void setPoints(int po){
+		points = points+po;
+	}
 
 	/**
 	 * Changes the score based on input

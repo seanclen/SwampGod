@@ -11,6 +11,7 @@ public class Bush extends Plant{
 
 	public Bush(Point p) {
 		super(p);
+		pointsPerPlant= 15;
 		type= "Bush";
 		position= p;
 		radius = 5;

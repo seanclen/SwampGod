@@ -64,6 +64,7 @@ public class GameViewController extends Observable implements MouseInputListener
 				Point p = new Point(e.getX(), e.getY());
 				game.getChosenPlant().setPosition(p);
 				game.getPlants().add(game.getChosenPlant());
+				game.setPoints(game.getChosenPlant().getPointValue());
 				game.setChosenPlant(null);
 			}
 		}
