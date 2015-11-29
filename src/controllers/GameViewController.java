@@ -15,6 +15,7 @@ import objects.BadObject;
 import objects.Bush;
 import objects.EstuaryObject;
 import objects.GoodObject;
+import objects.Plant;
 import objects.Tree;
 import swampgod.Game;
 import swampgod.Main.GameState;
@@ -67,7 +68,9 @@ public class GameViewController extends Observable implements MouseInputListener
 		if(game.getGameStatus().equals(GameState.UPGRADE_STATE)){
 			if(game.getChosenPlant()!=null){
 				Point p = new Point(e.getX(), e.getY());
-				game.getChosenPlant().setPosition(p);
+				Plant pl = game.getChosenPlant();
+				pl.setPosition(p);
+				game.setChosenPlant(pl);
 				game.getPlants().add(game.getChosenPlant());
 				game.setPoints(game.getChosenPlant().getPointValue());
 				game.setChosenPlant(null);
