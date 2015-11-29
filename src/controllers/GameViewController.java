@@ -12,8 +12,10 @@ import javax.swing.JButton;
 import javax.swing.event.MouseInputListener;
 
 import objects.BadObject;
+import objects.Bush;
 import objects.EstuaryObject;
 import objects.GoodObject;
+import objects.Tree;
 import swampgod.Game;
 import swampgod.Main.GameState;
 import views.GameView;
@@ -185,6 +187,15 @@ public class GameViewController extends Observable implements MouseInputListener
 			else if (btn.getText().equals("Pause")) {
 				System.out.println("GameViewController:buttonClicked().Pause");
 				game.setGameState(GameState.PAUSE_STATE);
+			}
+			else if(btn.getText().equals("AddBush")&&game.getGameStatus().equals(GameState.UPGRADE_STATE)){
+				Bush b = new Bush(null);
+				game.setChosenPlant(b);
+				
+			}
+			else if(btn.getText().equals("AddTree")&&game.getGameStatus().equals(GameState.UPGRADE_STATE)){
+				Tree t = new Tree(null);
+				game.setChosenPlant(t);
 			}
 		}
 	}
