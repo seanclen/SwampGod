@@ -1,19 +1,13 @@
 package controllers;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.Observable;
 
 import javax.swing.JButton;
 import javax.swing.event.MouseInputListener;
 
-import swampgod.Game;
 import swampgod.Main.GameState;
-import views.ViewDelegate;
 
 public class TitleViewController extends Observable implements MouseInputListener {
 	

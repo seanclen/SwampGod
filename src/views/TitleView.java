@@ -23,6 +23,7 @@ public class TitleView extends JPanel {
 		setName("TitleView");
 		setLayout(new BorderLayout());
 		setBackground(new Color (36,228,149));
+		setVisible(true);
 		//Add panels to take up space
 		
 		

@@ -28,17 +28,20 @@ public class MenuView extends JPanel{
 
 	private static final long serialVersionUID = 11082015;
 	private MenuViewController menuViewController;
+	private JLabel lblSwampSweeper;
+	private JButton btnNewGame;
 	
 	public MenuView() {
 		System.out.println("MenuView() initialized");
-		this.setName("MenuView");
-		this.setLayout(new BorderLayout());
+		setName("MenuView");
+		setLayout(new BorderLayout());
 		setBackground(new Color (36,228,149));
+		setVisible(false);
 		
-		JLabel lblSwampSweeper = new JLabel("Swamp Sweeper");
+		lblSwampSweeper = new JLabel("Swamp Sweeper");
 		lblSwampSweeper.setPreferredSize(new Dimension(0, 200));
 		
-		JButton btnNewGame = new JButton("New Game");
+		btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/**
@@ -55,9 +58,7 @@ public class MenuView extends JPanel{
 		});
 		add(lblSwampSweeper, BorderLayout.PAGE_START);
 		add(btnNewGame, BorderLayout.CENTER);
-		
-//		// Make sure we can use the listeners
-//		this.setFocusable(true);
+		setFocusable(true);
 	}
 	
 	/**

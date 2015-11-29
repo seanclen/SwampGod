@@ -2,13 +2,18 @@ package controllers;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import swampgod.Game;
 import swampgod.Main.GameState;
 
-public class Controller extends Observable implements Observer {
+public class Controller implements Observer {
+	public static Game testGame;
 	private Game game;
 	private ViewController viewController;
+	private static Timer runTimer = new Timer();
+	private TimerTask runGame;
 	
 	public Controller(Game newGame) {
 		game = newGame;
@@ -17,18 +22,44 @@ public class Controller extends Observable implements Observer {
 		
 		//This looks ridiculous but now they can talk to each other
 		viewController.addObserver(this);
-		this.addObserver(viewController);
+		
+		runGame = new TimerTask() {
+			@Override
+			public void run() {
+				if (game.getGameState().equals(GameState.RUNNING_STATE)){
+					System.out.println("Running runGame TimerTask");
+					game.tick();
+					viewController.updateGameFromTick(game);
+				}
+			}
+		};
 	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof ViewController) {
-			System.out.println("GameController:update - ViewController");
+			System.out.println("Controller:update - ViewController");
 			if (arg instanceof Game)
 			{
-				// Something happened, let's update the game and update the rest
+				/**
+				 * Control any updates that come from the Game.
+				 * Usually this will handle tick() updates. We will set this game
+				 * equal to the received argument just to be safe
+				 */
 				game = (Game) arg;
-				updateGameUsers();
+			}
+			else if (arg instanceof String) {
+				String token = (String) arg;
+				System.out.println("Controller:update():token("+token+")");
+				if (token == "RunGame") {
+					if (game.getGameState().equals(GameState.RUNNING_STATE)){
+						runTimer.schedule(runGame, 0, 100);
+					}
+				}
+				else if (token == "PauseGame")
+				{
+					game.setGameState(GameState.PAUSE_STATE);
+				}
 			}
 			else if (arg.equals(GameState.MENU_STATE))
 			{
@@ -48,9 +79,9 @@ public class Controller extends Observable implements Observer {
 		}
 		else if (o instanceof Game)
 		{
-			System.out.println("GameController:update():Game");
+			System.out.println("Controller:update():Game");
 			if (arg.equals(GameState.RUNNING_STATE)) {
-				System.out.println("GameController:update():Game:RUNNING_STATE");
+				System.out.println("Controller:update():Game:RUNNING_STATE");
 				viewController.handleStateChange((GameState) arg);
 			}
 			else if (arg instanceof GameState) {
@@ -59,14 +90,22 @@ public class Controller extends Observable implements Observer {
 		}
 	}
 	
-	/**
-	 * Sends the game to GameControllers observers.
-	 * In particular this should be used to send the game to the ViewController where it will
-	 * then be sent to the GameViewController so it can draw and handle actions accordingly.
-	 */
-	private void updateGameUsers() {
-		setChanged();
-		notifyObservers(game);
-		clearChanged();
-	}
+//	private void runGame() {
+//		while (game.getGameState().equals(GameState.RUNNING_STATE)) {
+//			System.out.println("GameController:runGame() -- tick");
+//			game.tick();
+////			setChanged();
+////			notifyObservers(game);
+////			clearChanged();
+//			
+//			try {
+//				Thread.sleep(100);
+//			} catch (InterruptedException e) {
+//				// If for whatever we can't put the thread to bed, "restart" the game
+//				game.setGameState(GameState.TITLE_STATE);
+//				//viewController.handleStateChange(GameState.TITLE_STATE);
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 }

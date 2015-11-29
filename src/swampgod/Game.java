@@ -56,7 +56,6 @@ public class Game extends Observable implements java.io.Serializable{
 			setChanged();
 			notifyObservers(this.gameState);
 			clearChanged();
-			
 		}
 		System.out.println("Game:updateGameState() -- end");
 	}
@@ -200,7 +199,7 @@ public class Game extends Observable implements java.io.Serializable{
 	 */
 
 	public void tick(){
-		System.out.println("tick");
+		System.out.println("Game:tick()");
 		//CALL MOVE ON ALL OBJECTS IN ALL STREAMS
 		//iterate through all streams
 
@@ -273,6 +272,9 @@ public class Game extends Observable implements java.io.Serializable{
 
 		//AM I MISSING ANYTHING THAT NEED TO HAPPEN HERE?
 		tickCount++;
+		setChanged();
+		notifyObservers(this);
+		clearChanged();
 	}
 	/*
 	 * reutrns if all streams are empty

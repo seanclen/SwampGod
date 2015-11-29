@@ -1,6 +1,7 @@
 package views;
 
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -32,7 +33,7 @@ import swampgod.Stream;
 public class GameView extends JPanel implements Observer{
 
 	private static final long serialVersionUID = 11082015;
-	private static Game game;
+	private Game game;
 	static int panelWidth = 960, panelHeight = 640;
 	private Graphics viewGraphics;
 	private GameViewController gameViewController;
@@ -46,24 +47,42 @@ public class GameView extends JPanel implements Observer{
 		loadView();
 		setName("GameView");
 		setBackground(Color.BLUE);
+		setVisible(false);
 		//setBackground(new Color (36,228,149));
 		
-		JButton btnNewGame = new JButton("New Game");
-		btnNewGame.addActionListener(new ActionListener() {
+		/**
+		 * At this point we have already added the view controller
+		 * to this instance (refer back to ViewController).
+		 * 
+		 * Since the TitleViewController is technically a mouse listener,
+		 * we must get the mouse listener from this instance and pass the 
+		 * ActionEvent to the TitleViewController that a button has 
+		 * been clicked.
+		 */
+		
+		JButton btnStart = new JButton("Start");
+		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/**
-				 * At this point we have already added the view controller
-				 * to this instance (refer back to ViewController).
-				 * 
-				 * Since the TitleViewController is technically a mouse listener,
-				 * we must get the mouse listener from this instance and pass the 
-				 * ActionEvent to the TitleViewController that a button has 
-				 * been clicked.
-				 */
 				gameViewController.buttonClicked(e);
 			}
 		});
-		add(btnNewGame);
+		add(btnStart, BorderLayout.PAGE_START);
+		
+		JButton btnPause = new JButton("Pause");
+		btnPause.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gameViewController.buttonClicked(e);
+			}
+		});
+		add(btnPause, BorderLayout.PAGE_START);
+	}
+	
+	public void setGame(Game update) {
+		this.game = update;
+	}
+	
+	public Game getGame() {
+		return this.game;
 	}
 
 	private void loadView() {

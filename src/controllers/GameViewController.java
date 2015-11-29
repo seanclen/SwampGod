@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.Observable;
 
+import javax.swing.JButton;
 import javax.swing.event.MouseInputListener;
 
 import objects.BadObject;
@@ -12,55 +13,25 @@ import objects.EstuaryObject;
 import objects.GoodObject;
 import swampgod.Game;
 import swampgod.Main.GameState;
-import views.ViewDelegate;
 
 public class GameViewController extends Observable implements MouseInputListener {
 	Game game;
-	ViewDelegate view;
 	
 	public GameViewController(){
 		
 	}
 	
-	public void updateGame(Game update) {
-		this.game = update;
+	public void setGame(Game game) {
+		this.game = game;
 	}
 	
 	public Game getGame() {
 		return this.game;
 	}
-	
-	private void runGame() {
-		//game.getGameState().equals(GameState.RUNNING_STATE)
-		while (game.getGameState().equals(GameState.RUNNING_STATE)) {
-			System.out.println("GameController:runGame() -- tick");
-			game.tick();
-			setChanged();
-			notifyObservers(game);
-			clearChanged();
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// If for whatever we can't put the thread to bed, "restart" the game
-				game.setGameState(GameState.TITLE_STATE);
-				//viewController.handleStateChange(GameState.TITLE_STATE);
-				e.printStackTrace();
-			}
-		}
-	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("POOP---------------------------------------------------------");
-		System.out.println("POOP---------------------------------------------------------");
-		System.out.println("POOP---------------------------------------------------------");
-		System.out.println("POOP---------------------------------------------------------");
-		System.out.println("POOP---------------------------------------------------------");
-		System.out.println("POOP---------------------------------------------------------");
-		System.out.println("POOP---------------------------------------------------------");
-		System.out.println("POOP---------------------------------------------------------");
-		System.out.println("POOP---------------------------------------------------------");
-		
+		System.out.println("GameViewController:mouseClicked("+e.getPoint()+")");
 	}
 
 	@Override
@@ -160,8 +131,29 @@ public class GameViewController extends Observable implements MouseInputListener
 	}
 
 	public void buttonClicked(ActionEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("____________________________________________________________________________");
+		System.out.println("GameViewController:buttonClicked()");
+		if (e.getSource() instanceof JButton) {
+			JButton btn = (JButton) e.getSource();
+			if (btn.getText().equals("Start")) {
+				System.out.println("GameViewController:buttonClicked().Start");
+				/**
+				 * The start button has been clicked, so we must tell the Controller that
+				 * the user is ready to play the game, thus calling the runGame() function.
+				 * We accomplish by simply passing a string 'token' "RunGame" to the ViewController
+				 * which will then pass the token to the Controller.
+				 */
+				setChanged();
+				notifyObservers("RunGame");
+				clearChanged();
+			}
+			else if (btn.getText().equals("Pause")) {
+				System.out.println("GameViewController:buttonClicked().Pause");
+				setChanged();
+				notifyObservers("PauseGame");
+				clearChanged();
+			}
+			
+		}
 	}
 
 }
