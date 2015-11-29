@@ -172,33 +172,32 @@ public class GameView extends JPanel implements Observer{
 	}
 	private boolean healthChanged;
 	private void paintHUD(Graphics2D g2d) {
-		Rectangle healthBar = new Rectangle(250, 500, 500, 100);
+		Rectangle healthBar = new Rectangle((int)(getSize().width * 0.25), (int)(getSize().height * 0.85), 500, 80);
 		Rectangle trash = new Rectangle(game.getTrashCan().getBounds());
 		int health = game.getHealth();
-		if (health < 30) {
-			g2d.setColor(Color.RED);
-			paintHealthBar(g2d, healthBar, health);
-		}
-		else if (health < 70) {
-			g2d.setColor(Color.YELLOW);
-			paintHealthBar(g2d, healthBar, health);
-		}
-		else {
-			g2d.setColor(Color.GREEN);
-			paintHealthBar(g2d, healthBar, health);
-		}
 		
-		g2d.drawImage(imgTrash, trash.x, trash.y, trash.width, trash.height,this);
-	}
-	
-	private void paintHealthBar(Graphics2D g2d, Rectangle healthBar, int health) {
-		g2d.fillRoundRect(healthBar.x, healthBar.y, healthBar.width, healthBar.height, 15, 15);
-		g2d.setColor(Color.BLACK);
-		g2d.setFont(new Font("Purisa", Font.BOLD, 15));
-		g2d.drawString("Health: " + health + "    Points: " +game.getPoints(), healthBar.x + 100, healthBar.y + 60);
+		// health bar gray background
 		g2d.setColor(Color.GRAY);
 		g2d.setStroke(new BasicStroke(10f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 		g2d.drawRoundRect(healthBar.x, healthBar.y, healthBar.width, healthBar.height, 15, 15);
+		g2d.fillRoundRect(healthBar.x, healthBar.y, healthBar.width, healthBar.height, 15, 15);
+		
+		// health bar colored foreground
+		if (health < 30) {
+			g2d.setColor(Color.RED);
+		}
+		else if (health < 70) {
+			g2d.setColor(Color.YELLOW);
+		}
+		else {
+			g2d.setColor(Color.GREEN);
+		}
+		g2d.fillRoundRect(healthBar.x, healthBar.y, health * 5, healthBar.height, 15, 15);
+		g2d.setColor(Color.BLACK);
+		g2d.setFont(new Font("Purisa", Font.BOLD, 22));
+		g2d.drawString("Health: " + health + "    Points: " +game.getPoints(), healthBar.x + 140, healthBar.y + 50);
+		
+		g2d.drawImage(imgTrash, trash.x, trash.y, trash.width, trash.height,this);
 	}
 
 	/**

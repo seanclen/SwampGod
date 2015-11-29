@@ -36,6 +36,7 @@ public class Game extends Observable implements java.io.Serializable{
 	private EstuaryObject clickedObject;
 	private Point previousPosition;
 	Plant chosenPlant;
+	Rectangle bounds;
 
 	/**
 	 * constructs the objects
@@ -97,6 +98,7 @@ public class Game extends Observable implements java.io.Serializable{
 	}
 	
 	public void updateWindowSize(Rectangle bounds) {
+		this.bounds = bounds;
 		double estuaryBorder = (bounds.height * .7);
 		int streamWidth = (bounds.width / 3);
 		estuary.setBounds(new Rectangle(
@@ -119,6 +121,27 @@ public class Game extends Observable implements java.io.Serializable{
 					s.getBounds().x + ((curve.getCtrlX1()/100)*s.getBounds().width), (curve.getCtrlY1()/100)*s.getBounds().height,
 					s.getBounds().x + ((curve.getCtrlX2()/100)*s.getBounds().width), (curve.getCtrlY2()/100)*s.getBounds().height,
 					s.getBounds().x + ((curve.getX2()/100)*s.getBounds().width), (curve.getY2()/100)*s.getBounds().height));
+		}
+		Point foo = getPointFromPercentage(65, 15);
+		trashcan.setBounds(foo.x, foo.y, 100, 100);
+	}
+	
+	/**
+	 * Get the relative point based on the percentage of the frame from
+	 *     the top left to the bottom right. Use this to find the Cartesian
+	 *     points for layout purposes to avoid resizing issues.
+	 *     
+	 * The scale is 0.0 (top left) to 100.0 (bottom right)
+	 *     
+	 * @param x : the percentage from the left to right.
+	 * @param y : the percentage from top to bottom
+	 * @return Point containing x and y.
+	 */
+	private Point getPointFromPercentage(double x, double y) {
+		if (x <= 100 && x>=0 && y<=100 && y>=0) {
+			return new Point((int) (bounds.getWidth() * (x / 100)), (int) (bounds.getHeight() * (y / 100)));
+		} else {
+			return null;
 		}
 	}
 
