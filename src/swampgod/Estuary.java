@@ -42,4 +42,8 @@ public class Estuary implements java.io.Serializable {
 		return this.bounds;
 	}
 	
+	public void setBounds(Rectangle bounds) {
+		this.bounds = bounds;
+	}
+	
 }

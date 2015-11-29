@@ -45,11 +45,6 @@ public class EstuaryObjectTest implements java.io.Serializable{
 		assertEquals(GameState.UPGRADE_STATE, g1.getGameStatus());
 	}
 	@Test
-	public void startWaveTest(){
-		g1.startGame();
-		assertEquals(GameState.RUNNING_STATE, g1.getGameStatus());
-	}
-	@Test
 	public void inbetweenWaveTest(){
 		assertEquals(GameState.TITLE_STATE, g1.getGameStatus());
 	}

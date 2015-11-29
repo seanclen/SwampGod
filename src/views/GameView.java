@@ -22,12 +22,14 @@ import java.util.Observer;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controllers.GameViewController;
 import objects.EstuaryObject;
 import swampgod.Estuary;
 import swampgod.Game;
+import swampgod.Main.GameState;
 import swampgod.Stream;
 
 public class GameView extends JPanel implements Observer{
@@ -35,12 +37,11 @@ public class GameView extends JPanel implements Observer{
 	private static final long serialVersionUID = 11082015;
 	private Game game;
 	static int panelWidth = 960, panelHeight = 640;
-	private Graphics viewGraphics;
-	private GameViewController gameViewController;
 	
 	private static Image imgAlgae;
 	private static Image imgClam;
 	private static Image imgTrash;
+	private static Image imgBackground;
 
 	public GameView() {
 		System.out.println("GameView() initialized");
@@ -63,7 +64,7 @@ public class GameView extends JPanel implements Observer{
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gameViewController.buttonClicked(e);
+				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
 			}
 		});
 		add(btnStart, BorderLayout.PAGE_START);
@@ -71,7 +72,7 @@ public class GameView extends JPanel implements Observer{
 		JButton btnPause = new JButton("Pause");
 		btnPause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gameViewController.buttonClicked(e);
+				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
 			}
 		});
 		add(btnPause, BorderLayout.PAGE_START);
@@ -90,42 +91,22 @@ public class GameView extends JPanel implements Observer{
     		imgAlgae = ImageIO.read(new File("pics/algea.png"));
 			imgClam = ImageIO.read(new File("pics/clam.png"));
 			imgTrash = ImageIO.read(new File("pics/trash_can.png"));
-		} catch (IOException e) {
+			imgBackground = ImageIO.read(new File("pics/EstuaryBackground.png"));
+			} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	/**
-	 * Make the view aware of its controller. This lets components call custom methods from
-	 * the controller class.
-	 */
-	public void initializeController() {
-		gameViewController = (GameViewController) this.getMouseListeners()[0];
+	@Override
+	public void paintComponent(Graphics g) {
+		System.out.println("GameView:paintComponent()");
+		g.drawImage(imgBackground, 0, 0, null);
 	}
-	
-	public void getGameFromController() {
-		gameViewController = (GameViewController) this.getMouseListeners()[0];
-		game = gameViewController.getGame();
-	}
-	
-	public void setGraphics(Graphics g) {
-		viewGraphics = g;
-	}
-	
-//	@Override
-//	public void paintComponent(Graphics g) {
-//		System.out.println("paintComponent");
-//		super.paintComponent(g);
-//		g.setColor(Color.RED);
-//		g.fillRect(0, 0, 100, 100);
-//	}
 	
 	public void paintSwamp() {
-		System.out.println("GameView:paintSwamp()");
 		Graphics g = getGraphics();
-		super.paintComponent(g);
+		//super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		getGameFromController();
 		Stream[] streams = game.getStreams();
 		for (Stream stream : streams) {
 			paintStream(stream, g2);
@@ -138,16 +119,11 @@ public class GameView extends JPanel implements Observer{
 		ArrayList<EstuaryObject> streamObjects = stream.getObjectsToDraw();
 		
 		Rectangle bounds = stream.getBounds();
-		int x = bounds.x, y = bounds.y, width = bounds.width, height = bounds.height;
 		
 		//Paint Background and bounds
-		g.setColor(Color.green);
-		g.fillRect(x, y, width, height);
-		g.setColor(Color.red);
-		g.drawRect(x, y, width, height);
-		g.setColor(Color.blue);
+		g.setColor(Color.BLUE);
 		Stroke temp = g.getStroke();
-		g.setStroke(new BasicStroke(120f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+		g.setStroke(new BasicStroke(70f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 		g.draw(stream.getStreamCurve());
 		g.setStroke(temp);
 		
@@ -192,23 +168,29 @@ public class GameView extends JPanel implements Observer{
 		//Paint Background and bounds
 		g.setColor(Color.blue);
 		g.fillRect(x, y, width, height);
-		g.setColor(Color.red);
-		g.drawRect(x, y, width, height);
 	}
-	
+	private boolean healthChanged;
 	private void paintHUD(Graphics2D g2d) {
 		Rectangle healthBar = new Rectangle(250, 500, 500, 100);
 		Rectangle trash = new Rectangle(game.getTrashCan().getBounds());
 		int health = game.getHealth();
 		if (health < 30) {
 			g2d.setColor(Color.RED);
+			paintHealthBar(g2d, healthBar, health);
 		}
 		else if (health < 70) {
 			g2d.setColor(Color.YELLOW);
+			paintHealthBar(g2d, healthBar, health);
 		}
 		else {
 			g2d.setColor(Color.GREEN);
+			paintHealthBar(g2d, healthBar, health);
 		}
+		
+		g2d.drawImage(imgTrash, trash.x, trash.y, trash.width, trash.height,this);
+	}
+	
+	private void paintHealthBar(Graphics2D g2d, Rectangle healthBar, int health) {
 		g2d.fillRoundRect(healthBar.x, healthBar.y, healthBar.width, healthBar.height, 15, 15);
 		g2d.setColor(Color.BLACK);
 		g2d.setFont(new Font("Purisa", Font.BOLD, 15));
@@ -216,7 +198,6 @@ public class GameView extends JPanel implements Observer{
 		g2d.setColor(Color.GRAY);
 		g2d.setStroke(new BasicStroke(10f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 		g2d.drawRoundRect(healthBar.x, healthBar.y, healthBar.width, healthBar.height, 15, 15);
-		g2d.drawImage(imgTrash, trash.x, trash.y, trash.width, trash.height,this);
 	}
 
 	/**
@@ -226,7 +207,9 @@ public class GameView extends JPanel implements Observer{
 	public void update(Observable o, Object arg) {
 		if (o instanceof GameViewController && arg instanceof Game) {
 			game = (Game) arg;
-			paintSwamp();
+			if (game.getGameState().equals(GameState.RUNNING_STATE)) {
+				paintSwamp();
+			}
 		}
 	}
 }

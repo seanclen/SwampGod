@@ -15,7 +15,7 @@ public final class Level {
 	 */
 	final public static int[] goodObjectReleaseFrequency = {204, 18, 12};
 	final public static int[] badObjectReleaseFrequency = {215, 20, 12};
-	final public static int[] speedMultiplier = {3,6,9};
+	final public static int[] speedMultiplier = {1,2,3};
 	final public static int[] plantEatFrequency = {424, 34, 2};
 	final public static int[] totalGoodObjects = {10, 15, 20};
 	final public static int[] totalBadObjects = {15, 20, 17000000};
@@ -27,9 +27,9 @@ public final class Level {
 	 *     x = .5 gives 5
 	 */ 
 	final public static CubicCurve2D[] streamCurves = {
-			new CubicCurve2D.Double(0, 0, 200, 150, 75, 300, 200, 400),
-			new CubicCurve2D.Double(300, 0, 500, 150, 375, 300, 500, 400),
-			new CubicCurve2D.Double(600, 0, 800, 150, 475, 300, 800, 400)};
+			new CubicCurve2D.Double(0, 0, 20, 35, 75, 70, 80, 100),
+			new CubicCurve2D.Double(20, 0, 60, 30, 40, 65, 90, 100),
+			new CubicCurve2D.Double(90, 0, 15, 25, 60, 60, 20, 100)};
 	
 	public int getGoodObjectReleaseFrequency (int level) {
 		return goodObjectReleaseFrequency[level];

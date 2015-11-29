@@ -2,6 +2,7 @@ package controllers;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -11,9 +12,11 @@ import javax.swing.JPanel;
 
 import swampgod.Game;
 import swampgod.Main.GameState;
+import views.EndGameView;
 import views.GameView;
 import views.MenuView;
 import views.TitleView;
+import views.UpgradeView;
 
 public class ViewController extends Observable implements Observer{
 	protected ArrayList<JPanel> panels;
@@ -24,6 +27,9 @@ public class ViewController extends Observable implements Observer{
 	private MenuViewController menuViewController;
 	private GameView gameView;
 	private GameViewController gameViewController;
+	private UpgradeView upgradeView;
+	
+	private EndGameView endGameView;
 
 	public ViewController () {
 		System.out.println("ViewController");
@@ -50,9 +56,16 @@ public class ViewController extends Observable implements Observer{
 		gameView = new GameView();
 		gameViewController = new GameViewController();
 		gameViewController.addObserver(this);
+		gameViewController.addObserver(gameView);
 		gameView.addMouseListener(gameViewController);
-		gameView.initializeController();
+		gameView.addMouseMotionListener(gameViewController);
 		panels.add(gameView);
+		
+		upgradeView = new UpgradeView();
+		panels.add(upgradeView);
+		
+		endGameView = new EndGameView();
+		panels.add(endGameView);
 		
 		viewDelegate.loadPanels(panels);
 	}
@@ -78,46 +91,26 @@ public class ViewController extends Observable implements Observer{
 				clearChanged();
 			}
 		}
-		
-		// Handle updates coming in from the GameViewController
-		else if (o instanceof GameViewController)
-		{
-			if (arg instanceof Game) {
-				// Something happened in GameView, let the Controller know
-				
+		if (o instanceof GameViewController && arg instanceof Game) {
+			GameState state = ((Game) arg).getGameState();
+			System.out.println("Got the game change"+state);
+			if (state.equals(GameState.UPGRADE_STATE)) {
+				viewDelegate.presentPanelFromGameState(state);
 			}
-			else if (arg instanceof String)
-			{
-				String token = (String) arg;
-				System.out.println("ViewController:update(GameViewController)."+token);
-				if (token == "RunGame") {
-					
-				}
-				else if (token == "PauseGame")
-				{
-					
-				}
+			else if (state.equals(GameState.ENDGAME_STATE)) {
+				viewDelegate.presentPanelFromGameState(state);
 			}
-			setChanged();
-			notifyObservers(arg);
-			clearChanged();
 		}
 	}
 	
 	/**
-	 * Handles the update of Game users when the game.tick() is called in Controller.
-	 * We want to make sure that the game in Controller is the 'model'
-	 * @param update Game object to send to GameView and GameViewController
+	 * Get the game from the Controller and push it to the GameView and GameViewController. This
+	 * is also where we set the layout of the game for variable resolutions
+	 * @param game
 	 */
-	public void updateGameFromTick(Game update) {
-		System.out.println("ViewController:updateGameFromTick()");
-		gameView.setGame(update);
-		gameViewController.setGame(update);
-		gameView.addMouseListener(gameViewController);
-		gameView.initializeController();
-		viewDelegate.updateGame();
-		gameView.paintSwamp();
-		//viewDelegate.repaint();
+	public void setGame(Game game) {
+		gameView.setGame(game);
+		gameViewController.setGame(game);
 	}
 	
 	public void handleStateChange(GameState gameState) {
@@ -153,14 +146,11 @@ public class ViewController extends Observable implements Observer{
 		
 		public void loadPanels(ArrayList<JPanel> panels) {
 			viewPanels = panels;
-			System.out.println("ViewDelegate:loadPanels("+panels+")");
-			System.out.println("ViewDelegate:loadPanels.viewPanels.size("+viewPanels.size()+")");
 			for(int i = 0; i < panels.size(); i++) {
 				System.out.println("ViewDelegate:loadPanels.add()");
 				viewPanels.get(i).setSize(getSize());
 				add(viewPanels.get(i));
 			}
-			currentPanelIndex = getViewPanelIndex("TitleView");
 			getContentPane().getComponent(currentPanelIndex).setSize(getSize());
 			getContentPane().getComponent(currentPanelIndex).setVisible(true);
 			setVisible(true);
@@ -194,6 +184,7 @@ public class ViewController extends Observable implements Observer{
 					//switchPanelTo("GameView");
 					gameView.setSize(this.getSize());
 					gameView.setVisible(true);
+					gameViewController.updateGameSize(getBounds());
 					add(gameView);
 					repaint();
 					return true;
@@ -203,49 +194,32 @@ public class ViewController extends Observable implements Observer{
 					//switchPanelTo("GameView");
 					gameView.setSize(this.getSize());
 					gameView.setVisible(true);
+					gameViewController.updateGameSize(getBounds());
 					add(gameView);
+					repaint();
+					return true;
+				}
+				else if (gameState.equals(GameState.UPGRADE_STATE))
+				{
+					System.out.println("ViewController:update(UPGRADE_STATE)");
+					upgradeView.setSize(this.getSize());
+					upgradeView.setVisible(true);
+					add(upgradeView);
+					repaint();
+					return true;
+				}
+				else if (gameState.equals(GameState.ENDGAME_STATE))
+				{
+					System.out.println("ViewController:update(ENDGAME_STATE)");
+					endGameView.setSize(this.getSize());
+					endGameView.setVisible(true);
+					add(endGameView);
 					repaint();
 					return true;
 				}
 				return false;
 			}
 			return false;
-		}
-		
-		public void updateGame() {
-			GameView view = (GameView) getContentPane().getComponent(0);
-			GameViewController controller = (GameViewController) getContentPane().getComponent(0).getMouseListeners()[0];
-			
-			view = gameView;
-			controller = gameViewController;
-			
-		}
-		
-		private void switchPanelTo(String panelName) {
-//			getContentPane().getComponent(getViewPanelIndex(panelName)).setVisible(true);
-//			getContentPane().getComponent(currentPanelIndex).setVisible(false);
-//			currentPanelIndex = getViewPanelIndex(panelName);
-		}
-		
-		/**
-		 * Get the index of the JPanel with name panelName within viewPanels
-		 * @param panelName
-		 * @return -1 if the panel does not exist in the collection
-		 */
-		private int getViewPanelIndex(String panelName) {
-			int i = 0;
-			while (i < viewPanels.size()) {
-				if (viewPanels.get(i).getName().equals(panelName)){
-					return i;
-				}
-				i++;
-			}
-			return -1;
-		}
-		
-		public void repaintCurrentPanel() {
-			System.out.println("ViewDelegate:repaintCurrentPanel()");
-			
 		}
 		
 		/**

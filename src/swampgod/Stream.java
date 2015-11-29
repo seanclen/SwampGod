@@ -149,5 +149,9 @@ public class Stream implements java.io.Serializable{
 	public Rectangle getBounds() {
 		return this.bounds;
 	}
+	
+	public void setBounds(Rectangle bounds) {
+		this.bounds = bounds;
+	}
 
 }

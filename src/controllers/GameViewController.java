@@ -1,9 +1,12 @@
 package controllers;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.Observable;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.event.MouseInputListener;
@@ -13,12 +16,35 @@ import objects.EstuaryObject;
 import objects.GoodObject;
 import swampgod.Game;
 import swampgod.Main.GameState;
+import views.GameView;
 
 public class GameViewController extends Observable implements MouseInputListener {
 	Game game;
+	private static Timer runTimer = new Timer();
+	private TimerTask runGame;
 	
 	public GameViewController(){
-		
+		runGame = new TimerTask() {
+			@Override
+			public void run() {
+				if (game.getGameState().equals(GameState.RUNNING_STATE)){
+					game.tick();
+					setChanged();
+					notifyObservers(game);
+					clearChanged();
+				} else {
+					System.out.println("GameViewController:not running state");
+					setChanged();
+					notifyObservers(game);
+					clearChanged();
+					cancel();
+				}
+			}
+		};
+	}
+	
+	public void updateGameSize(Rectangle bounds) {
+		game.updateWindowSize(bounds);
 	}
 	
 	public void setGame(Game game) {
@@ -64,17 +90,15 @@ public class GameViewController extends Observable implements MouseInputListener
 				}
 			}
 		}
-		game.setClickedObject(obj);
-		game.setPreviousPosition(obj.getPos());
-		game.removeObjects(obj);
-		setChanged();
-		notifyObservers(game);
-		clearChanged();
+		if (obj != null) {
+			game.setClickedObject(obj);
+			game.setPreviousPosition(obj.getPos());
+			game.removeObjects(obj);
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-
 		if(game.getClickedObject()!= null){
 			int x=e.getX();
 			int y=e.getY();
@@ -97,9 +121,6 @@ public class GameViewController extends Observable implements MouseInputListener
 				}
 			}
 		}
-		setChanged();
-		notifyObservers(game);
-		clearChanged();
 	}
 
 	@Override
@@ -116,18 +137,20 @@ public class GameViewController extends Observable implements MouseInputListener
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		Point p = new Point(e.getX(), e.getY());
-		if(game.getClickedObject()!=null){
-			game.getClickedObject().setPosition(p);
+//		Point p = new Point(e.getX(), e.getY());
+//		if(game.getClickedObject()!=null){
+//			game.getClickedObject().setPosition(p);
+//		}
+		EstuaryObject obj = game.getClickedObject();
+		if (obj != null) {
+			obj.setPosition(e.getPoint());
+			game.setClickedObject(obj);
 		}
-		setChanged();
-		notifyObservers(game);
-		clearChanged();
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 	}
 
 	public void buttonClicked(ActionEvent e) {
@@ -142,17 +165,14 @@ public class GameViewController extends Observable implements MouseInputListener
 				 * We accomplish by simply passing a string 'token' "RunGame" to the ViewController
 				 * which will then pass the token to the Controller.
 				 */
-				setChanged();
-				notifyObservers("RunGame");
-				clearChanged();
+				if (game.getGameState().equals(GameState.RUNNING_STATE)){
+					runTimer.schedule(runGame, 0, 10);
+				}
 			}
 			else if (btn.getText().equals("Pause")) {
 				System.out.println("GameViewController:buttonClicked().Pause");
-				setChanged();
-				notifyObservers("PauseGame");
-				clearChanged();
+				game.setGameState(GameState.PAUSE_STATE);
 			}
-			
 		}
 	}
 

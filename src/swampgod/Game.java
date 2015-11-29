@@ -1,6 +1,8 @@
 package swampgod;
 
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.geom.CubicCurve2D;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -94,8 +96,30 @@ public class Game extends Observable implements java.io.Serializable{
 		System.out.println("Game:initialize() -- end");
 	}
 	
-	public void startGame() {
+	public void updateWindowSize(Rectangle bounds) {
+		double estuaryBorder = (bounds.height * .7);
+		int streamWidth = (bounds.width / 3);
+		estuary.setBounds(new Rectangle(
+				0, 
+				(int) estuaryBorder,
+				bounds.width,
+				(int) (bounds.height - estuaryBorder)
+				));
 		
+		// Update streams
+		for (Stream s : streams) {
+			s.setBounds(new Rectangle(
+					s.getId()*streamWidth,
+					0,
+					streamWidth,
+					(int) estuaryBorder));
+			CubicCurve2D curve = s.getStreamCurve();
+			s.setStreamCurve(new CubicCurve2D.Double(
+					s.getBounds().x + ((curve.getX1()/100)*s.getBounds().width), (curve.getY1()/100)*s.getBounds().height, 
+					s.getBounds().x + ((curve.getCtrlX1()/100)*s.getBounds().width), (curve.getCtrlY1()/100)*s.getBounds().height,
+					s.getBounds().x + ((curve.getCtrlX2()/100)*s.getBounds().width), (curve.getCtrlY2()/100)*s.getBounds().height,
+					s.getBounds().x + ((curve.getX2()/100)*s.getBounds().width), (curve.getY2()/100)*s.getBounds().height));
+		}
 	}
 
 	public TrashCan getTrashCan(){
@@ -199,7 +223,6 @@ public class Game extends Observable implements java.io.Serializable{
 	 */
 
 	public void tick(){
-		System.out.println("Game:tick()");
 		//CALL MOVE ON ALL OBJECTS IN ALL STREAMS
 		//iterate through all streams
 
@@ -254,7 +277,7 @@ public class Game extends Observable implements java.io.Serializable{
 			}
 
 		}
-		System.out.println("score: " + points + " health: " + health);
+		//System.out.println("score: " + points + " health: " + health);
 		//CHECK IF ANY OBJECTS ARE NOT INSTREAMS, I.E. IN ESTUARY -- this probably happens in the move function
 		// this also happens in the move thing
 
@@ -327,6 +350,7 @@ public class Game extends Observable implements java.io.Serializable{
 		}
 		else{
 			setGameState(GameState.UPGRADE_STATE);
+			System.out.println("UPGRADE_STATE");
 		}
 	}
 
