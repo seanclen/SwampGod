@@ -197,6 +197,8 @@ public class GameView extends JPanel implements Observer{
 				img = imgTrashBag;
 			} else if(obj.getType() == "Fish"){
 				img = imgFish;
+			} else if(obj.getType() == "LilyPad"){
+				img = imgLilyPad;
 			} else{
 				img = imgMussel;
 			}
