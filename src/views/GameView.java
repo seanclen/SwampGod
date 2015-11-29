@@ -95,6 +95,8 @@ public class GameView extends JPanel implements Observer{
 			}
 		});
 		upgradesPanel.add(btnTree);
+		
+		add(upgradesPanel);
 	}
 	
 	public void setGame(Game update) {
