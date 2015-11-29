@@ -49,6 +49,7 @@ public class GameView extends JPanel implements Observer{
 	private static Image imgTree;
 	private static Image imgBush;
 	private static Image imgFish;
+	private static Image imgLilyPad;
 
 	public GameView() {
 		System.out.println("GameView() initialized");
@@ -122,6 +123,7 @@ public class GameView extends JPanel implements Observer{
 			imgTrash = ImageIO.read(new File("pics/trash_can.png"));
 			imgTrashBag = ImageIO.read(new File("pics/trash.png"));
 			imgMussel = ImageIO.read(new File("pics/zebra_musscle.png"));
+			imgLilyPad = ImageIO.read(new File("pics/lilypad.png"));
 			imgFish = ImageIO.read(new File("pics/whaleishFish.png"));
 			imgTree = ImageIO.read(new File("pics/tree.png"));
 			imgBush = ImageIO.read(new File("pics/azalea.png"));
@@ -173,6 +175,8 @@ public class GameView extends JPanel implements Observer{
 				img = imgTrashBag;
 			} else if(obj.getType() == "Fish"){
 				img = imgFish;
+			} else if(obj.getType() == "LilyPad"){
+				img = imgLilyPad;
 			} else{
 				img = imgMussel;
 			}
