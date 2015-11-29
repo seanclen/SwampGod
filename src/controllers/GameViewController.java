@@ -37,7 +37,6 @@ public class GameViewController extends Observable implements MouseInputListener
 					setChanged();
 					notifyObservers(game);
 					clearChanged();
-					cancel();
 				}
 			}
 		};
@@ -62,38 +61,40 @@ public class GameViewController extends Observable implements MouseInputListener
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
-		int s=-1;
-		for(int i=0;i<3;i++){
-			if(game.getStreams()[i].getBounds().contains(x,y)){
-				s=i;
-			}
-		}
-		boolean found =false;
-		EstuaryObject obj=null;
-		for(GoodObject go : game.getStreams()[s].getGoodObjects()){
-			if(!found){
-				if(go.getBounds().contains(x,y)){
-					obj = go;
-					found=true;
+		if (game.getGameState().equals(GameState.RUNNING_STATE)) {
+			int x = e.getX();
+			int y = e.getY();
+			int s=-1;
+			for(int i=0;i<3;i++){
+				if(game.getStreams()[i].getBounds().contains(x,y)){
+					s=i;
 				}
 			}
-		}
-		if(!found){
-			for(BadObject bo : game.getStreams()[s].getBadObjects()){
+			boolean found =false;
+			EstuaryObject obj=null;
+			for(GoodObject go : game.getStreams()[s].getGoodObjects()){
 				if(!found){
-					if(bo.getBounds().contains(x,y)){
-						obj = bo;
+					if(go.getBounds().contains(x,y)){
+						obj = go;
 						found=true;
 					}
 				}
 			}
-		}
-		if (obj != null) {
-			game.setClickedObject(obj);
-			game.setPreviousPosition(obj.getPos());
-			game.removeObjects(obj);
+			if(!found){
+				for(BadObject bo : game.getStreams()[s].getBadObjects()){
+					if(!found){
+						if(bo.getBounds().contains(x,y)){
+							obj = bo;
+							found=true;
+						}
+					}
+				}
+			}
+			if (obj != null) {
+				game.setClickedObject(obj);
+				game.setPreviousPosition(obj.getPos());
+				game.removeObjects(obj);
+			}
 		}
 	}
 
@@ -167,6 +168,10 @@ public class GameViewController extends Observable implements MouseInputListener
 				 */
 				if (game.getGameState().equals(GameState.RUNNING_STATE)){
 					runTimer.schedule(runGame, 0, 10);
+				}
+				else if (game.getGameState().equals(GameState.PAUSE_STATE)){
+					game.setGameState(GameState.RUNNING_STATE);
+
 				}
 			}
 			else if (btn.getText().equals("Pause")) {

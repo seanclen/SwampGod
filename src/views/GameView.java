@@ -121,6 +121,7 @@ public class GameView extends JPanel implements Observer{
 		Rectangle bounds = stream.getBounds();
 		
 		//Paint Background and bounds
+		//g.drawImage(imgBackground, 0, 0, getSize().width, getSize().height, null);
 		g.setColor(Color.BLUE);
 		Stroke temp = g.getStroke();
 		g.setStroke(new BasicStroke(70f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));

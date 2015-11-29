@@ -46,8 +46,8 @@ public class Stream implements java.io.Serializable{
 		for (int i = 0; i < num; i++) {
 			BadObject newObject = BadObject.createRandom();
 			newObject.setStream(id);
-			newObject.setPosition(new Point(this.bounds.x + 100, 100));
-			newObject.setBounds(this.bounds.x + 100, 0, 32, 32);
+			newObject.setPosition(new Point(this.bounds.x + 100, -100));
+			newObject.setBounds(this.bounds.x + 100, -100, 32, 32);
 			badObjects.add(newObject);
 		}
 	}
@@ -60,8 +60,8 @@ public class Stream implements java.io.Serializable{
 		for (int i = 0; i < num; i++) {
 			GoodObject newObject = GoodObject.createRandom();
 			newObject.setStream(id);
-			newObject.setPosition(new Point(this.bounds.x + 100, 100));
-			newObject.setBounds(this.bounds.x + 100, 0, 32, 32);
+			newObject.setPosition(new Point(this.bounds.x + 100, -100));
+			newObject.setBounds(this.bounds.x + 100, -100, 32, 32);
 			goodObjects.add(newObject);
 		}
 	}
