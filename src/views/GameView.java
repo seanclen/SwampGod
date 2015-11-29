@@ -41,6 +41,8 @@ public class GameView extends JPanel implements Observer{
 	private static Image imgAlgae;
 	private static Image imgClam;
 	private static Image imgTrash;
+	private static Image imgTrashBag;
+	private static Image imgMussel;
 	private static Image imgBackground;
 
 	public GameView() {
@@ -112,6 +114,8 @@ public class GameView extends JPanel implements Observer{
     		imgAlgae = ImageIO.read(new File("pics/algea.png"));
 			imgClam = ImageIO.read(new File("pics/clam.png"));
 			imgTrash = ImageIO.read(new File("pics/trash_can.png"));
+			imgTrashBag = ImageIO.read(new File("pics/trash.png"));
+			imgMussel = ImageIO.read(new File("pics/zebra_musscle.png"));
 			imgBackground = ImageIO.read(new File("pics/EstuaryBackground.png"));
 			} catch (IOException e) {
 			e.printStackTrace();
@@ -152,10 +156,15 @@ public class GameView extends JPanel implements Observer{
 		//Paint objects
 		for(EstuaryObject obj : streamObjects) {
 			Image img = null;
-			if (obj.getType() == "Algae" || obj.getType() == "Clam" || obj.getType() == "LilyPad") {
+			if (obj.getType() == "Algae") {
 				img = imgAlgae;
-			} else {
+			} else if(obj.getType() == "Clam") {
 				img = imgClam;
+			} else if(obj.getType() == "Hazard Waste"){
+				img = imgTrashBag;
+			}
+			else{
+				img = imgMussel;
 			}
 			g.drawImage(img,
 					obj.getBounds().x, 
@@ -166,10 +175,15 @@ public class GameView extends JPanel implements Observer{
 		EstuaryObject obj = game.getClickedObject();
 		if (obj!=null) {
 			Image img = null;
-			if (obj.getType() == "Algae" || obj.getType() == "Clam" || obj.getType() == "LilyPad") {
+			if (obj.getType() == "Algae") {
 				img = imgAlgae;
-			} else {
+			} else if(obj.getType() == "Clam") {
 				img = imgClam;
+			} else if(obj.getType() == "Hazard Waste"){
+				img = imgTrashBag;
+			}
+			else{
+				img = imgMussel;
 			}
 			g.drawImage(img,
 					obj.getBounds().x, 
