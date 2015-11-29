@@ -76,6 +76,25 @@ public class GameView extends JPanel implements Observer{
 			}
 		});
 		add(btnPause, BorderLayout.PAGE_START);
+		
+		JPanel upgradesPanel = new JPanel();
+		upgradesPanel.setSize(300,100);
+		
+		JButton btnBush = new JButton("AddBush");
+		btnBush.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
+			}
+		});
+		upgradesPanel.add(btnBush);
+		
+		JButton btnTree = new JButton("AddTree");
+		btnTree.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
+			}
+		});
+		upgradesPanel.add(btnTree);
 	}
 	
 	public void setGame(Game update) {
