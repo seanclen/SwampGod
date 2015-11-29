@@ -34,6 +34,10 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 		position=p;
 	}
 	
+	public String getType(){
+		return type;
+	}
+	
 	/**
 	 * removes the object from the list of objects
 	 */

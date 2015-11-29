@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 
 import controllers.GameViewController;
 import objects.EstuaryObject;
+import objects.Plant;
 import swampgod.Estuary;
 import swampgod.Game;
 import swampgod.Main.GameState;
@@ -44,6 +45,8 @@ public class GameView extends JPanel implements Observer{
 	private static Image imgTrashBag;
 	private static Image imgMussel;
 	private static Image imgBackground;
+	private static Image imgTree;
+	private static Image imgBush;
 
 	public GameView() {
 		System.out.println("GameView() initialized");
@@ -116,6 +119,8 @@ public class GameView extends JPanel implements Observer{
 			imgTrash = ImageIO.read(new File("pics/trash_can.png"));
 			imgTrashBag = ImageIO.read(new File("pics/trash.png"));
 			imgMussel = ImageIO.read(new File("pics/zebra_musscle.png"));
+			imgTree = ImageIO.read(new File("pics/tree.png"));
+			imgBush = ImageIO.read(new File("pics/azalea.png"));
 			imgBackground = ImageIO.read(new File("pics/EstuaryBackground.png"));
 			} catch (IOException e) {
 			e.printStackTrace();
@@ -184,6 +189,20 @@ public class GameView extends JPanel implements Observer{
 			}
 			else{
 				img = imgMussel;
+			}
+			g.drawImage(img,
+					obj.getBounds().x, 
+					obj.getBounds().y, 
+					obj.getBounds().width, 
+					obj.getBounds().height,this);
+		}
+		for(Plant pl: game.getPlants()){
+			Image img = null;
+			if (pl.getType() == "Tree") {
+				img = imgTree;
+			}
+			else{
+				img = imgBush;
 			}
 			g.drawImage(img,
 					obj.getBounds().x, 
