@@ -57,6 +57,14 @@ public class GameViewController extends Observable implements MouseInputListener
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("GameViewController:mouseClicked("+e.getPoint()+")");
+		if(game.getGameStatus().equals(GameState.UPGRADE_STATE)){
+			if(game.getChosenPlant()!=null){
+				Point p = new Point(e.getX(), e.getY());
+				game.getChosenPlant().setPosition(p);
+				game.getPlants().add(game.getChosenPlant());
+				game.setChosenPlant(null);
+			}
+		}
 	}
 
 	@Override
@@ -93,7 +101,7 @@ public class GameViewController extends Observable implements MouseInputListener
 			if (obj != null) {
 				game.setClickedObject(obj);
 				game.setPreviousPosition(obj.getPos());
-				game.removeObjects(obj);
+				game.removeObjToTrash(obj);
 			}
 		}
 	}
@@ -105,7 +113,7 @@ public class GameViewController extends Observable implements MouseInputListener
 			int y=e.getY();
 			if(game.getTrashCan().getBounds().contains(x,y)){
 				if(!game.getClickedObject().isGood()){
-					game.updateScore(game.getClickedObject().getPointValue());
+					//game.updateScore(game.getClickedObject().getPointValue());
 				}
 				game.setClickedObject(null);
 			}
