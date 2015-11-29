@@ -23,8 +23,10 @@ public class GoodObject extends EstuaryObject{
 		switch (randomInt) {
 		case 1:
 			returnObject = new Clam();
+			break;
 		case 2:
 			returnObject = new Fish();
+			break;
 		case 3:
 			returnObject = new LilyPad();
 		}

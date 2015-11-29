@@ -35,13 +35,13 @@ public class Game extends Observable implements java.io.Serializable{
 	TrashCan trashcan = new TrashCan();
 	private EstuaryObject clickedObject;
 	private Point previousPosition;
+	Plant chosenPlant;
 
 	/**
 	 * constructs the objects
 	 */
 	public Game(){
 		this.gameState = GameState.INITIALIZE;
-		//initialize();
 	}
 
 	public void updateGameState(GameState gameState) {
@@ -73,7 +73,7 @@ public class Game extends Observable implements java.io.Serializable{
 		setPlants(new ArrayList<Plant>());
 		setClickedObject(null);
 		setPreviousPosition(null);
-		
+		setChosenPlant(null);	
 		for (int i = 0; i < streams.length; i++) {
 			streams[i] = new Stream(i);
 		}
@@ -137,6 +137,14 @@ public class Game extends Observable implements java.io.Serializable{
 	public int getWaveNumber(){
 		return waveNumber;
 	}
+	
+	public void setChosenPlant(Plant pl){
+		chosenPlant=pl;
+	}
+	
+	public Plant getChosenPlant(){
+		return chosenPlant;
+	}
 
 	/**
 	 * @return - game state
@@ -194,7 +202,10 @@ public class Game extends Observable implements java.io.Serializable{
 		// TODO Three cases when the score should be updated
 		boolean removed;
 		//remove from streams
-		if(obj.isGood()){		
+		if(obj.isGood()){	
+			if(obj.getType()== "Fish"){
+				fishCount++;
+			}
 			updateScore(obj.getPointValue());
 			removed = streams[obj.getStream()].goodObjects.remove(obj);
 		}
@@ -203,6 +214,17 @@ public class Game extends Observable implements java.io.Serializable{
 			removed = streams[obj.getStream()].badObjects.remove(obj);
 		}
 
+		return removed;
+	}
+	
+	public boolean removeObjToTrash(EstuaryObject obj){
+		boolean removed;
+		if(obj.isGood()){
+			removed= streams[obj.getStream()].goodObjects.remove(obj);
+		}
+		else{
+			removed = streams[obj.getStream()].badObjects.remove(obj);
+		}
 		return removed;
 	}
 
@@ -277,23 +299,11 @@ public class Game extends Observable implements java.io.Serializable{
 			}
 
 		}
-		//System.out.println("score: " + points + " health: " + health);
-		//CHECK IF ANY OBJECTS ARE NOT INSTREAMS, I.E. IN ESTUARY -- this probably happens in the move function
-		// this also happens in the move thing
-
-		//RELEASE NEW OBJECTS FROM PURGATORY
-		//this happens in the move thing
-
-		//CHECK IF GAME IS OGRE (HEALTH TOO LOW, ALL WAVES DONE)
 		isEnd();
-		//CHECK IF WAVE OVER (IF SO CHANGE TO UPGRADE SCREEN OR GAME OGRE -- MORE LIKELY CALL END WAVE AND IT DOES THAT)
 		if(isEndWave()){
 			endWave();
 		}
 
-		//WAIT SOME AMOUNT OF TIME BEFORE NEXT ( SLEEP )
-
-		//AM I MISSING ANYTHING THAT NEED TO HAPPEN HERE?
 		tickCount++;
 		setChanged();
 		notifyObservers(this);
@@ -325,7 +335,7 @@ public class Game extends Observable implements java.io.Serializable{
 			pl = new Tree(pos);
 		}
 		pl.setPosition(pos);
-		getPlants().add(pl);;
+		getPlants().add(pl);
 		return pl;
 	}
 

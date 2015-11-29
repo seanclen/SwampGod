@@ -32,8 +32,10 @@ public class BadObject extends EstuaryObject{
 		switch (randomInt) {
 		case 1:
 			returnObject = new Algae();
+			break;
 		case 2:
 			returnObject = new Crab();
+			break;
 		case 3:
 			returnObject = new HazardWaste();
 		}
