@@ -30,11 +30,21 @@ public class MenuView extends JPanel{
 	private MenuViewController menuViewController;
 	private JLabel lblSwampSweeper;
 	private JButton btnNewGame;
+	private JPanel menuPanel;
+	private static Image imgMenuBackground;
 	
 	public MenuView() {
 		System.out.println("MenuView() initialized");
+		try
+		{
+			imgMenuBackground = ImageIO.read(new File("pics/TitleScreen_Temp.png"));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		setName("MenuView");
-		setLayout(new BorderLayout());
+		setLayout(null);
 		setBackground(new Color (36,228,149));
 		setVisible(false);
 		
@@ -56,7 +66,16 @@ public class MenuView extends JPanel{
 				menuViewController.buttonClicked(e);
 			}
 		});
-		add(lblSwampSweeper, BorderLayout.PAGE_START);
+		
+		btnNewGame.setBounds(750, 500, 280, 92);
+		
+		menuPanel = new JPanel();
+		menuPanel.setSize(getSize().width,getSize().height);
+		menuPanel.add(btnNewGame);
+		menuPanel.setVisible(true);this.add(menuPanel);
+		
+		
+		//add(lblSwampSweeper, BorderLayout.PAGE_START);
 		add(btnNewGame, BorderLayout.CENTER);
 		setFocusable(true);
 	}
@@ -72,6 +91,7 @@ public class MenuView extends JPanel{
 	protected void paintComponent(Graphics g) {
 		System.out.println("Paint Component:MenuView");
 		super.paintComponent(g);
+		g.drawImage(imgMenuBackground, 0, 0, getSize().width, getSize().height, null);
 		
 	}
 }
