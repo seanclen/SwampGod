@@ -3,13 +3,13 @@ package controllers;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.Observable;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.event.MouseInputListener;
+import javax.swing.Timer;
 
 import objects.BadObject;
 import objects.Bush;
@@ -23,13 +23,14 @@ import views.GameView;
 
 public class GameViewController extends Observable implements MouseInputListener {
 	Game game;
-	private static Timer runTimer = new Timer();
-	private TimerTask runGame;
+	private static Timer runTimer;
+	//private TimerTask runGame;
 	
 	public GameViewController(){
-		runGame = new TimerTask() {
+		runTimer = new Timer(40, new ActionListener() {
+
 			@Override
-			public void run() {
+			public void actionPerformed(ActionEvent action) {
 				if (game.getGameState().equals(GameState.RUNNING_STATE)){
 					game.tick();
 					setChanged();
@@ -39,7 +40,7 @@ public class GameViewController extends Observable implements MouseInputListener
 					setChanged();
 					notifyObservers(game);
 					clearChanged();
-					cancel();
+					runTimer.stop();
 				} else {
 					System.out.println("GameViewController:not running state");
 					setChanged();
@@ -47,7 +48,8 @@ public class GameViewController extends Observable implements MouseInputListener
 					clearChanged();
 				}
 			}
-		};
+			
+		});
 	}
 	
 	public void updateGameSize(Rectangle bounds) {
@@ -114,6 +116,11 @@ public class GameViewController extends Observable implements MouseInputListener
 				game.setPreviousPosition(obj.getPos());
 				game.removeObjToTrash(obj);
 			}
+		}
+		else if (game.getGameState().equals(GameState.UPGRADE_STATE) && game.getChosenPlant() != null) {
+			//TODO Need to add logic here to make sure the plant is being placed around Stream
+			game.getPlants().add(game.getChosenPlant());
+			game.setChosenPlant(null);
 		}
 	}
 
@@ -186,7 +193,7 @@ public class GameViewController extends Observable implements MouseInputListener
 				 * which will then pass the token to the Controller.
 				 */
 				if (game.getGameState().equals(GameState.RUNNING_STATE)){
-					runTimer.schedule(runGame, 0, 10);
+					runTimer.start();
 				}
 				else if (game.getGameState().equals(GameState.PAUSE_STATE)){
 					game.setGameState(GameState.RUNNING_STATE);
@@ -196,6 +203,9 @@ public class GameViewController extends Observable implements MouseInputListener
 			else if (btn.getText().equals("Pause")) {
 				System.out.println("GameViewController:buttonClicked().Pause");
 				game.setGameState(GameState.PAUSE_STATE);
+			}
+			else if (btn.getText().equals("Upgrade")) {
+				game.setGameState(GameState.UPGRADE_STATE);
 			}
 			else if(btn.getText().equals("AddBush")&&game.getGameStatus().equals(GameState.UPGRADE_STATE)){
 				Bush b = new Bush(null);

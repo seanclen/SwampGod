@@ -163,6 +163,7 @@ public class Game extends Observable implements java.io.Serializable{
 	
 	public void setChosenPlant(Plant pl){
 		chosenPlant=pl;
+		System.out.println(chosenPlant);
 	}
 	
 	public Plant getChosenPlant(){

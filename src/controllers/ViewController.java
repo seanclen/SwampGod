@@ -16,7 +16,6 @@ import views.EndGameView;
 import views.GameView;
 import views.MenuView;
 import views.TitleView;
-import views.UpgradeView;
 
 public class ViewController extends Observable implements Observer{
 	protected ArrayList<JPanel> panels;
@@ -27,9 +26,8 @@ public class ViewController extends Observable implements Observer{
 	private MenuViewController menuViewController;
 	private GameView gameView;
 	private GameViewController gameViewController;
-	private UpgradeView upgradeView;
-	
 	private EndGameView endGameView;
+	private EndGameViewController endGameViewController;
 
 	public ViewController () {
 		System.out.println("ViewController");
@@ -61,10 +59,11 @@ public class ViewController extends Observable implements Observer{
 		gameView.addMouseMotionListener(gameViewController);
 		panels.add(gameView);
 		
-		upgradeView = new UpgradeView();
-		panels.add(upgradeView);
-		
 		endGameView = new EndGameView();
+		endGameViewController = new EndGameViewController();
+		endGameViewController.addObserver(this);
+		endGameView.addMouseListener(endGameViewController);
+		endGameView.initializeController();
 		panels.add(endGameView);
 		
 		viewDelegate.loadPanels(panels);

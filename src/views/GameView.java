@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -85,6 +86,14 @@ public class GameView extends JPanel implements Observer{
 		});
 		add(btnPause, BorderLayout.PAGE_START);
 		
+		JButton btnUpgrade = new JButton("Upgrade");
+		btnUpgrade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
+			}
+		});
+		add(btnUpgrade, BorderLayout.PAGE_START);
+		
 		upgradesPanel = new JPanel();
 		upgradesPanel.setSize(300,100);
 		upgradesPanel.setVisible(false);
@@ -140,27 +149,40 @@ public class GameView extends JPanel implements Observer{
 	}
 	
 	public void paintSwamp() {
-		Graphics g = getGraphics();
+		Graphics g = super.getGraphics();
 		//super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
+		drawView(g);
+	}
+	
+	private void drawView(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g.create();
+		BufferedImage combinedImage = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_INT_ARGB);
+		
+		Graphics2D gci = combinedImage.createGraphics();
+		AlphaComposite ac = AlphaComposite.getInstance(
+                AlphaComposite.SRC_OVER, 1f);
+
+		gci.drawImage(imgBackground, 0, 0, null);
 		Stream[] streams = game.getStreams();
 		for (Stream stream : streams) {
-			paintStream(stream, g2);
+			paintStream(stream, gci);
 		}
-		paintEstuary(game.getEstuary(), g2);
-		paintHUD(g2);
+		paintEstuary(game.getEstuary(), gci);
+		paintHUD(gci);
+
+        g2d.drawImage(combinedImage, 0, 0, null);
+
+        gci.dispose();
+        g2d.dispose();
 	}
 
 	private void paintStream(Stream stream, Graphics2D g) {
 		ArrayList<EstuaryObject> streamObjects = stream.getObjectsToDraw();
 		
-		Rectangle bounds = stream.getBounds();
-		
 		//Paint Background and bounds
-		//g.drawImage(imgBackground, 0, 0, getSize().width, getSize().height, null);
 		g.setColor(Color.BLUE);
 		Stroke temp = g.getStroke();
-		g.setStroke(new BasicStroke(70f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+		g.setStroke(new BasicStroke(100f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 		g.draw(stream.getStreamCurve());
 		g.setStroke(temp);
 		
@@ -180,6 +202,7 @@ public class GameView extends JPanel implements Observer{
 			} else{
 				img = imgMussel;
 			}
+			
 			g.drawImage(img,
 					obj.getBounds().x, 
 					obj.getBounds().y, 
