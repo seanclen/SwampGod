@@ -152,12 +152,6 @@ public class GameView extends JPanel implements Observer{
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		System.out.println("GameView:paintComponent()");
-		if (game.getGameState().equals(GameState.RUNNING_STATE)) {
-			btnPlay.setText("Pause");
-		} else {
-			btnPlay.setText("Start");
-		}
 		g.drawImage(imgBackground, 0, 0, null);
 	}
 	
@@ -265,7 +259,6 @@ public class GameView extends JPanel implements Observer{
 			
 			g.setColor(Color.RED);
 			g.draw(pl.getRadiusShape());
-			System.out.println("Plant Bounds: " + pl.getBounds());
 			g.drawImage(img,
 					pl.getBounds().x, 
 					pl.getBounds().y, 
@@ -345,8 +338,12 @@ public class GameView extends JPanel implements Observer{
 				paintSwamp();
 			} else if (game.getGameState().equals(GameState.UPGRADE_STATE)) {
 				upgradesPanel.setVisible(true);
-				//repaint();
 				paintSwamp();
+			} else if (game.getGameState().equals(GameState.NEXTWAVE_STATE)) {
+				System.out.println("GameView: NEXT WAVE");
+				upgradesPanel.setVisible(false);
+				paintSwamp();
+				game.setGameState(GameState.RUNNING_STATE);
 			}
 		}
 	}

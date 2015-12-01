@@ -40,6 +40,14 @@ public class Stream implements java.io.Serializable{
 		streamCurve = streamCurves[id];
 	}
 	
+	/**
+	 * Removes all objects from the stream by reinitializing the collections of objects
+	 */
+	public void clear() {
+		badObjects = new ArrayList<BadObject>();
+		goodObjects = new ArrayList<GoodObject>();
+	}
+	
 	public void setObjectSize(Dimension d) {
 		this.objectSize = d;
 		for (GoodObject obj : goodObjects) {

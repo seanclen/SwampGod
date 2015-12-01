@@ -197,15 +197,19 @@ public class GameViewController extends Observable implements MouseInputListener
 				 * We accomplish by simply passing a string 'token' "RunGame" to the ViewController
 				 * which will then pass the token to the Controller.
 				 */
-				if (game.getGameState().equals(GameState.RUNNING_STATE)){
-					runTimer.start();
-				}
-				else if (game.getGameState().equals(GameState.PAUSE_STATE)){
+				if (game.getGameState().equals(GameState.PAUSE_STATE)){
 					game.setGameState(GameState.RUNNING_STATE);
 					runTimer.start();
 				}
 				else if (game.getGameState().equals(GameState.UPGRADE_STATE)){
+					System.out.println("GameViewController:buttonClicked(Start):startNextWave()");
+					game.startNextWave();
+					setChanged();
+					notifyObservers(game);
+					clearChanged();
 					game.setGameState(GameState.RUNNING_STATE);
+					runTimer.start();
+				} else if (game.getGameState().equals(GameState.RUNNING_STATE)){
 					runTimer.start();
 				}
 			}

@@ -82,6 +82,13 @@ public class ViewController extends Observable implements Observer{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		/**
+		 * This should control the STAGE of the game
+		 * There are three main stages
+		 * 		1. Menu - title view or main menu view
+		 * 		2. Game - where the user plays the game, progresses thru levels
+		 * 		3. End - the game has ended, lose, or win
+		 */
 		if (arg instanceof GameState)
 		{
 			setChanged();

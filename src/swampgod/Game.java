@@ -28,6 +28,7 @@ public class Game extends Observable implements java.io.Serializable{
 	int health;
 	int points;
 	private ArrayList<Plant> plants;
+	private static Level level= new Level();
 	int waveNumber;
 	Stream[] streams;
 	Estuary estuary;
@@ -86,7 +87,6 @@ public class Game extends Observable implements java.io.Serializable{
 		}
 
 		//Good Objects
-		Level level= new Level();
 		int goodObjects = level.getTotalGoodObjects(waveNumber);
 		for (int i = 0; i < goodObjects; i++) {
 			int streamId = EstuaryObject.pickStream();
@@ -101,6 +101,38 @@ public class Game extends Observable implements java.io.Serializable{
 		}
 		
 		System.out.println("Game:initialize() -- end");
+	}
+	
+	/**
+	 * Complete the upgrade stage and start the next wave.
+	 * The current GameState must be UPGRADE_STATE otherwise this method will
+	 * not produce any results. When this method is called the GameState will 
+	 * change to NEXTGAME_STATE and initialize the next wave.
+	 */
+	public void startNextWave() {
+		//Check to make sure that the state is still in upgrade
+		if (gameState.equals(GameState.UPGRADE_STATE))
+		{
+			System.out.println("Game.startNextWave()");
+			waveNumber++;
+			//Good Objects
+			int goodObjects = level.getTotalGoodObjects(waveNumber);
+			for (int i = 0; i < streams.length; i++) {
+				streams[i].clear();
+			}
+			for (int i = 0; i < goodObjects; i++) {
+				int streamId = EstuaryObject.pickStream();
+				streams[streamId].createBadObjects(1);
+			}
+
+			//Bad Objects
+			int badObjects= level.getTotalBadObjects(waveNumber);
+			for (int i = 0; i < badObjects; i++){
+				int streamId = EstuaryObject.pickStream();
+				streams[streamId].createGoodObjects(1);
+			}
+			setGameState(GameState.NEXTWAVE_STATE);
+		}
 	}
 	
 	public void updateWindowSize(Rectangle bounds) {
@@ -334,24 +366,25 @@ public class Game extends Observable implements java.io.Serializable{
 			}
 		}
 		// call eat function for plants
-		for(Plant pl : getPlants()){
-			double x = pl.getPos().getX();
-			double y= pl.getPos().getY();
-
-			for(Stream st : streams){
-				if(st.getBounds().contains(x,y) || st.getBounds().contains(x+pl.getRadius(),y) || 
-						st.getBounds().contains(x-pl.getRadius(), y)){
-					removeObjects(pl.eat(st.badObjects));
-				}
-			}
-
-		}
+//		for(Plant pl : getPlants()){
+//			double x = pl.getPos().getX();
+//			double y= pl.getPos().getY();
+//
+//			for(Stream st : streams){
+//				if(st.getBounds().contains(x,y) || st.getBounds().contains(x+pl.getRadius(),y) || 
+//						st.getBounds().contains(x-pl.getRadius(), y)){
+//					removeObjects(pl.eat(st.badObjects));
+//				}
+//			}
+//
+//		}
 		isEnd();
 		if(isEndWave()){
 			endWave();
 		}
 		tickCount++;
 	}
+	
 	/*
 	 * reutrns if all streams are empty
 	 */
