@@ -148,9 +148,8 @@ public class Game extends Observable implements java.io.Serializable{
 				bounds.width,
 				(int) (bounds.height - estuaryBorder)
 				));
-		
-		objectSize.setSize(bounds.x*.03, bounds.x*.03);
-		plantSize.setSize(bounds.x*.04, bounds.x*.04);
+		objectSize.setSize(bounds.width*.03, bounds.width*.03);
+		plantSize.setSize(bounds.width*.04, bounds.width*.04);
 		
 		// Update streams
 		for (Stream s : streams) {
