@@ -14,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Area;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +42,9 @@ public class GameView extends JPanel implements Observer{
 	private Game game;
 	static int panelWidth = 960, panelHeight = 640;
 	private JPanel upgradesPanel;
+	private JPanel runPanel;
+	private JButton btnPlay = new JButton();
+	private int topBar = 40;
 	
 	private static Image imgAlgae;
 	private static Image imgClam;
@@ -58,7 +63,6 @@ public class GameView extends JPanel implements Observer{
 		setName("GameView");
 		setBackground(Color.BLUE);
 		setVisible(false);
-		//setBackground(new Color (36,228,149));
 		
 		/**
 		 * At this point we have already added the view controller
@@ -70,13 +74,16 @@ public class GameView extends JPanel implements Observer{
 		 * been clicked.
 		 */
 		
+		runPanel = new JPanel();
+		runPanel.setBackground(Color.BLUE);
+		runPanel.setVisible(true);
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
 			}
 		});
-		add(btnStart, BorderLayout.PAGE_START);
+		runPanel.add(btnStart, BorderLayout.PAGE_START);
 		
 		JButton btnPause = new JButton("Pause");
 		btnPause.addActionListener(new ActionListener() {
@@ -84,7 +91,7 @@ public class GameView extends JPanel implements Observer{
 				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
 			}
 		});
-		add(btnPause, BorderLayout.PAGE_START);
+		runPanel.add(btnPause, BorderLayout.PAGE_START);
 		
 		JButton btnUpgrade = new JButton("Upgrade");
 		btnUpgrade.addActionListener(new ActionListener() {
@@ -92,7 +99,7 @@ public class GameView extends JPanel implements Observer{
 				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
 			}
 		});
-		add(btnUpgrade, BorderLayout.PAGE_START);
+		runPanel.add(btnUpgrade, BorderLayout.PAGE_START);
 		
 		upgradesPanel = new JPanel();
 		upgradesPanel.setSize(300,100);
@@ -114,6 +121,7 @@ public class GameView extends JPanel implements Observer{
 		});
 		upgradesPanel.add(btnTree);
 		
+		add(runPanel);
 		add(upgradesPanel);
 	}
 	
@@ -145,6 +153,11 @@ public class GameView extends JPanel implements Observer{
 	@Override
 	public void paintComponent(Graphics g) {
 		System.out.println("GameView:paintComponent()");
+		if (game.getGameState().equals(GameState.RUNNING_STATE)) {
+			btnPlay.setText("Pause");
+		} else {
+			btnPlay.setText("Start");
+		}
 		g.drawImage(imgBackground, 0, 0, null);
 	}
 	
@@ -159,8 +172,6 @@ public class GameView extends JPanel implements Observer{
 		BufferedImage combinedImage = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_INT_ARGB);
 		
 		Graphics2D gci = combinedImage.createGraphics();
-		AlphaComposite ac = AlphaComposite.getInstance(
-                AlphaComposite.SRC_OVER, 1f);
 
 		gci.drawImage(imgBackground, 0, 0, null);
 		Stream[] streams = game.getStreams();
@@ -169,7 +180,12 @@ public class GameView extends JPanel implements Observer{
 		}
 		paintEstuary(game.getEstuary(), gci);
 		paintHUD(gci);
-
+		
+		Rectangle2D rectangleNotToDrawIn = (Rectangle2D) runPanel.getBounds(); //new Rectangle2D.Double(100, 100, 20, 30);
+		Area outside = new Area(new Rectangle2D.Double(0, 0, getWidth(), getHeight()));
+    	outside.subtract(new Area(rectangleNotToDrawIn));
+		
+    	g2d.setClip(outside);
         g2d.drawImage(combinedImage, 0, 0, null);
 
         gci.dispose();
@@ -208,6 +224,7 @@ public class GameView extends JPanel implements Observer{
 					obj.getBounds().y, 
 					obj.getBounds().width, 
 					obj.getBounds().height,this);
+			System.out.println(obj.getBounds());
 		}
 		EstuaryObject obj = game.getClickedObject();
 		if (obj!=null) {
@@ -231,6 +248,34 @@ public class GameView extends JPanel implements Observer{
 					obj.getBounds().width, 
 					obj.getBounds().height,this);
 		}
+		
+		/**
+		 * Draw the plant after click. Will follow pointer and paint a circle around the plant
+		 * showing the eat radius.
+		 */
+		if (game.getGameState().equals(GameState.UPGRADE_STATE) && game.getChosenPlant() != null) {
+			Image img = null;
+			Plant pl = game.getChosenPlant();
+			if (pl.getType() == "Tree") {
+				img = imgTree;
+			}
+			else{
+				img = imgBush;
+			}
+			
+			g.setColor(Color.RED);
+			g.draw(pl.getRadiusShape());
+			System.out.println("Plant Bounds: " + pl.getBounds());
+			g.drawImage(img,
+					pl.getBounds().x, 
+					pl.getBounds().y, 
+					pl.getBounds().width, 
+					pl.getBounds().height,null);
+		}
+		
+		/**
+		 * Draw all the plants
+		 */
 		for(Plant pl: game.getPlants()){
 			Image img = null;
 			if (pl.getType() == "Tree") {
@@ -240,10 +285,10 @@ public class GameView extends JPanel implements Observer{
 				img = imgBush;
 			}
 			g.drawImage(img,
-					obj.getBounds().x, 
-					obj.getBounds().y, 
-					obj.getBounds().width, 
-					obj.getBounds().height,this);
+					pl.getBounds().x, 
+					pl.getBounds().y, 
+					pl.getBounds().width, 
+					pl.getBounds().height,null);
 		}
 	}
 	
@@ -259,7 +304,7 @@ public class GameView extends JPanel implements Observer{
 		g.setColor(Color.blue);
 		g.fillRect(x, y, width, height);
 	}
-	private boolean healthChanged;
+	
 	private void paintHUD(Graphics2D g2d) {
 		Rectangle healthBar = new Rectangle((int)(getSize().width * 0.25), (int)(getSize().height * 0.85), 500, 80);
 		Rectangle trash = new Rectangle(game.getTrashCan().getBounds());
@@ -300,7 +345,8 @@ public class GameView extends JPanel implements Observer{
 				paintSwamp();
 			} else if (game.getGameState().equals(GameState.UPGRADE_STATE)) {
 				upgradesPanel.setVisible(true);
-				repaint();
+				//repaint();
+				paintSwamp();
 			}
 		}
 	}

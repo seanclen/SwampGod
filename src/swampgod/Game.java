@@ -1,5 +1,6 @@
 package swampgod;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.CubicCurve2D;
@@ -37,6 +38,8 @@ public class Game extends Observable implements java.io.Serializable{
 	private Point previousPosition;
 	Plant chosenPlant;
 	Rectangle bounds;
+	Dimension objectSize;
+	Dimension plantSize;
 
 	/**
 	 * constructs the objects
@@ -71,12 +74,15 @@ public class Game extends Observable implements java.io.Serializable{
 		streams  = new Stream[3];
 		waveNumber = 0;
 		fishCount=0;
+		objectSize = new Dimension(40,40);
+		plantSize = new Dimension(40,40);
 		setPlants(new ArrayList<Plant>());
 		setClickedObject(null);
 		setPreviousPosition(null);
 		setChosenPlant(null);	
 		for (int i = 0; i < streams.length; i++) {
 			streams[i] = new Stream(i);
+			streams[i].setObjectSize(objectSize);
 		}
 
 		//Good Objects
@@ -98,6 +104,7 @@ public class Game extends Observable implements java.io.Serializable{
 	}
 	
 	public void updateWindowSize(Rectangle bounds) {
+		System.out.println("updateWindow");
 		this.bounds = bounds;
 		double estuaryBorder = (bounds.height * .7);
 		int streamWidth = (bounds.width / 3);
@@ -108,8 +115,12 @@ public class Game extends Observable implements java.io.Serializable{
 				(int) (bounds.height - estuaryBorder)
 				));
 		
+		objectSize.setSize(bounds.x*.03, bounds.x*.03);
+		plantSize.setSize(bounds.x*.04, bounds.x*.04);
+		
 		// Update streams
 		for (Stream s : streams) {
+			s.setObjectSize(objectSize);
 			s.setBounds(new Rectangle(
 					s.getId()*streamWidth,
 					0,
@@ -163,6 +174,10 @@ public class Game extends Observable implements java.io.Serializable{
 	
 	public void setChosenPlant(Plant pl){
 		chosenPlant=pl;
+		if (pl != null) {
+			pl.getBounds().setSize(plantSize);
+		}
+		
 		System.out.println(chosenPlant);
 	}
 	
@@ -285,7 +300,9 @@ public class Game extends Observable implements java.io.Serializable{
 					if(go.move(waveNumber)){
 						temp=go;
 					}
-					go.setPosition(streams[i].CalculateBezierPoint(go.getStreamCompletion()));
+					Point p = streams[i].CalculateBezierPoint(go.getStreamCompletion());
+					p.translate(go.getSize().width/-2, go.getSize().height/-2);
+					go.setPosition(p);
 				}
 				else{
 					if (tickCount%Level.goodObjectReleaseFrequency[waveNumber]==0){
@@ -300,7 +317,9 @@ public class Game extends Observable implements java.io.Serializable{
 					if(bo.move(waveNumber)){
 						temp= bo;
 					}
-					bo.setPosition(streams[i].CalculateBezierPoint(bo.getStreamCompletion()));	
+					Point p = streams[i].CalculateBezierPoint(bo.getStreamCompletion());
+					p.translate(bo.getSize().width/-2, bo.getSize().height/-2);
+					bo.setPosition(p);
 				}
 				else{
 					if (tickCount%Level.badObjectReleaseFrequency[waveNumber]==0){
@@ -331,11 +350,7 @@ public class Game extends Observable implements java.io.Serializable{
 		if(isEndWave()){
 			endWave();
 		}
-
 		tickCount++;
-		setChanged();
-		notifyObservers(this);
-		clearChanged();
 	}
 	/*
 	 * reutrns if all streams are empty

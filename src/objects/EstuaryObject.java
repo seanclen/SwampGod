@@ -9,6 +9,7 @@ package objects;
  * @author Sean Clendening
  */
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import swampgod.Stream;
@@ -36,7 +37,14 @@ public class EstuaryObject implements java.io.Serializable{
 	//What stream it will be contained in
 	int stream;
 	
-
+	public void setSize(Dimension d) {
+		bounds.setSize(d);
+	}
+	
+	public Dimension getSize() {
+		return bounds.getSize();
+	}
+	
 	public boolean getMoving(){
 		return moving;
 	}

@@ -24,7 +24,6 @@ import views.GameView;
 public class GameViewController extends Observable implements MouseInputListener {
 	Game game;
 	private static Timer runTimer;
-	//private TimerTask runGame;
 	
 	public GameViewController(){
 		runTimer = new Timer(40, new ActionListener() {
@@ -69,13 +68,16 @@ public class GameViewController extends Observable implements MouseInputListener
 		System.out.println("GameViewController:mouseClicked("+e.getPoint()+")");
 		if(game.getGameStatus().equals(GameState.UPGRADE_STATE)){
 			if(game.getChosenPlant()!=null){
-				Point p = new Point(e.getX(), e.getY());
-				Plant pl = game.getChosenPlant();
-				pl.setPosition(p);
-				game.setChosenPlant(pl);
+				Point p = e.getPoint();
+				p.translate(game.getChosenPlant().getSize().width/-2,
+						game.getChosenPlant().getSize().height/-2);
+				game.getChosenPlant().setPosition(p);
 				game.getPlants().add(game.getChosenPlant());
 				game.setPoints(game.getChosenPlant().getPointValue());
 				game.setChosenPlant(null);
+				setChanged();
+				notifyObservers(game);
+				clearChanged();
 			}
 		}
 	}
@@ -116,11 +118,6 @@ public class GameViewController extends Observable implements MouseInputListener
 				game.setPreviousPosition(obj.getPos());
 				game.removeObjToTrash(obj);
 			}
-		}
-		else if (game.getGameState().equals(GameState.UPGRADE_STATE) && game.getChosenPlant() != null) {
-			//TODO Need to add logic here to make sure the plant is being placed around Stream
-			game.getPlants().add(game.getChosenPlant());
-			game.setChosenPlant(null);
 		}
 	}
 
@@ -177,7 +174,15 @@ public class GameViewController extends Observable implements MouseInputListener
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		
+		if (game.getGameState().equals(GameState.UPGRADE_STATE) && game.getChosenPlant() != null) {
+			Point p = e.getPoint();
+			p.translate(game.getChosenPlant().getSize().width/-2,
+					game.getChosenPlant().getSize().height/-2);
+			game.getChosenPlant().setPosition(p);
+			setChanged();
+			notifyObservers(game);
+			clearChanged();
+		}
 	}
 
 	public void buttonClicked(ActionEvent e) {
@@ -197,7 +202,11 @@ public class GameViewController extends Observable implements MouseInputListener
 				}
 				else if (game.getGameState().equals(GameState.PAUSE_STATE)){
 					game.setGameState(GameState.RUNNING_STATE);
-
+					runTimer.start();
+				}
+				else if (game.getGameState().equals(GameState.UPGRADE_STATE)){
+					game.setGameState(GameState.RUNNING_STATE);
+					runTimer.start();
 				}
 			}
 			else if (btn.getText().equals("Pause")) {
@@ -214,6 +223,7 @@ public class GameViewController extends Observable implements MouseInputListener
 			}
 			else if(btn.getText().equals("AddTree")&&game.getGameStatus().equals(GameState.UPGRADE_STATE)){
 				Tree t = new Tree(null);
+				System.out.println(t);
 				game.setChosenPlant(t);
 			}
 		}

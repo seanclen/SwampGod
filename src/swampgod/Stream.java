@@ -1,5 +1,6 @@
 package swampgod;
 
+import java.awt.Dimension;
 /**
  * Keeps track of good and bad objects and the path of the estuary
  * 
@@ -25,6 +26,7 @@ public class Stream implements java.io.Serializable{
 	//ArrayList<Plant> plants;
 	private Rectangle bounds;
 	private CubicCurve2D streamCurve;
+	private Dimension objectSize;
 	
 	/**
 	 * constructs the stream (rectangle)
@@ -38,6 +40,16 @@ public class Stream implements java.io.Serializable{
 		streamCurve = streamCurves[id];
 	}
 	
+	public void setObjectSize(Dimension d) {
+		this.objectSize = d;
+		for (GoodObject obj : goodObjects) {
+			obj.getBounds().setSize(d);
+		}
+		for (BadObject obj : badObjects) {
+			obj.getBounds().setSize(d);
+		}
+	}
+	
 	/**
 	 * initializes bad objects
 	 * @param num
@@ -47,7 +59,7 @@ public class Stream implements java.io.Serializable{
 			BadObject newObject = BadObject.createRandom();
 			newObject.setStream(id);
 			newObject.setPosition(new Point(this.bounds.x + 100, -100));
-			newObject.setBounds(this.bounds.x + 100, -100, 32, 32);
+			newObject.setBounds(this.bounds.x + 100, -100, objectSize.width, objectSize.height);
 			badObjects.add(newObject);
 		}
 	}
@@ -61,7 +73,7 @@ public class Stream implements java.io.Serializable{
 			GoodObject newObject = GoodObject.createRandom();
 			newObject.setStream(id);
 			newObject.setPosition(new Point(this.bounds.x + 100, -100));
-			newObject.setBounds(this.bounds.x + 100, -100, 32, 32);
+			newObject.setBounds(this.bounds.x + 100, -100, objectSize.width, objectSize.height);
 			goodObjects.add(newObject);
 		}
 	}
@@ -79,23 +91,6 @@ public class Stream implements java.io.Serializable{
 		return updatedObjects;
 	}
 	
-	/**
-	 * Generates a new CubicCurve2D from double percentage parameters. This way
-	 * the curves can resize and are independent on the screen resolution.
-	 * @param pCurve
-	 * @return CubicCurve2D
-	 */
-	private CubicCurve2D generateCurveFromPercentage(CubicCurve2D pCurve) { //TODO
-		double xStart = pCurve.getX1(),
-				yStart = pCurve.getY1(),
-				ctrlx1 = pCurve.getCtrlX1(),
-				ctrly1 = pCurve.getCtrlY1(),
-				ctrlx2 = pCurve.getCtrlX2(),
-				ctrly2 = pCurve.getCtrlY1(),
-				xEnd = pCurve.getX2(),
-				yEnd = pCurve.getY2();
-		return new CubicCurve2D.Double(xStart, yStart, ctrlx1, ctrly1, ctrlx2, ctrly2, xEnd, yEnd);
-	}
 	/* Bezier Curve in the form of:
 	 * [x,y]=(1–t)^3*P0+3(1–t)^2*t*P1+3(1–t)t^2*P2+t^3*P3
 	 * t is time where 0 is the start 1 is the end)

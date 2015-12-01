@@ -5,6 +5,8 @@ package objects;
   */
 
 import java.awt.Point;
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,8 +32,20 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 		return radius;
 	}
 	
+	public Shape getRadiusShape() {
+		int radiusMultiplied = radius*(getSize().width/5);
+		Shape r = new Ellipse2D.Double(
+				getBounds().x-radiusMultiplied,
+				getBounds().y-radiusMultiplied,
+				getBounds().width+(radiusMultiplied*2),
+				getBounds().height+(radiusMultiplied*2));
+		System.out.println("Plant:getRadiusShape "+r.getBounds());
+		return r;
+	}
+	
 	public void setPosition(Point p){
 		position=p;
+		bounds.setLocation(p.x, p.y);
 	}
 	
 	public String getType(){

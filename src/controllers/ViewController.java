@@ -82,20 +82,15 @@ public class ViewController extends Observable implements Observer{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		if (o instanceof TitleViewController || o instanceof MenuViewController)
+		if (arg instanceof GameState)
 		{
-			if (arg instanceof GameState) {
-				setChanged();
-				notifyObservers(arg);
-				clearChanged();
-			}
+			setChanged();
+			notifyObservers(arg);
+			clearChanged();
 		}
 		if (o instanceof GameViewController && arg instanceof Game) {
 			GameState state = ((Game) arg).getGameState();
 			System.out.println("Got the game change"+state);
-			if (state.equals(GameState.ENDGAME_STATE)) {
-				viewDelegate.presentPanelFromGameState(state);
-			}
 		}
 	}
 	
