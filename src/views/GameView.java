@@ -42,9 +42,7 @@ public class GameView extends JPanel implements Observer{
 	private Game game;
 	static int panelWidth = 960, panelHeight = 640;
 	private JPanel upgradesPanel;
-	private JPanel runPanel;
-	private JButton btnPlay = new JButton();
-	private int topBar = 40;
+	private JPanel controlPanel;
 	
 	private static Image imgAlgae;
 	private static Image imgClam;
@@ -74,16 +72,16 @@ public class GameView extends JPanel implements Observer{
 		 * been clicked.
 		 */
 		
-		runPanel = new JPanel();
-		runPanel.setBackground(Color.BLUE);
-		runPanel.setVisible(true);
+		controlPanel = new JPanel();
+		controlPanel.setBackground(Color.BLUE);
+		controlPanel.setVisible(true);
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
 			}
 		});
-		runPanel.add(btnStart, BorderLayout.PAGE_START);
+		controlPanel.add(btnStart, BorderLayout.PAGE_START);
 		
 		JButton btnPause = new JButton("Pause");
 		btnPause.addActionListener(new ActionListener() {
@@ -91,7 +89,7 @@ public class GameView extends JPanel implements Observer{
 				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
 			}
 		});
-		runPanel.add(btnPause, BorderLayout.PAGE_START);
+		controlPanel.add(btnPause, BorderLayout.PAGE_START);
 		
 		JButton btnUpgrade = new JButton("Upgrade");
 		btnUpgrade.addActionListener(new ActionListener() {
@@ -99,7 +97,23 @@ public class GameView extends JPanel implements Observer{
 				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
 			}
 		});
-		runPanel.add(btnUpgrade, BorderLayout.PAGE_START);
+		controlPanel.add(btnUpgrade, BorderLayout.PAGE_START);
+		
+		JButton btnWin = new JButton("Win");
+		btnWin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
+			}
+		});
+		controlPanel.add(btnWin, BorderLayout.PAGE_START);
+		
+		JButton btnLose = new JButton("Lose");
+		btnLose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
+			}
+		});
+		controlPanel.add(btnLose, BorderLayout.PAGE_START);
 		
 		upgradesPanel = new JPanel();
 		upgradesPanel.setSize(300,100);
@@ -121,7 +135,7 @@ public class GameView extends JPanel implements Observer{
 		});
 		upgradesPanel.add(btnTree);
 		
-		add(runPanel);
+		add(controlPanel);
 		add(upgradesPanel);
 	}
 	
@@ -175,7 +189,7 @@ public class GameView extends JPanel implements Observer{
 		paintEstuary(game.getEstuary(), gci);
 		paintHUD(gci);
 		
-		Rectangle2D rectangleNotToDrawIn = (Rectangle2D) runPanel.getBounds(); //new Rectangle2D.Double(100, 100, 20, 30);
+		Rectangle2D rectangleNotToDrawIn = (Rectangle2D) controlPanel.getBounds(); //new Rectangle2D.Double(100, 100, 20, 30);
 		Area outside = new Area(new Rectangle2D.Double(0, 0, getWidth(), getHeight()));
     	outside.subtract(new Area(rectangleNotToDrawIn));
 		
@@ -218,7 +232,6 @@ public class GameView extends JPanel implements Observer{
 					obj.getBounds().y, 
 					obj.getBounds().width, 
 					obj.getBounds().height,this);
-			System.out.println(obj.getBounds());
 		}
 		EstuaryObject obj = game.getClickedObject();
 		if (obj!=null) {

@@ -40,6 +40,11 @@ public class GameViewController extends Observable implements MouseInputListener
 					notifyObservers(game);
 					clearChanged();
 					runTimer.stop();
+				} else if (game.getGameState().equals(GameState.ENDGAME_STATE)) {
+					setChanged();
+					notifyObservers(game);
+					clearChanged();
+					runTimer.stop();
 				} else {
 					System.out.println("GameViewController:not running state");
 					setChanged();
@@ -203,11 +208,13 @@ public class GameViewController extends Observable implements MouseInputListener
 				}
 				else if (game.getGameState().equals(GameState.UPGRADE_STATE)){
 					System.out.println("GameViewController:buttonClicked(Start):startNextWave()");
+					System.out.println("      waveNumber: " + game.getWaveNumber() + ")");
 					game.startNextWave();
 					setChanged();
 					notifyObservers(game);
 					clearChanged();
 					game.setGameState(GameState.RUNNING_STATE);
+					System.out.println("      waveNumber: " + game.getWaveNumber() + ")");
 					runTimer.start();
 				} else if (game.getGameState().equals(GameState.RUNNING_STATE)){
 					runTimer.start();
@@ -220,14 +227,20 @@ public class GameViewController extends Observable implements MouseInputListener
 			else if (btn.getText().equals("Upgrade")) {
 				game.setGameState(GameState.UPGRADE_STATE);
 			}
+			else if (btn.getText().equals("Win")) {
+				game.setUserWon(true);
+				game.setGameState(GameState.ENDGAME_STATE);
+			}
+			else if (btn.getText().equals("Lose")) {
+				game.setUserWon(false);
+				game.setGameState(GameState.ENDGAME_STATE);
+			}
 			else if(btn.getText().equals("AddBush")&&game.getGameStatus().equals(GameState.UPGRADE_STATE)){
 				Bush b = new Bush(null);
 				game.setChosenPlant(b);
-				
 			}
 			else if(btn.getText().equals("AddTree")&&game.getGameStatus().equals(GameState.UPGRADE_STATE)){
 				Tree t = new Tree(null);
-				System.out.println(t);
 				game.setChosenPlant(t);
 			}
 		}

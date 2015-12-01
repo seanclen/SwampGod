@@ -7,10 +7,17 @@ import java.util.Observable;
 import javax.swing.JButton;
 import javax.swing.event.MouseInputListener;
 
+import swampgod.Game;
 import swampgod.Main.GameState;
 
 public class EndGameViewController  extends Observable implements MouseInputListener{
 
+	public void setGame(Game game) {
+		setChanged();
+		notifyObservers(game);
+		clearChanged();
+	}
+	
 	public void buttonClicked(ActionEvent e) {
 		if (e.getSource() instanceof JButton) {
 			JButton btn = (JButton) e.getSource();

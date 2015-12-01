@@ -30,6 +30,11 @@ public class Controller implements Observer {
 			if (arg instanceof Game)
 			{
 				game = (Game) arg;
+				if (game.getGameState().equals(GameState.ENDGAME_STATE))
+				{
+					System.out.println("Controller: Received ENDGAME_STATE");
+					viewController.handleStateChange(game.getGameState());
+				}
 			}
 			else if (arg instanceof String) {
 				String token = (String) arg;
@@ -38,17 +43,22 @@ public class Controller implements Observer {
 			}
 			else if (arg.equals(GameState.MENU_STATE))
 			{
-				System.out.println("It's time to go to the menu");
+				System.out.println("Controller: Received MENU_STATE");
 				game.updateGameState((GameState) arg);
 			}
 			else if (arg.equals(GameState.NEWGAME_STATE))
 			{
-				System.out.println("It's time to go to the game (new game state)");
+				System.out.println("Controller: Received NEWGAME_STATE");
 				game.updateGameState((GameState) arg);
 			}
 			else if (arg.equals(GameState.RUNNING_STATE))
 			{
-				System.out.println("It's time to go to the game (running state)");
+				System.out.println("Controller: Received RUNNING_STATE");
+				game.updateGameState((GameState) arg);
+			}
+			else if (arg.equals(GameState.ENDGAME_STATE))
+			{
+				System.out.println("Controller: Received ENDGAME_STATE");
 				game.updateGameState((GameState) arg);
 			}
 		}
@@ -56,6 +66,9 @@ public class Controller implements Observer {
 		{
 			if (arg.equals(GameState.RUNNING_STATE)) {
 				System.out.println("Controller:update():Game:RUNNING_STATE");
+				viewController.handleStateChange((GameState) arg);
+			} else if (arg.equals(GameState.ENDGAME_STATE)) {
+				System.out.println("Controller:update():Game:ENDGAME_STATE");
 				viewController.handleStateChange((GameState) arg);
 			}
 			else if (arg instanceof GameState) {

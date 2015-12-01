@@ -18,7 +18,7 @@ public final class Level {
 	final public static int[] speedMultiplier = {1,2,3};
 	final public static int[] plantEatFrequency = {424, 34, 2};
 	final public static int[] totalGoodObjects = {10, 15, 20};
-	final public static int[] totalBadObjects = {15, 20, 17000000};
+	final public static int[] totalBadObjects = {15, 20, 30};
 	/**
 	 * Float parameters represents location to percentage of space from the origin.
 	 * i.e. a stream with bounds (0, 0, 100, 100) with CubicCurve(x, y, ... )

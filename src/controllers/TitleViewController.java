@@ -18,7 +18,9 @@ public class TitleViewController extends Observable implements MouseInputListene
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("mouseClicked @ " + e.getPoint());
+		setChanged();
+		notifyObservers(GameState.MENU_STATE);
+		clearChanged();
 	}
 
 	@Override

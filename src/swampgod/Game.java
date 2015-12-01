@@ -41,6 +41,7 @@ public class Game extends Observable implements java.io.Serializable{
 	Rectangle bounds;
 	Dimension objectSize;
 	Dimension plantSize;
+	private boolean userWins;
 
 	/**
 	 * constructs the objects
@@ -132,6 +133,7 @@ public class Game extends Observable implements java.io.Serializable{
 				streams[streamId].createGoodObjects(1);
 			}
 			setGameState(GameState.NEXTWAVE_STATE);
+			System.out.println("Game.startNextWave() -- Completed");
 		}
 	}
 	
@@ -445,6 +447,7 @@ public class Game extends Observable implements java.io.Serializable{
 	 */
 	public void lose(){
 		setGameState(GameState.ENDGAME_STATE);
+		userWins = false;
 	}
 
 	/**
@@ -452,6 +455,15 @@ public class Game extends Observable implements java.io.Serializable{
 	 */
 	public void win(){
 		setGameState(GameState.ENDGAME_STATE);
+		userWins = true;
+	}
+	
+	public void setUserWon(boolean b) {
+		userWins = b;
+	}
+	
+	public boolean userWon() {
+		return userWins;
 	}
 
 	/**

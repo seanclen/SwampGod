@@ -1,23 +1,38 @@
 package views;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import controllers.EndGameViewController;
+import swampgod.Game;
 
-public class EndGameView extends JPanel{
+public class EndGameView extends JPanel implements Observer{
 
 	private JButton btnMenu;
 	private EndGameViewController endGameViewController;
+	private Game game;
+	private JPanel picPanel = new JPanel();
+	
 	public EndGameView() {
 		setName("EndGameView");
-		setBackground(Color.RED);
+		setBackground(new Color (36,228,149));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
+		picPanel.setSize(400, 200);
+		picPanel.setPreferredSize(new Dimension(400,200));
+		picPanel.setBackground(Color.RED);
+		picPanel.setVisible(true);
+		
+		game = null;
 		btnMenu = new JButton("Main Menu");
 		btnMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -33,6 +48,10 @@ public class EndGameView extends JPanel{
 				endGameViewController.buttonClicked(e);
 			}
 		});
+		
+		//add(picPanel);
+		add(btnMenu);
+		
 	}
 	
 	public void initializeController() {
@@ -43,6 +62,20 @@ public class EndGameView extends JPanel{
 	public void paintComponent(Graphics g) {
 		System.out.println("EndGameView:paintComponent()");
 		g.setColor(Color.RED);
-		g.drawString("YOU FAIL", 200, 200);
+		if (game != null && game.userWon()) {
+			g.drawString("YOU WIN", 200, 200);
+		} else {
+			g.drawString("YOU FAIL", 200, 200);
+		}
+		
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		if (o instanceof EndGameViewController && arg instanceof Game) {
+			game = (Game) arg;
+			repaint();
+		}
 	}
 }
