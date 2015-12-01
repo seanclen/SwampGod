@@ -367,18 +367,21 @@ public class Game extends Observable implements java.io.Serializable{
 			}
 		}
 		// call eat function for plants
-//		for(Plant pl : getPlants()){
-//			double x = pl.getPos().getX();
-//			double y= pl.getPos().getY();
-//
-//			for(Stream st : streams){
-//				if(st.getBounds().contains(x,y) || st.getBounds().contains(x+pl.getRadius(),y) || 
-//						st.getBounds().contains(x-pl.getRadius(), y)){
-//					removeObjects(pl.eat(st.badObjects));
-//				}
-//			}
-//
-//		}
+				for(Plant pl : getPlants()){
+					double x = pl.getPos().getX();
+					double y= pl.getPos().getY();
+
+					for(Stream st : streams){
+						if(st.getBounds().contains(x,y) || st.getBounds().contains(x+pl.getRadius(),y) || 
+								st.getBounds().contains(x-pl.getRadius(), y)){
+							if(pl.eat(st.badObjects)!=null){
+								removeObjects(pl.eat(st.badObjects));
+							}
+							
+						}
+					}
+
+				}
 		isEnd();
 		if(isEndWave()){
 			endWave();
@@ -504,6 +507,10 @@ public class Game extends Observable implements java.io.Serializable{
 
 	public void setPlants(ArrayList<Plant> plants) {
 		this.plants = plants;
+	}
+
+	public int getFishCount() {
+		return fishCount;
 	}
 
 }

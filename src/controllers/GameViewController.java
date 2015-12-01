@@ -18,6 +18,7 @@ import objects.GoodObject;
 import objects.Plant;
 import objects.Tree;
 import swampgod.Game;
+import swampgod.Stream;
 import swampgod.Main.GameState;
 import views.GameView;
 
@@ -72,7 +73,7 @@ public class GameViewController extends Observable implements MouseInputListener
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("GameViewController:mouseClicked("+e.getPoint()+")");
 		if(game.getGameStatus().equals(GameState.UPGRADE_STATE)){
-			if(game.getChosenPlant()!=null){
+			if(game.getChosenPlant()!=null && game.getChosenPlant().canPlace()){
 				Point p = e.getPoint();
 				p.translate(game.getChosenPlant().getSize().width/-2,
 						game.getChosenPlant().getSize().height/-2);
@@ -184,6 +185,13 @@ public class GameViewController extends Observable implements MouseInputListener
 			p.translate(game.getChosenPlant().getSize().width/-2,
 					game.getChosenPlant().getSize().height/-2);
 			game.getChosenPlant().setPosition(p);
+			for (Stream s : game.getStreams()) {
+				if (s.intersectsStream(game.getChosenPlant().getBounds())){
+					game.getChosenPlant().setCanPlace(false);
+					break;
+				}
+				game.getChosenPlant().setCanPlace(true);
+			}
 			setChanged();
 			notifyObservers(game);
 			clearChanged();

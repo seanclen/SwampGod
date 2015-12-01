@@ -13,11 +13,11 @@ public final class Level {
 	 *      level 2  : foo = 5
 	 *      level 12 : foo = 12
 	 */
-	final public static int[] goodObjectReleaseFrequency = {204, 18, 12};
-	final public static int[] badObjectReleaseFrequency = {215, 20, 12};
+	final public static int[] goodObjectReleaseFrequency = {204, 170, 150};
+	final public static int[] badObjectReleaseFrequency = {215, 170, 150};
 	final public static int[] speedMultiplier = {1,2,3};
 	final public static int[] plantEatFrequency = {424, 34, 2};
-	final public static int[] totalGoodObjects = {10, 15, 20};
+	final public static int[] totalGoodObjects = {10, 12, 15};
 	final public static int[] totalBadObjects = {15, 20, 30};
 	/**
 	 * Float parameters represents location to percentage of space from the origin.

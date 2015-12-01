@@ -1,5 +1,6 @@
 package swampgod;
 
+import java.awt.BasicStroke;
 import java.awt.Dimension;
 /**
  * Keeps track of good and bad objects and the path of the estuary
@@ -7,8 +8,11 @@ import java.awt.Dimension;
  */
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import objects.BadObject;
@@ -129,6 +133,12 @@ public class Stream implements java.io.Serializable{
 //	 * @param obj the EstuaryObject to move down the stream
 //	 */
 
+	public boolean intersectsStream(Rectangle2D r) {
+		Stroke stroke = new BasicStroke(100f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+		Shape streamShape = stroke.createStrokedShape(streamCurve);
+		return streamShape.intersects(r);
+	}
+	
 	public CubicCurve2D getStreamCurve() {
 		return streamCurve;
 	}

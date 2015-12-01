@@ -20,6 +20,7 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 	Point position;
 	int radius;
 	int percentEat;
+	private boolean canPlace = false;
 	
 	/**
 	 * @param p - the place on the board it is placed at
@@ -84,5 +85,13 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 		else{
 			return null;
 		}
+	}
+	
+	public boolean canPlace() {
+		return this.canPlace;
+	}
+	
+	public void setCanPlace(boolean b) {
+		canPlace = b;
 	}
 }

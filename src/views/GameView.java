@@ -187,6 +187,7 @@ public class GameView extends JPanel implements Observer{
 			paintStream(stream, gci);
 		}
 		paintEstuary(game.getEstuary(), gci);
+		paintPlacePlant(gci);
 		paintHUD(gci);
 		
 		Rectangle2D rectangleNotToDrawIn = (Rectangle2D) controlPanel.getBounds(); //new Rectangle2D.Double(100, 100, 20, 30);
@@ -257,29 +258,6 @@ public class GameView extends JPanel implements Observer{
 		}
 		
 		/**
-		 * Draw the plant after click. Will follow pointer and paint a circle around the plant
-		 * showing the eat radius.
-		 */
-		if (game.getGameState().equals(GameState.UPGRADE_STATE) && game.getChosenPlant() != null) {
-			Image img = null;
-			Plant pl = game.getChosenPlant();
-			if (pl.getType() == "Tree") {
-				img = imgTree;
-			}
-			else{
-				img = imgBush;
-			}
-			
-			g.setColor(Color.RED);
-			g.draw(pl.getRadiusShape());
-			g.drawImage(img,
-					pl.getBounds().x, 
-					pl.getBounds().y, 
-					pl.getBounds().width, 
-					pl.getBounds().height,null);
-		}
-		
-		/**
 		 * Draw all the plants
 		 */
 		for(Plant pl: game.getPlants()){
@@ -298,6 +276,34 @@ public class GameView extends JPanel implements Observer{
 		}
 	}
 	
+	private void paintPlacePlant(Graphics2D g){
+		/**
+		 * Draw the plant after click. Will follow pointer and paint a circle around the plant
+		 * showing the eat radius.
+		 */
+		if (game.getGameState().equals(GameState.UPGRADE_STATE) && game.getChosenPlant() != null) {
+			Image img = null;
+			Plant pl = game.getChosenPlant();
+			if (pl.getType() == "Tree") {
+				img = imgTree;
+			}
+			else{
+				img = imgBush;
+			}
+			
+			if (pl.canPlace()) {
+				g.setColor(Color.GREEN);
+			} else {
+				g.setColor(Color.RED);
+			}
+			g.draw(pl.getRadiusShape());
+			g.drawImage(img,
+					pl.getBounds().x, 
+					pl.getBounds().y, 
+					pl.getBounds().width, 
+					pl.getBounds().height,null);
+		}
+	}
 	
 	
 	private void paintEstuary(Estuary estuary, Graphics2D g) {
@@ -335,7 +341,7 @@ public class GameView extends JPanel implements Observer{
 		g2d.fillRoundRect(healthBar.x, healthBar.y, health * 5, healthBar.height, 15, 15);
 		g2d.setColor(Color.BLACK);
 		g2d.setFont(new Font("Purisa", Font.BOLD, 22));
-		g2d.drawString("Health: " + health + "    Points: " +game.getPoints(), healthBar.x + 140, healthBar.y + 50);
+		g2d.drawString("Health: " + health + "    Points: " +game.getPoints() + "     Fish: " + game.getFishCount(), healthBar.x + 140, healthBar.y + 50);
 		
 		g2d.drawImage(imgTrash, trash.x, trash.y, trash.width, trash.height,this);
 	}
