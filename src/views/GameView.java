@@ -105,6 +105,7 @@ public class GameView extends JPanel implements Observer{
 				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
 			}
 		});
+		
 		controlPanel.add(btnWin, BorderLayout.PAGE_START);
 		
 		JButton btnLose = new JButton("Lose");
@@ -114,6 +115,14 @@ public class GameView extends JPanel implements Observer{
 			}
 		});
 		controlPanel.add(btnLose, BorderLayout.PAGE_START);
+		
+		JButton btnFish = new JButton("Collect Fish");
+		btnWin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
+			}
+		});
+		controlPanel.add(btnFish, BorderLayout.PAGE_START);
 		
 		upgradesPanel = new JPanel();
 		upgradesPanel.setSize(300,100);

@@ -308,11 +308,12 @@ public class Game extends Observable implements java.io.Serializable{
 	 * if the player collects fish this modifies the score and health
 	 */
 	public void collectFish(){
-		updateHealth(-25);
-		Fish f = new Fish();
-		updateScore(f.getPointValue()*fishCount);
-		fishCount=0;
-		//NEEDS TO REMOVE FISH FROM DISPLAY SOMEHOW -- MAYBE REMOVE FROM THE ESTUARY LIST?
+		if(fishCount>0){
+			updateHealth(-25);
+			Fish f = new Fish();
+			updateScore(f.getPointValue()*fishCount);
+			fishCount=0;
+		}
 	}
 
 	/**

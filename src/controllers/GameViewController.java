@@ -235,6 +235,9 @@ public class GameViewController extends Observable implements MouseInputListener
 			else if (btn.getText().equals("Upgrade")) {
 				game.setGameState(GameState.UPGRADE_STATE);
 			}
+			else if(btn.getText().equals("Collect Fish")){
+				game.collectFish();
+			}
 			else if (btn.getText().equals("Win")) {
 				game.setUserWon(true);
 				game.setGameState(GameState.ENDGAME_STATE);
