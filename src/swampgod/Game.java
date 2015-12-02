@@ -281,6 +281,7 @@ public class Game extends Observable implements java.io.Serializable{
 		//remove from streams
 		if(obj.isGood()){	
 			if(obj.getType()== "Fish"){
+				estuary.addFish();
 				fishCount++;
 			}
 			updateScore(obj.getPointValue());
@@ -321,6 +322,7 @@ public class Game extends Observable implements java.io.Serializable{
 			updateScore(f.getPointValue()*fishCount);
 			fishCount=0;
 		}
+		estuary.removeFish(fishCount);
 	}
 
 	/**

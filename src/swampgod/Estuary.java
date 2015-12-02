@@ -3,11 +3,13 @@
  */
 package swampgod;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import objects.BadObject;
 import objects.EstuaryObject;
+import objects.Fish;
 import objects.GoodObject;
 
 public class Estuary implements java.io.Serializable {
@@ -44,6 +46,27 @@ public class Estuary implements java.io.Serializable {
 	
 	public void setBounds(Rectangle bounds) {
 		this.bounds = bounds;
+	}
+	
+	public void addFish(){
+		Fish fish = new Fish();
+		int x = (int) (bounds.getMinX() + Math.floor(Math.random()*(bounds.getMaxX() + 1 - bounds.getMinX())));
+		int y = (int) (bounds.getMinY() + Math.floor(Math.random()*(bounds.getMaxY() + 1 - bounds.getMinY())));
+		//int x = 50;
+		//int y=450;
+		Point p = new Point(x,y);
+		fish.setPosition(p);
+		goodObjects.add(fish);
+		
+		
+	}
+	
+	public void removeFish(int numFish){
+		int fishToGo = goodObjects.size()-numFish;
+		for(int i=0; i<fishToGo; i++){
+			goodObjects.remove(0);
+		}
+		
 	}
 	
 }

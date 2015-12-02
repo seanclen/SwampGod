@@ -326,6 +326,22 @@ public class GameView extends JPanel implements Observer{
 		//Paint Background and bounds
 		g.setColor(Color.blue);
 		g.fillRect(x, y, width, height);
+		
+		for(EstuaryObject obj : estuaryObjects) {
+			Image img = null;
+			if(obj.getType() == "Fish"){
+				img = imgFish;
+				
+			g.drawImage(img,
+					obj.getBounds().x, 
+					obj.getBounds().y, 
+					40, 
+					40,this);
+			System.out.println("fishy");
+			System.out.println(obj.getBounds());
+			System.out.println(estuary.getBounds().contains(obj.getPosition()));
+			}
+		}
 	}
 	
 	private void paintHUD(Graphics2D g2d) {
