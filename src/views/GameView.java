@@ -193,7 +193,7 @@ public class GameView extends JPanel implements Observer{
 		
 		Graphics2D gci = combinedImage.createGraphics();
 
-		gci.drawImage(imgBackground, 0, 0, null);
+		gci.drawImage(imgBackground, 0, 0, getSize().width, getSize().height, null);
 		Stream[] streams = game.getStreams();
 		for (Stream stream : streams) {
 			paintStream(stream, gci);
