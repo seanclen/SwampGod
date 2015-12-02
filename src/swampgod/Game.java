@@ -388,7 +388,7 @@ public class Game extends Observable implements java.io.Serializable{
 			}
 		}
 		// call eat function for plants
-		if(tickCount%10==0){
+		if(tickCount%8==0){
 			for(Plant pl : getPlants()){
 				double x = pl.getPos().getX();
 				double y= pl.getPos().getY();
@@ -496,8 +496,8 @@ public class Game extends Observable implements java.io.Serializable{
 			return true;
 		}
 		if(waveNumber == 2 && streams[1].getBadObjects().isEmpty() && streams[2].getBadObjects().size()==0 &&
-				streams[3].getBadObjects().isEmpty() && streams[1].getGoodObjects().isEmpty() && 
-				streams[2].getGoodObjects().isEmpty() && streams[3].getGoodObjects().isEmpty()){
+				streams[0].getBadObjects().isEmpty() && streams[1].getGoodObjects().isEmpty() && 
+				streams[2].getGoodObjects().isEmpty() && streams[0].getGoodObjects().isEmpty()){
 			win();
 			return true;
 		}else if(waveNumber==2 &&getGameState() == GameState.UPGRADE_STATE){
