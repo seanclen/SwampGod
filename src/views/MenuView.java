@@ -67,10 +67,10 @@ public class MenuView extends JPanel{
 			}
 		});
 		
-		btnNewGame.setBounds(750, 500, 280, 92);
+		btnNewGame.setBounds(500, 500, 280, 92);
 		
 		menuPanel = new JPanel();
-		menuPanel.setSize(getSize().width,getSize().height);
+		menuPanel.setSize(super.getSize().width,getSize().height);
 		menuPanel.add(btnNewGame);
 		menuPanel.setVisible(true);this.add(menuPanel);
 		

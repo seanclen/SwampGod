@@ -1,6 +1,5 @@
 package views;
 
-import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,8 +11,6 @@ import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -127,6 +124,7 @@ public class GameView extends JPanel implements Observer{
 		
 		upgradesPanel = new JPanel();
 		upgradesPanel.setSize(300,100);
+		upgradesPanel.setBackground(Color.GREEN);
 		upgradesPanel.setVisible(false);
 		
 		JButton btnBush = new JButton("AddBush");
@@ -144,6 +142,9 @@ public class GameView extends JPanel implements Observer{
 			}
 		});
 		upgradesPanel.add(btnTree);
+		
+		JLabel lblStage = new JLabel("Upgrade Stage");
+		upgradesPanel.add(lblStage);
 		
 		add(controlPanel);
 		add(upgradesPanel);
@@ -168,7 +169,7 @@ public class GameView extends JPanel implements Observer{
 			imgFish = ImageIO.read(new File("pics/whaleishFish.png"));
 			imgTree = ImageIO.read(new File("pics/tree.png"));
 			imgBush = ImageIO.read(new File("pics/azalea.png"));
-			imgBackground = ImageIO.read(new File("pics/EstuaryBackground.png"));
+			imgBackground = ImageIO.read(new File("pics/newBG.png"));
 			imgItemScreen = ImageIO.read(new File("pics/itemScreen.png"));
 			} catch (IOException e) {
 			e.printStackTrace();
@@ -203,7 +204,10 @@ public class GameView extends JPanel implements Observer{
 		
 		Rectangle2D rectangleNotToDrawIn = (Rectangle2D) controlPanel.getBounds(); //new Rectangle2D.Double(100, 100, 20, 30);
 		Area outside = new Area(new Rectangle2D.Double(0, 0, getWidth(), getHeight()));
-    	outside.subtract(new Area(rectangleNotToDrawIn));
+    	outside.subtract(new Area(controlPanel.getBounds()));
+    	if (game.getGameState().equals(GameState.UPGRADE_STATE)){
+    		outside.subtract(new Area(upgradesPanel.getBounds()));
+    	}
 		
     	g2d.setClip(outside);
         g2d.drawImage(combinedImage, 0, 0, null);
@@ -217,10 +221,10 @@ public class GameView extends JPanel implements Observer{
 		
 		//Paint Background and bounds
 		g.setColor(Color.BLUE);
-		Stroke temp = g.getStroke();
-		g.setStroke(new BasicStroke(100f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
-		g.draw(stream.getStreamCurve());
-		g.setStroke(temp);
+		//Stroke temp = g.getStroke();
+		//g.setStroke(new BasicStroke(100f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+		//g.draw(stream.getStreamCurve());
+		//g.setStroke(temp);
 		
 		//Paint objects
 		for(EstuaryObject obj : streamObjects) {
@@ -325,7 +329,7 @@ public class GameView extends JPanel implements Observer{
 		
 		//Paint Background and bounds
 		g.setColor(Color.blue);
-		g.fillRect(x, y, width, height);
+		//g.fillRect(x, y, width, height);
 		
 		for(EstuaryObject obj : estuaryObjects) {
 			Image img = null;
@@ -367,10 +371,14 @@ public class GameView extends JPanel implements Observer{
 		}
 		g2d.fillRoundRect(healthBar.x, healthBar.y, health * 5, healthBar.height, 15, 15);
 		g2d.setColor(Color.BLACK);
-		g2d.setFont(new Font("Purisa", Font.BOLD, 22));
-		g2d.drawString("Health: " + health + "    Points: " +game.getPoints() + "     Fish: " + game.getFishCount(), healthBar.x + 140, healthBar.y + 50);
+		g2d.setFont(new Font("Arial", Font.BOLD, 20));
+		g2d.drawString("Health: " + health + "  Points: " +game.getPoints() + "   Fish: " + game.getFishCount(), healthBar.x + 140, healthBar.y + 50);
 		
 		g2d.drawImage(imgTrash, trash.x, trash.y, trash.width, trash.height,this);
+		
+		g2d.setColor(Color.RED);
+		g2d.setFont(new Font("Arial", Font.BOLD, 14));
+		g2d.drawString("Level " + (game.getWaveNumber()+1), 100, 20);
 	}
 
 	/**
@@ -382,6 +390,7 @@ public class GameView extends JPanel implements Observer{
 			game = (Game) arg;
 			if (game.getGameState().equals(GameState.RUNNING_STATE)) {
 				paintSwamp();
+				imgItemScreen = imgBackground;
 			} else if (game.getGameState().equals(GameState.UPGRADE_STATE)) {
 				upgradesPanel.setVisible(true);
 				paintSwamp();
