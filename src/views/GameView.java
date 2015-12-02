@@ -92,30 +92,30 @@ public class GameView extends JPanel implements Observer{
 		});
 		controlPanel.add(btnPause, BorderLayout.PAGE_START);
 		
-//		JButton btnUpgrade = new JButton("Upgrade");
-//		btnUpgrade.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
-//			}
-//		});
-//		controlPanel.add(btnUpgrade, BorderLayout.PAGE_START);
-//		
-//		JButton btnWin = new JButton("Win");
-//		btnWin.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
-//			}
-//		});
-//		
-//		controlPanel.add(btnWin, BorderLayout.PAGE_START);
-//		
-//		JButton btnLose = new JButton("Lose");
-//		btnLose.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
-//			}
-//		});
-//		controlPanel.add(btnLose, BorderLayout.PAGE_START);
+		JButton btnUpgrade = new JButton("Upgrade");
+		btnUpgrade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
+			}
+		});
+		controlPanel.add(btnUpgrade, BorderLayout.PAGE_START);
+		
+		JButton btnWin = new JButton("Win");
+		btnWin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
+			}
+		});
+		
+		controlPanel.add(btnWin, BorderLayout.PAGE_START);
+		
+		JButton btnLose = new JButton("Lose");
+		btnLose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
+			}
+		});
+		controlPanel.add(btnLose, BorderLayout.PAGE_START);
 		
 		JButton btnFish = new JButton("Collect Fish");
 		btnFish.addActionListener(new ActionListener() {
