@@ -207,6 +207,7 @@ public class Game extends Observable implements java.io.Serializable{
 
 	public void setChosenPlant(Plant pl){
 		chosenPlant=pl;
+		
 		if (pl != null) {
 			pl.getBounds().setSize(plantSize);
 		}
@@ -308,8 +309,14 @@ public class Game extends Observable implements java.io.Serializable{
 	 * if the player collects fish this modifies the score and health
 	 */
 	public void collectFish(){
-		if(fishCount>0){
-			updateHealth(-25);
+		if(fishCount>5){
+			updateHealth(-15);
+			Fish f = new Fish();
+			updateScore(f.getPointValue()*fishCount);
+			fishCount=Math.abs(fishCount/2);
+		}
+		else if(fishCount>0){
+			updateHealth(-35);
 			Fish f = new Fish();
 			updateScore(f.getPointValue()*fishCount);
 			fishCount=0;
@@ -410,16 +417,9 @@ public class Game extends Observable implements java.io.Serializable{
 	 * @param t - type
 	 * @return - an object
 	 */
-	public Object placePlant(Point pos, String t){
-		Plant pl;
-		if(t == "Bush"){
-			pl = new Bush(pos);
-		}
-		else {
-			pl = new Tree(pos);
-		}
-		pl.setPosition(pos);
+	public Object placePlant(Plant pl){
 		getPlants().add(pl);
+		points= points-pl.getPointsPerPlants();
 		return pl;
 	}
 

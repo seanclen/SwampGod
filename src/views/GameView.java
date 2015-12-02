@@ -117,7 +117,7 @@ public class GameView extends JPanel implements Observer{
 		controlPanel.add(btnLose, BorderLayout.PAGE_START);
 		
 		JButton btnFish = new JButton("Collect Fish");
-		btnWin.addActionListener(new ActionListener() {
+		btnFish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
 			}
@@ -175,7 +175,7 @@ public class GameView extends JPanel implements Observer{
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		g.drawImage(imgBackground, 0, 0, null);
+		g.drawImage(imgBackground, 0, 0, getSize().width, getSize().height, null);
 	}
 	
 	public void paintSwamp() {

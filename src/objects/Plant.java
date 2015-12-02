@@ -91,6 +91,10 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 		}
 	}
 	
+	public int getPointsPerPlants(){
+		return pointsPerPlant;
+	}
+	
 	public boolean canPlace() {
 		return this.canPlace;
 	}

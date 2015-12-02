@@ -78,7 +78,7 @@ public class GameViewController extends Observable implements MouseInputListener
 				p.translate(game.getChosenPlant().getSize().width/-2,
 						game.getChosenPlant().getSize().height/-2);
 				game.getChosenPlant().setPosition(p);
-				game.getPlants().add(game.getChosenPlant());
+				game.placePlant(game.getChosenPlant());
 				game.setPoints(game.getChosenPlant().getPointValue());
 				game.setChosenPlant(null);
 				setChanged();
@@ -236,6 +236,7 @@ public class GameViewController extends Observable implements MouseInputListener
 				game.setGameState(GameState.UPGRADE_STATE);
 			}
 			else if(btn.getText().equals("Collect Fish")){
+				System.out.println("COLLECT FISH");
 				game.collectFish();
 			}
 			else if (btn.getText().equals("Win")) {
