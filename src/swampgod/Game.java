@@ -100,10 +100,10 @@ public class Game extends Observable implements java.io.Serializable{
 			int streamId = EstuaryObject.pickStream();
 			streams[streamId].createGoodObjects(1);
 		}
-		
+
 		System.out.println("Game:initialize() -- end");
 	}
-	
+
 	/**
 	 * Complete the upgrade stage and start the next wave.
 	 * The current GameState must be UPGRADE_STATE otherwise this method will
@@ -136,7 +136,7 @@ public class Game extends Observable implements java.io.Serializable{
 			System.out.println("Game.startNextWave() -- Completed");
 		}
 	}
-	
+
 	public void updateWindowSize(Rectangle bounds) {
 		System.out.println("updateWindow");
 		this.bounds = bounds;
@@ -150,7 +150,7 @@ public class Game extends Observable implements java.io.Serializable{
 				));
 		objectSize.setSize(bounds.width*.03, bounds.width*.03);
 		plantSize.setSize(bounds.width*.04, bounds.width*.04);
-		
+
 		// Update streams
 		for (Stream s : streams) {
 			s.setObjectSize(objectSize);
@@ -169,7 +169,7 @@ public class Game extends Observable implements java.io.Serializable{
 		Point foo = getPointFromPercentage(65, 15);
 		trashcan.setBounds(foo.x, foo.y, 100, 100);
 	}
-	
+
 	/**
 	 * Get the relative point based on the percentage of the frame from
 	 *     the top left to the bottom right. Use this to find the Cartesian
@@ -204,16 +204,16 @@ public class Game extends Observable implements java.io.Serializable{
 	public int getWaveNumber(){
 		return waveNumber;
 	}
-	
+
 	public void setChosenPlant(Plant pl){
 		chosenPlant=pl;
 		if (pl != null) {
 			pl.getBounds().setSize(plantSize);
 		}
-		
+
 		System.out.println(chosenPlant);
 	}
-	
+
 	public Plant getChosenPlant(){
 		return chosenPlant;
 	}
@@ -232,7 +232,7 @@ public class Game extends Observable implements java.io.Serializable{
 	public int getPoints(){
 		return points;
 	}
-	
+
 	public void setPoints(int po){
 		points = points+po;
 	}
@@ -292,7 +292,7 @@ public class Game extends Observable implements java.io.Serializable{
 
 		return removed;
 	}
-	
+
 	public boolean removeObjToTrash(EstuaryObject obj){
 		boolean removed;
 		if(obj.isGood()){
@@ -367,28 +367,31 @@ public class Game extends Observable implements java.io.Serializable{
 			}
 		}
 		// call eat function for plants
-				for(Plant pl : getPlants()){
-					double x = pl.getPos().getX();
-					double y= pl.getPos().getY();
+		for(Plant pl : getPlants()){
+			double x = pl.getPos().getX();
+			double y= pl.getPos().getY();
+			double radiusMultiplied = pl.getRadius()*(pl.getSize().width/5);
+			System.out.println("rad multy is " +radiusMultiplied);
 
-					for(Stream st : streams){
-						if(st.getBounds().contains(x,y) || st.getBounds().contains(x+pl.getRadius(),y) || 
-								st.getBounds().contains(x-pl.getRadius(), y)){
-							if(pl.eat(st.badObjects)!=null){
-								removeObjects(pl.eat(st.badObjects));
-							}
-							
-						}
+			for(Stream st : streams){
+				if(st.getStreamCurve().intersects(x - radiusMultiplied, y - radiusMultiplied, radiusMultiplied*2, radiusMultiplied*2 )){
+					System.out.println("this plant is in stream " + st.getId() +pl);
+					System.out.println(st.getBounds());
+					if(pl.eat(st.badObjects)!=null){
+						removeObjects(pl.eat(st.badObjects));
 					}
 
 				}
+			}
+
+		}
 		isEnd();
 		if(isEndWave()){
 			endWave();
 		}
 		tickCount++;
 	}
-	
+
 	/*
 	 * reutrns if all streams are empty
 	 */
@@ -459,11 +462,11 @@ public class Game extends Observable implements java.io.Serializable{
 		setGameState(GameState.ENDGAME_STATE);
 		userWins = true;
 	}
-	
+
 	public void setUserWon(boolean b) {
 		userWins = b;
 	}
-	
+
 	public boolean userWon() {
 		return userWins;
 	}

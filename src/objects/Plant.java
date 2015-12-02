@@ -56,14 +56,18 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 	public Point getPosition(){
 		return position;
 	}
+
 	
 	/**
 	 * removes the object from the list of objects
 	 */
 	public EstuaryObject eat(ArrayList<BadObject> bobj){
+		System.out.println("eat called");
+		int radiusMultiplied = radius*(getSize().width/5);
 		for(BadObject bo : bobj){
-			if (Math.abs(bo.position.getX() - this.position.getX()) <= 10 
-					&& Math.abs(bo.position.getY() - this.position.getY()) <= 10){
+			if (Math.abs(bo.position.getX() - this.position.getX()) <=  radiusMultiplied
+					&& Math.abs(bo.position.getY() - this.position.getY()) <= radiusMultiplied){
+				System.out.println("IM EATING");
 				return bo;
 			}
 		}
@@ -93,5 +97,9 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 	
 	public void setCanPlace(boolean b) {
 		canPlace = b;
+	}
+	
+	public String toString(){
+		return("This is a " + type + " at " + position.getX() + ", " + position.getY());
 	}
 }

@@ -16,6 +16,7 @@ public class Bush extends Plant{
 		position= p;
 		radius = 5;
 		percentEat= 55;
+
 	}
 
 }
