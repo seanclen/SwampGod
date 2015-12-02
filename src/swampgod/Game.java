@@ -333,6 +333,7 @@ public class Game extends Observable implements java.io.Serializable{
 			updateScore(f.getPointValue()*fishCount);
 			fishCount=0;
 		}
+		estuary.removeFish(fishCount);
 	}
 
 	/**
