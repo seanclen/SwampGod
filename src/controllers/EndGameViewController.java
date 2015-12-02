@@ -1,5 +1,6 @@
 package controllers;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.Observable;
@@ -11,6 +12,7 @@ import swampgod.Game;
 import swampgod.Main.GameState;
 
 public class EndGameViewController  extends Observable implements MouseInputListener{
+	
 
 	public void setGame(Game game) {
 		setChanged();

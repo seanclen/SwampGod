@@ -3,11 +3,15 @@ package views;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -21,8 +25,19 @@ public class EndGameView extends JPanel implements Observer{
 	private EndGameViewController endGameViewController;
 	private Game game;
 	private JPanel picPanel = new JPanel();
+	private static Image imgWinScreen;
+	private static Image imgLoseScreen;
 	
 	public EndGameView() {
+		try
+		{
+			imgWinScreen= ImageIO.read(new File("pics/WinScreen_Temp.png"));
+			imgLoseScreen = ImageIO.read(new File("pics/LoseScreen_Temp.png"));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		setName("EndGameView");
 		setBackground(new Color (36,228,149));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -63,9 +78,9 @@ public class EndGameView extends JPanel implements Observer{
 		System.out.println("EndGameView:paintComponent()");
 		g.setColor(Color.RED);
 		if (game != null && game.userWon()) {
-			g.drawString("YOU WIN", 200, 200);
+			g.drawImage(imgWinScreen, 0, 0, getSize().width, getSize().height, null);
 		} else {
-			g.drawString("YOU FAIL", 200, 200);
+			g.drawImage(imgLoseScreen, 0, 0, getSize().width, getSize().height, null);
 		}
 		
 	}
