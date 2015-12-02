@@ -54,6 +54,7 @@ public class GameView extends JPanel implements Observer{
 	private static Image imgBush;
 	private static Image imgFish;
 	private static Image imgLilyPad;
+	private static Image imgItemScreen;
 
 	public GameView() {
 		System.out.println("GameView() initialized");
@@ -168,6 +169,7 @@ public class GameView extends JPanel implements Observer{
 			imgTree = ImageIO.read(new File("pics/tree.png"));
 			imgBush = ImageIO.read(new File("pics/azalea.png"));
 			imgBackground = ImageIO.read(new File("pics/EstuaryBackground.png"));
+			imgItemScreen = ImageIO.read(new File("pics/itemScreen.png"));
 			} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -175,7 +177,7 @@ public class GameView extends JPanel implements Observer{
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		g.drawImage(imgBackground, 0, 0, getSize().width, getSize().height, null);
+		g.drawImage(imgItemScreen, 0, 0, getSize().width, getSize().height, null);
 	}
 	
 	public void paintSwamp() {
