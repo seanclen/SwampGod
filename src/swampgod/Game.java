@@ -482,7 +482,7 @@ public class Game extends Observable implements java.io.Serializable{
 			lose();
 			return true;
 		}
-		if(waveNumber == 3 && streams[1].getBadObjects().isEmpty() && streams[2].getBadObjects().size()==0 &&
+		if(waveNumber == 3 && streams[1].getBadObjects().isEmpty() && streams[2].getBadObjects().isEmpty() &&
 				streams[3].getBadObjects().isEmpty() && streams[1].getGoodObjects().isEmpty() && 
 				streams[2].getGoodObjects().isEmpty() && streams[3].getGoodObjects().isEmpty()){
 			win();
