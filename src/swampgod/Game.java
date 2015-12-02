@@ -207,7 +207,7 @@ public class Game extends Observable implements java.io.Serializable{
 
 	public void setChosenPlant(Plant pl){
 		chosenPlant=pl;
-		
+
 		if (pl != null) {
 			pl.getBounds().setSize(plantSize);
 		}
@@ -277,21 +277,32 @@ public class Game extends Observable implements java.io.Serializable{
 	 */
 	public boolean removeObjects(EstuaryObject obj){
 		// TODO Three cases when the score should be updated
-		boolean removed;
+		boolean removed = false;
 		//remove from streams
-		if(obj.isGood()){	
-			if(obj.getType()== "Fish"){
-				estuary.addFish();
-				fishCount++;
-			}
-			updateScore(obj.getPointValue());
-			removed = streams[obj.getStream()].goodObjects.remove(obj);
-		}
-		else{
-			updateScore(obj.getPointValue());
-			removed = streams[obj.getStream()].badObjects.remove(obj);
-		}
+		if(obj==null){
 
+			if(obj.isGood()){	
+				if(obj.getType()== "Fish"){
+					estuary.addFish();
+					fishCount++;
+				}
+				updateScore(obj.getPointValue());
+				removed = streams[obj.getStream()].goodObjects.remove(obj);
+			}
+			else{
+				if(obj.isGood()){	
+					if(obj.getType()== "Fish"){
+						fishCount++;
+					}
+					updateScore(obj.getPointValue());
+					removed = streams[obj.getStream()].goodObjects.remove(obj);
+				}
+				else{
+					updateScore(obj.getPointValue());
+					removed = streams[obj.getStream()].badObjects.remove(obj);
+				}
+			}
+		}
 		return removed;
 	}
 
@@ -322,7 +333,6 @@ public class Game extends Observable implements java.io.Serializable{
 			updateScore(f.getPointValue()*fishCount);
 			fishCount=0;
 		}
-		estuary.removeFish(fishCount);
 	}
 
 	/**
@@ -377,23 +387,25 @@ public class Game extends Observable implements java.io.Serializable{
 			}
 		}
 		// call eat function for plants
-		for(Plant pl : getPlants()){
-			double x = pl.getPos().getX();
-			double y= pl.getPos().getY();
-			double radiusMultiplied = pl.getRadius()*(pl.getSize().width/5);
-			System.out.println("rad multy is " +radiusMultiplied);
+		if(tickCount%10==0){
+			for(Plant pl : getPlants()){
+				double x = pl.getPos().getX();
+				double y= pl.getPos().getY();
+				double radiusMultiplied = pl.getRadius()*(pl.getSize().width/5);
+				System.out.println("rad multy is " +radiusMultiplied);
 
-			for(Stream st : streams){
-				if(st.getStreamCurve().intersects(x - radiusMultiplied, y - radiusMultiplied, radiusMultiplied*2, radiusMultiplied*2 )){
-					System.out.println("this plant is in stream " + st.getId() +pl);
-					System.out.println(st.getBounds());
-					if(pl.eat(st.badObjects)!=null){
-						removeObjects(pl.eat(st.badObjects));
+				for(Stream st : streams){
+					if(st.getStreamCurve().intersects(pl.getRadiusShape().getBounds2D())){
+						System.out.println("this plant is in stream " + st.getId() +pl);
+						System.out.println(st.getBounds());
+						if(pl.eat(st.badObjects)!=null){
+							removeObjects(pl.checkRadius(st.badObjects));
+						}
+
 					}
-
 				}
-			}
 
+			}
 		}
 		isEnd();
 		if(isEndWave()){
@@ -482,7 +494,7 @@ public class Game extends Observable implements java.io.Serializable{
 			lose();
 			return true;
 		}
-		if(waveNumber == 3 && streams[1].getBadObjects().isEmpty() && streams[2].getBadObjects().isEmpty() &&
+		if(waveNumber == 3 && streams[1].getBadObjects().isEmpty() && streams[2].getBadObjects().size()==0 &&
 				streams[3].getBadObjects().isEmpty() && streams[1].getGoodObjects().isEmpty() && 
 				streams[2].getGoodObjects().isEmpty() && streams[3].getGoodObjects().isEmpty()){
 			win();

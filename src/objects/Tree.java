@@ -14,8 +14,8 @@ public class Tree extends Plant{
 		pointsPerPlant= 15;
 		type= "Tree";
 		position= p;
-		radius = 8;
-		percentEat= 35;
+		radius = 9;
+		percentEat= 4;
 	}
 
 }
