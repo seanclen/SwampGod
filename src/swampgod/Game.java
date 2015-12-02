@@ -279,7 +279,7 @@ public class Game extends Observable implements java.io.Serializable{
 		// TODO Three cases when the score should be updated
 		boolean removed = false;
 		//remove from streams
-		if(obj==null){
+		if(obj!=null){
 
 			if(obj.isGood()){	
 				if(obj.getType()== "Fish"){
@@ -494,11 +494,13 @@ public class Game extends Observable implements java.io.Serializable{
 			lose();
 			return true;
 		}
-		if(waveNumber == 3 && streams[1].getBadObjects().isEmpty() && streams[2].getBadObjects().size()==0 &&
+		if(waveNumber == 2 && streams[1].getBadObjects().isEmpty() && streams[2].getBadObjects().size()==0 &&
 				streams[3].getBadObjects().isEmpty() && streams[1].getGoodObjects().isEmpty() && 
 				streams[2].getGoodObjects().isEmpty() && streams[3].getGoodObjects().isEmpty()){
 			win();
 			return true;
+		}else if(waveNumber==2 &&getGameState() == GameState.UPGRADE_STATE){
+			win();
 		}
 		return false;
 	}
