@@ -215,10 +215,8 @@ public class GameView extends JPanel implements Observer{
 		Rectangle2D rectangleNotToDrawIn = (Rectangle2D) controlPanel.getBounds(); //new Rectangle2D.Double(100, 100, 20, 30);
 		Area outside = new Area(new Rectangle2D.Double(0, 0, getWidth(), getHeight()));
     	outside.subtract(new Area(controlPanel.getBounds()));
-    	if (game.getGameState().equals(GameState.UPGRADE_STATE)){
-    		outside.subtract(new Area(upgradesPanel.getBounds()));
-    	}
-		
+    	outside.subtract(new Area(upgradesPanel.getBounds()));
+    	
     	g2d.setClip(outside);
         g2d.drawImage(combinedImage, 0, 0, null);
 
@@ -306,7 +304,7 @@ public class GameView extends JPanel implements Observer{
 		 * Draw the plant after click. Will follow pointer and paint a circle around the plant
 		 * showing the eat radius.
 		 */
-		if (game.getGameState().equals(GameState.UPGRADE_STATE) && game.getChosenPlant() != null) {
+		if (game.getChosenPlant() != null) {
 			Image img = null;
 			Plant pl = game.getChosenPlant();
 			if (pl.getType() == "Tree") {

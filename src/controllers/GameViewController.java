@@ -91,20 +91,18 @@ public class GameViewController extends Observable implements MouseInputListener
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("GameViewController:mouseClicked("+e.getPoint()+")");
-		if(game.getGameStatus().equals(GameState.UPGRADE_STATE)){
-			if(game.getChosenPlant()!=null && game.getChosenPlant().canPlace()
-					&& game.getPoints()>=game.getChosenPlant().getPointsPerPlants()){
-				Point p = e.getPoint();
-				p.translate(game.getChosenPlant().getSize().width/-2,
-						game.getChosenPlant().getSize().height/-2);
-				game.getChosenPlant().setPosition(p);
-				game.placePlant(game.getChosenPlant());
-				game.setPoints(game.getChosenPlant().getPointValue());
-				game.setChosenPlant(null);
-				setChanged();
-				notifyObservers(game);
-				clearChanged();
-			}
+		if(game.getChosenPlant()!=null && game.getChosenPlant().canPlace()
+				&& game.getPoints()>=game.getChosenPlant().getPointsPerPlants()){
+			Point p = e.getPoint();
+			p.translate(game.getChosenPlant().getSize().width/-2,
+					game.getChosenPlant().getSize().height/-2);
+			game.getChosenPlant().setPosition(p);
+			game.placePlant(game.getChosenPlant());
+			game.setPoints(game.getChosenPlant().getPointValue());
+			game.setChosenPlant(null);
+			setChanged();
+			notifyObservers(game);
+			clearChanged();
 		}
 	}
 
@@ -204,7 +202,7 @@ public class GameViewController extends Observable implements MouseInputListener
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		if (game.getGameState().equals(GameState.UPGRADE_STATE) && game.getChosenPlant() != null) {
+		if (game.getChosenPlant() != null) {
 			Point p = e.getPoint();
 			p.translate(game.getChosenPlant().getSize().width/-2,
 					game.getChosenPlant().getSize().height/-2);
@@ -275,11 +273,11 @@ public class GameViewController extends Observable implements MouseInputListener
 				game.setUserWon(false);
 				game.setGameState(GameState.ENDGAME_STATE);
 			}
-			else if(btn.getName().equals("AddBush")&&game.getGameStatus().equals(GameState.UPGRADE_STATE)){
+			else if(btn.getName().equals("AddBush")){
 				Bush b = new Bush(null);
 				game.setChosenPlant(b);
 			}
-			else if(btn.getName().equals("AddTree")&&game.getGameStatus().equals(GameState.UPGRADE_STATE)){
+			else if(btn.getName().equals("AddTree")){
 				Tree t = new Tree(null);
 				game.setChosenPlant(t);
 			}
