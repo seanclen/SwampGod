@@ -26,10 +26,12 @@ import views.GameView;
 public class GameViewController extends Observable implements MouseInputListener {
 	Game game;
 	private static Timer runTimer;
+	private static Timer upgradeTimer;
 	
 	public GameViewController(){
+		
+		// The main timer that runs the game.
 		runTimer = new Timer(40, new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent action) {
 				if (game.getGameState().equals(GameState.RUNNING_STATE)){
@@ -42,6 +44,7 @@ public class GameViewController extends Observable implements MouseInputListener
 					notifyObservers(game);
 					clearChanged();
 					runTimer.stop();
+					upgradeTimer.restart();
 				} else if (game.getGameState().equals(GameState.ENDGAME_STATE)) {
 					setChanged();
 					notifyObservers(game);
@@ -54,7 +57,22 @@ public class GameViewController extends Observable implements MouseInputListener
 					clearChanged();
 				}
 			}
-			
+		});
+		upgradeTimer = new Timer(1000, new ActionListener() {
+			private int count = 0;
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if (count == 10) {
+					count = 0;
+					//game.setGameState(GameState.RUNNING_STATE);
+					startNextWave();
+					upgradeTimer.stop();
+				} else {
+					System.out.println("upgradeTimer.count: " + count);
+					count++;
+				}
+			}
 		});
 	}
 	
@@ -203,6 +221,16 @@ public class GameViewController extends Observable implements MouseInputListener
 			clearChanged();
 		}
 	}
+	
+	private void startNextWave(){
+		game.startNextWave();
+		setChanged();
+		notifyObservers(game);
+		clearChanged();
+		game.setGameState(GameState.RUNNING_STATE);
+		System.out.println("      waveNumber: " + game.getWaveNumber() + ")");
+		runTimer.start();
+	}
 
 	public void buttonClicked(ActionEvent e) {
 		System.out.println("GameViewController:buttonClicked()");
@@ -223,13 +251,7 @@ public class GameViewController extends Observable implements MouseInputListener
 				else if (game.getGameState().equals(GameState.UPGRADE_STATE)){
 					System.out.println("GameViewController:buttonClicked(Start):startNextWave()");
 					System.out.println("      waveNumber: " + game.getWaveNumber() + ")");
-					game.startNextWave();
-					setChanged();
-					notifyObservers(game);
-					clearChanged();
-					game.setGameState(GameState.RUNNING_STATE);
-					System.out.println("      waveNumber: " + game.getWaveNumber() + ")");
-					runTimer.start();
+					startNextWave();
 				} else if (game.getGameState().equals(GameState.RUNNING_STATE)){
 					runTimer.start();
 				}
