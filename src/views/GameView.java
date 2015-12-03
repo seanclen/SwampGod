@@ -21,6 +21,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -127,7 +128,10 @@ public class GameView extends JPanel implements Observer{
 		upgradesPanel.setBackground(Color.GREEN);
 		upgradesPanel.setVisible(false);
 		
-		JButton btnBush = new JButton("AddBush");
+		//JButton btnBush = new JButton("AddBush");
+		ImageIcon btnBush2 = new ImageIcon(imgBush);
+	    JButton btnBush = new JButton (btnBush2);
+	    btnBush.setName("AddBush");
 		btnBush.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
@@ -135,7 +139,10 @@ public class GameView extends JPanel implements Observer{
 		});
 		upgradesPanel.add(btnBush);
 		
-		JButton btnTree = new JButton("AddTree");
+		//JButton btnTree = new JButton("AddTree");
+		ImageIcon btnTree2 = new ImageIcon(imgTree);
+	    JButton btnTree = new JButton (btnTree2);
+	    btnTree.setName("AddTree");
 		btnTree.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
