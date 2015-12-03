@@ -10,7 +10,7 @@ public class Fish extends GoodObject{
 	public Fish(){
 		isGood= true;
 		pointValue= 7;
-		healthValue= 7;
+		healthValue= 5;
 		type= "Fish";
 		speed= 49;
 	}

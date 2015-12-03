@@ -10,7 +10,7 @@ public class Clam extends GoodObject{
 	public Clam(){
 		isGood= true;
 		pointValue= 18;
-		healthValue= 18;
+		healthValue= 8;
 		type= "Clam";
 		speed= 23;
 	}

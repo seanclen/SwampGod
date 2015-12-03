@@ -10,7 +10,7 @@ public class LilyPad extends GoodObject{
 	public LilyPad() {
 		isGood= true;
 		pointValue= 15;
-		healthValue= 15;
+		healthValue= 7;
 		type= "LilyPad";
 		speed= 20;
 	}

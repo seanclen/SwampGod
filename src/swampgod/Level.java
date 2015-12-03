@@ -13,12 +13,12 @@ public final class Level {
 	 *      level 2  : foo = 5
 	 *      level 12 : foo = 12
 	 */
-	final public static int[] goodObjectReleaseFrequency = {204, 170, 150};
-	final public static int[] badObjectReleaseFrequency = {215, 170, 150};
+	final public static int[] goodObjectReleaseFrequency = {350, 250, 200};
+	final public static int[] badObjectReleaseFrequency = {215, 170, 100};
 	final public static int[] speedMultiplier = {1,2,3};
 	final public static int[] plantEatFrequency = {424, 34, 2};
 	final public static int[] totalGoodObjects = {10, 12, 15};
-	final public static int[] totalBadObjects = {15, 20, 30};
+	final public static int[] totalBadObjects = {20, 30, 50};
 	/**
 	 * Float parameters represents location to percentage of space from the origin.
 	 * i.e. a stream with bounds (0, 0, 100, 100) with CubicCurve(x, y, ... )

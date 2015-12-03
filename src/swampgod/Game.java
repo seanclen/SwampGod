@@ -91,14 +91,14 @@ public class Game extends Observable implements java.io.Serializable{
 		int goodObjects = level.getTotalGoodObjects(waveNumber);
 		for (int i = 0; i < goodObjects; i++) {
 			int streamId = EstuaryObject.pickStream();
-			streams[streamId].createBadObjects(1);
+			streams[streamId].createGoodObjects(1);
 		}
 
 		//Bad Objects
 		int badObjects= level.getTotalBadObjects(waveNumber);
 		for (int i = 0; i < badObjects; i++){
 			int streamId = EstuaryObject.pickStream();
-			streams[streamId].createGoodObjects(1);
+			streams[streamId].createBadObjects(1);
 		}
 
 		System.out.println("Game:initialize() -- end");
@@ -123,14 +123,14 @@ public class Game extends Observable implements java.io.Serializable{
 			}
 			for (int i = 0; i < goodObjects; i++) {
 				int streamId = EstuaryObject.pickStream();
-				streams[streamId].createBadObjects(1);
+				streams[streamId].createGoodObjects(1);
 			}
 
 			//Bad Objects
 			int badObjects= level.getTotalBadObjects(waveNumber);
 			for (int i = 0; i < badObjects; i++){
 				int streamId = EstuaryObject.pickStream();
-				streams[streamId].createGoodObjects(1);
+				streams[streamId].createBadObjects(1);
 			}
 			setGameState(GameState.NEXTWAVE_STATE);
 			System.out.println("Game.startNextWave() -- Completed");
