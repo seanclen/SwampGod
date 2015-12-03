@@ -3,6 +3,7 @@ package views;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -126,12 +127,13 @@ public class GameView extends JPanel implements Observer{
 		upgradesPanel = new JPanel();
 		upgradesPanel.setSize(300,100);
 		upgradesPanel.setBackground(Color.GREEN);
-		upgradesPanel.setVisible(false);
+		upgradesPanel.setVisible(true);
 		
 		//JButton btnBush = new JButton("AddBush");
 		ImageIcon btnBush2 = new ImageIcon(imgBush);
 	    JButton btnBush = new JButton (btnBush2);
 	    btnBush.setName("AddBush");
+	    btnBush.setPreferredSize(new Dimension(50,50));
 		btnBush.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
@@ -143,6 +145,7 @@ public class GameView extends JPanel implements Observer{
 		ImageIcon btnTree2 = new ImageIcon(imgTree);
 	    JButton btnTree = new JButton (btnTree2);
 	    btnTree.setName("AddTree");
+	    btnTree.setPreferredSize(new Dimension(50,50));
 		btnTree.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((GameViewController) getMouseListeners()[0]).buttonClicked(e);
