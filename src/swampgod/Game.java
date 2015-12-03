@@ -244,6 +244,9 @@ public class Game extends Observable implements java.io.Serializable{
 	 */
 	public void updateScore(int value){
 		points += value;
+		if(points<0){
+			points=0;
+		}
 	}
 
 	public Stream[] getStreams() {
