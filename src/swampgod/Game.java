@@ -454,7 +454,7 @@ public class Game extends Observable implements java.io.Serializable{
 	 * changes the game state
 	 */
 	public void endWave(){
-		if(waveNumber == 3){
+		if(waveNumber == 2){
 			setGameState(GameState.ENDGAME_STATE);
 		}
 		else{
