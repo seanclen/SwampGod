@@ -16,6 +16,7 @@ import views.EndGameView;
 import views.GameView;
 import views.MenuView;
 import views.TitleView;
+import views.TutorialView;
 
 public class ViewController extends Observable implements Observer{
 	protected ArrayList<JPanel> panels;
@@ -28,6 +29,8 @@ public class ViewController extends Observable implements Observer{
 	private GameViewController gameViewController;
 	private EndGameView endGameView;
 	private EndGameViewController endGameViewController;
+	private TutorialView tutorialView;
+	private TutorialViewController tutorialViewController;
 
 	public ViewController () {
 		System.out.println("ViewController");
@@ -66,6 +69,14 @@ public class ViewController extends Observable implements Observer{
 		endGameView.addMouseListener(endGameViewController);
 		endGameView.initializeController();
 		panels.add(endGameView);
+		
+		tutorialView = new TutorialView();
+		tutorialViewController = new TutorialViewController();
+		tutorialViewController.addObserver(this);
+		tutorialViewController.addObserver(tutorialView);
+		tutorialView.addMouseListener(tutorialViewController);
+		tutorialView.initializeController();
+		panels.add(tutorialView);
 		
 		viewDelegate.loadPanels(panels);
 	}
@@ -172,7 +183,6 @@ public class ViewController extends Observable implements Observer{
 				this.getContentPane().removeAll();
 				if (gameState.equals(GameState.TITLE_STATE))
 				{
-					//switchPanelTo("TitleView");
 					titleView.setSize(this.getSize());
 					titleView.setVisible(true);
 					add(titleView);
@@ -181,16 +191,22 @@ public class ViewController extends Observable implements Observer{
 				}
 				else if (gameState.equals(GameState.MENU_STATE))
 				{
-					//switchPanelTo("MenuView");
 					menuView.setSize(this.getSize());
 					menuView.setVisible(true);
 					add(menuView);
 					repaint();
 					return true;
 				}
+				else if (gameState.equals(GameState.TUTORIAL_STATE))
+				{
+					tutorialView.setSize(this.getSize());
+					tutorialView.setVisible(true);
+					add(tutorialView);
+					repaint();
+					return true;
+				}
 				else if (gameState.equals(GameState.NEWGAME_STATE))
 				{
-					//switchPanelTo("GameView");
 					gameView.setSize(this.getSize());
 					gameView.setVisible(true);
 					gameViewController.updateGameSize(getBounds());
@@ -200,7 +216,6 @@ public class ViewController extends Observable implements Observer{
 				}
 				else if (gameState.equals(GameState.RUNNING_STATE))
 				{
-					//switchPanelTo("GameView");
 					gameView.setSize(this.getSize());
 					gameView.setVisible(true);
 					gameViewController.updateGameSize(getBounds());

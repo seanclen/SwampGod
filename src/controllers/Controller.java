@@ -46,6 +46,11 @@ public class Controller implements Observer {
 				System.out.println("Controller: Received MENU_STATE");
 				game.updateGameState((GameState) arg);
 			}
+			else if (arg.equals(GameState.TUTORIAL_STATE))
+			{
+				System.out.println("Controller: Received TUTORIAL_STATE");
+				game.updateGameState((GameState) arg);
+			}
 			else if (arg.equals(GameState.NEWGAME_STATE))
 			{
 				System.out.println("Controller: Received NEWGAME_STATE");

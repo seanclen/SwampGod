@@ -63,7 +63,7 @@ public class MenuViewController extends Observable implements MouseInputListener
 			if (btn.getText().equals("New Game")) {
 				setChanged();
 				//TODO this is where we can control whether to go straight to running
-				notifyObservers(GameState.NEWGAME_STATE);
+				notifyObservers(GameState.TUTORIAL_STATE);
 				clearChanged();
 			}
 			
