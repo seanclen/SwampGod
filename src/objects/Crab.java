@@ -8,7 +8,7 @@ public class Crab extends BadObject {
 		isGood = false;
 		pointValue = -17;
 		healthValue = -25;
-		speed = 17;
+		speed = 33;
 		type="Crab";
 	}
 

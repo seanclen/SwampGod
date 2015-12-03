@@ -402,8 +402,12 @@ public class Game extends Observable implements java.io.Serializable{
 					if(st.getStreamCurve().intersects(pl.getRadiusShape().getBounds2D())){
 						System.out.println("this plant is in stream " + st.getId() +pl);
 						System.out.println(st.getBounds());
-						if(pl.eat(st.badObjects)!=null){
-							removeObjects(pl.checkRadius(st.badObjects));
+						EstuaryObject tempO = pl.eat(st.badObjects);
+						if(tempO!=null){
+							pl.checkRadius(tempO);
+							if(tempO!=null){
+								removeObjToTrash(tempO);
+							}
 						}
 
 					}
@@ -427,6 +431,9 @@ public class Game extends Observable implements java.io.Serializable{
 			if((!streams[i].badObjects.isEmpty()||!streams[i].goodObjects.isEmpty())){
 				empty = false;
 			}
+		}
+		if(empty&&clickedObject!=null){
+			empty=false;
 		}
 		return empty;
 	}
@@ -500,7 +507,7 @@ public class Game extends Observable implements java.io.Serializable{
 		}
 		if(waveNumber == 2 && streams[1].getBadObjects().isEmpty() && streams[2].getBadObjects().size()==0 &&
 				streams[0].getBadObjects().isEmpty() && streams[1].getGoodObjects().isEmpty() && 
-				streams[2].getGoodObjects().isEmpty() && streams[0].getGoodObjects().isEmpty()){
+				streams[2].getGoodObjects().isEmpty() && streams[0].getGoodObjects().isEmpty()&&clickedObject==null){
 			win();
 			return true;
 		}else if(waveNumber==2 &&getGameState() == GameState.UPGRADE_STATE){
