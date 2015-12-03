@@ -14,7 +14,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import swampgod.Stream;
 import swampgod.Level;
-public class EstuaryObject implements java.io.Serializable{
+public class EstuaryObject implements Comparable<EstuaryObject>, java.io.Serializable{
 	/**
 	 * 
 	 */
@@ -169,5 +169,20 @@ public class EstuaryObject implements java.io.Serializable{
 	 */
 	public double getSpeed(){
 		return this.speed;
+	}
+
+	@Override
+	public int compareTo(EstuaryObject o) {
+		// TODO Auto-generated method stub
+		double x = this.getPosition().getY();
+		double y = o.getPosition().getY();
+		if(x<y){
+			return 1;
+		}
+		else if(x>y){
+			return -1;
+			
+		}
+		return 0;
 	}
 }

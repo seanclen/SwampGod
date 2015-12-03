@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.Collections;
 import java.util.Observable;
 
 import javax.swing.JButton;
@@ -140,14 +141,18 @@ public class GameViewController extends Observable implements MouseInputListener
 				game.setClickedObject(null);
 			}
 			else{
+				int stream = game.getClickedObject().getStream();
+				game.getClickedObject().setMoving();
 				if(game.getClickedObject().isGood()){
 					game.getClickedObject().setPosition(game.getPreviousPosition());
-					game.getStreams()[game.getClickedObject().getStream()].getGoodObjects().add((GoodObject) game.getClickedObject());
+					game.getStreams()[stream].getGoodObjects().add((GoodObject) game.getClickedObject());
+					Collections.sort(game.getStreams()[stream].getGoodObjects());
 					game.setClickedObject(null);
 				}
 				else{
 					game.getClickedObject().setPosition(game.getPreviousPosition());
 					game.getStreams()[game.getClickedObject().getStream()].getBadObjects().add((BadObject) game.getClickedObject());
+					Collections.sort(game.getStreams()[stream].getBadObjects());
 					game.setClickedObject(null);
 				}
 			}

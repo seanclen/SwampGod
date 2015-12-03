@@ -50,7 +50,7 @@ public class Estuary implements java.io.Serializable {
 	
 	public void addFish(){
 		Fish fish = new Fish();
-		int x = (int) (bounds.getMinX() + Math.floor(Math.random()*(bounds.getMaxX() + 1 - bounds.getMinX())));
+		int x = (int) (bounds.getMinX() + Math.floor(Math.random()*(bounds.getMaxX() + 10 - bounds.getMinX())));
 		int y = (int) (bounds.getMinY() + Math.floor(Math.random()*(bounds.getMaxY() + 1 - bounds.getMinY())));
 		//int x = 50;
 		//int y=450;
