@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -54,6 +55,7 @@ public class GameView extends JPanel implements Observer{
 	private static Image imgFish;
 	private static Image imgLilyPad;
 	private static Image imgItemScreen;
+	private static Image imgRiverDirt;
 
 	public GameView() {
 		System.out.println("GameView() initialized");
@@ -181,6 +183,7 @@ public class GameView extends JPanel implements Observer{
 			imgBush = ImageIO.read(new File("pics/azalea.png"));
 			imgBackground = ImageIO.read(new File("pics/newBG.png"));
 			imgItemScreen = ImageIO.read(new File("pics/itemScreen.png"));
+			imgRiverDirt = ImageIO.read(new File("pics/riverDirt.png"));
 			} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -202,8 +205,8 @@ public class GameView extends JPanel implements Observer{
 		BufferedImage combinedImage = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_INT_ARGB);
 		
 		Graphics2D gci = combinedImage.createGraphics();
-
-		gci.drawImage(imgBackground, 0, 0, getSize().width, getSize().height, null);
+		//gci.drawImage(imgBackground, 0, 0, getSize().width, getSize().height, null);
+		paintBackground(gci);
 		Stream[] streams = game.getStreams();
 		for (Stream stream : streams) {
 			paintStream(stream, gci);
@@ -222,6 +225,18 @@ public class GameView extends JPanel implements Observer{
 
         gci.dispose();
         g2d.dispose();
+	}
+	
+	private void paintBackground(Graphics2D g){
+		BufferedImage foreground = (BufferedImage) imgRiverDirt;
+		float opacity = 1.0f - (game.getHealth() / (float) 100);
+		if (opacity < 0) {
+			opacity = 0;
+		}
+		g.drawImage(imgBackground, 0, 0, getSize().width, getSize().height, null);
+		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+		g.drawImage(foreground, 0, 0, getSize().width, getSize().height, null);
+		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 	}
 
 	private void paintStream(Stream stream, Graphics2D g) {
@@ -388,6 +403,20 @@ public class GameView extends JPanel implements Observer{
 		g2d.setFont(new Font("Arial", Font.BOLD, 14));
 		g2d.drawString("Level " + (game.getWaveNumber()+1), 100, 20);
 	}
+	
+	private static BufferedImage dye(BufferedImage image, Color color)
+    {
+        int w = image.getWidth();
+        int h = image.getHeight();
+        BufferedImage dyed = new BufferedImage(w,h,BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = dyed.createGraphics();
+        g.drawImage(image, 0,0, null);
+        g.setComposite(AlphaComposite.SrcAtop);
+        g.setColor(color);
+        g.fillRect(0,0,w,h);
+        g.dispose();
+        return dyed;
+    }
 
 	/**
 	 * When we get an update from the GameViewController, repaint the things!
