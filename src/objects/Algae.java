@@ -1,5 +1,9 @@
 package objects;
 
+/*
+ * Algae extends BadObject; Algae will flow down the streams
+ */
+
 public class Algae extends BadObject{
 	
 	private static final long serialVersionUID = 11082015;

@@ -1,5 +1,9 @@
 package objects;
 
+/*
+ * Tree extends Plant; Tree will be able to be placed on the game screen
+ */
+
 import java.awt.Point;
 
 public class Tree extends Plant{

@@ -1,5 +1,9 @@
 package objects;
 
+/**
+ * HazardWaste extends BadObject; HazardWaste will flow down the streams
+ */
+
 public class HazardWaste extends BadObject{
 
 	private static final long serialVersionUID = 11082015;
