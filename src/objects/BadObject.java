@@ -26,6 +26,10 @@ public class BadObject extends EstuaryObject{
 		return true;
 	}
 	
+	/**
+	 * @return a BadObject
+	 * Assigns a random stream number to a new object
+	 */
 	public static BadObject createRandom() {
 		BadObject returnObject = null;
 		int randomInt = (int) (1 + (Math.floor(Math.random() * 3))); // random int 1, 2, or 3

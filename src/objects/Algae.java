@@ -1,6 +1,6 @@
 package objects;
 
-/*
+/**
  * Algae extends BadObject; Algae will flow down the streams
  */
 

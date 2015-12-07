@@ -29,10 +29,18 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 		position=p;
 	}
 	
+	/**
+	 * 
+	 * @return - an int, the attribute radius
+	 */
 	public int getRadius(){
 		return radius;
 	}
 	
+	/**
+	 * calculates the shape of our plant radius based on the plant and their attribute radius
+	 * @return - shape, that is calculated
+	 */
 	public Shape getRadiusShape() {
 		int radiusMultiplied = radius*(getSize().width/5);
 		Shape r = new Ellipse2D.Double(
@@ -44,15 +52,27 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 		return r;
 	}
 	
+	/**
+	 * @param p- takes in a point,
+	 * sets the attribute postion to the param
+	 */
 	public void setPosition(Point p){
 		position=p;
 		bounds.setLocation(p.x, p.y);
 	}
 	
+	/**
+	 * 
+	 * @return - an int, the attribute type
+	 */
 	public String getType(){
 		return type;
 	}
 	
+	/**
+	 * 
+	 * @return - an int, the attribute position
+	 */
 	public Point getPosition(){
 		return position;
 	}
@@ -91,14 +111,26 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 		}
 	}
 	
+	/**
+	 * 
+	 * @return - an int, the attribute pointsPerPlant
+	 */
 	public int getPointsPerPlants(){
 		return pointsPerPlant;
 	}
 	
+	/**
+	 * 
+	 * @return - a bool, the attribute canPlace
+	 */
 	public boolean canPlace() {
 		return this.canPlace;
 	}
 	
+	/**
+	 * @param b - take in a bool
+	 * assigns the attribute canPlace to the param
+	 */
 	public void setCanPlace(boolean b) {
 		canPlace = b;
 	}

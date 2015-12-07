@@ -2,7 +2,7 @@ package objects;
 
 import java.awt.Point;
 
-/*
+/**
  * Bush extends Plant; Bush will be able to be placed on the game screen
  */
 
