@@ -52,6 +52,10 @@ public class Stream implements java.io.Serializable{
 		goodObjects = new ArrayList<GoodObject>();
 	}
 	
+	/**
+	 * @param d - a instance of Dimension
+	 * sets the objectSize and obj bounds to dimension d
+	 */
 	public void setObjectSize(Dimension d) {
 		this.objectSize = d;
 		for (GoodObject obj : goodObjects) {

@@ -40,14 +40,27 @@ public class Estuary implements java.io.Serializable {
 		return updatedObjects;
 	}
 	
+	/**
+	 * 
+	 * @return - a rectanfgle, the bounds of the estuary
+	 */
 	public Rectangle getBounds() {
 		return this.bounds;
 	}
 	
+	/**
+	 * 
+	 * @param bounds - the bounds you want the game to have
+	 * sets the attribute bounds as the param
+	 */
 	public void setBounds(Rectangle bounds) {
 		this.bounds = bounds;
 	}
 	
+	/**
+	 * CHECK TO MAKE SURE THIS IS RIGHT
+	 * adds fish to the estuary
+	 */
 	public void addFish(){
 		Fish fish = new Fish();
 		int x = (int) (bounds.getMinX() + Math.floor(Math.random()*(bounds.getMaxX() + 10 - bounds.getMinX())));
@@ -61,6 +74,10 @@ public class Estuary implements java.io.Serializable {
 		
 	}
 	
+	/**
+	 * @param numFish - takes in the attribute fishCount
+	 * removes the fish from the list of estuary objects
+	 */
 	public void removeFish(int numFish){
 		int fishToGo = goodObjects.size()-numFish;
 		for(int i=0; i<fishToGo; i++){

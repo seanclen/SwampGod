@@ -31,26 +31,56 @@ public final class Level {
 			new CubicCurve2D.Double(20, 0, 60, 30, 40, 65, 90, 100),
 			new CubicCurve2D.Double(90, 0, 15, 25, 60, 60, 20, 100)};
 	
+	/**
+	 * @param level - the game waveNumber
+	 * gets the goodObject release frequency for param level
+	 * @return - an int, based on the attribute
+	 */
 	public int getGoodObjectReleaseFrequency (int level) {
 		return goodObjectReleaseFrequency[level];
 	}
 	
+	/**
+	 * @param level - the game waveNumber
+	 * gets the badObject release frequency for param level
+	 * @return - an int, based on the attribute
+	 */
 	public int getBadObjectReleaseFrequency (int level) {
 		return badObjectReleaseFrequency[level];
 	}
 	
+	/**
+	 * @param level - the game waveNumber
+	 * gets the plantEat release frequency for int param level
+	 * @return - an int, based on the attribute
+	 */
 	public int getPlantEatFrequency (int level) {
 		return plantEatFrequency[level];
 	}
 	
+	/**
+	 * @param level - the game waveNumber
+	 * gets the totalGoodObjects for int param level
+	 * @return - an int, based on the attribute
+	 */
 	public int getTotalGoodObjects (int level) {
 		return totalGoodObjects[level];
 	}
 	
+	/**
+	 * @param level - the game waveNumber
+	 * gets the totalBadObjects for int param level
+	 * @return - an int, based on the attribute
+	 */
 	public int getTotalBadObjects (int level) {
 		return totalBadObjects[level];
 	}
 	
+	/**
+	 * @param level - the game waveNumber
+	 * gets the streamCurve for the int param
+	 * @return - a CubicCurve2D, based on the level
+	 */
 	public CubicCurve2D getStreamCurveByPercentage(int level){
 		return streamCurves[level];
 	}

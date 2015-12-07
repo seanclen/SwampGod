@@ -50,6 +50,10 @@ public class Game extends Observable implements java.io.Serializable{
 		this.gameState = GameState.INITIALIZE;
 	}
 
+	/**
+	 * @param gameState - takes in an instance of a game
+	 * updates the game state based on the param
+	 */
 	public void updateGameState(GameState gameState) {
 		System.out.println("\nGame:updateGameState() -- begin");
 		// Make sure value has changed
@@ -68,6 +72,10 @@ public class Game extends Observable implements java.io.Serializable{
 		System.out.println("Game:updateGameState() -- end");
 	}
 
+	/**
+	 * initializes the game 
+	 * 		- all the estuary, objects, streams
+	 */
 	public void initialize(){
 		System.out.println("\nGame:initialize() -- begin");
 		health = 50;
@@ -137,6 +145,10 @@ public class Game extends Observable implements java.io.Serializable{
 		}
 	}
 
+	/**
+	 * @param bounds - a rectangle of the window size
+	 * Updates the window size based on the bounds
+	 */
 	public void updateWindowSize(Rectangle bounds) {
 		System.out.println("updateWindow");
 		this.bounds = bounds;
@@ -189,22 +201,42 @@ public class Game extends Observable implements java.io.Serializable{
 		}
 	}
 
+	/**
+	 * gets the attribute trashCan
+	 * @return - the attribute trashCan
+	 */
 	public TrashCan getTrashCan(){
 		return trashcan;
 	}
 
+	/**
+	 * gets the attribute clickedObj
+	 * @return - the attribute estuaryObject
+	 */
 	public EstuaryObject getClickedObject(){
 		return clickedObject;
 	}
-
+	
+	/**
+	 * gets the attribute previousPosition
+	 * @return - the attribute previousPosition
+	 */
 	public Point getPreviousPosition(){
 		return previousPosition;
 	}
 
+	/**
+	 * gets the attribute waveNumber
+	 * @return - the attribute waveNumber
+	 */
 	public int getWaveNumber(){
 		return waveNumber;
 	}
 
+	/**
+	 * @param pl - an instance of plant
+	 * sets the attribute chosenPlant to param
+	 */
 	public void setChosenPlant(Plant pl){
 		chosenPlant=pl;
 
@@ -215,11 +247,16 @@ public class Game extends Observable implements java.io.Serializable{
 		System.out.println(chosenPlant);
 	}
 
+	/**
+	 * gets the attribute chosenPlant
+	 * @return - an instance of plant
+	 */
 	public Plant getChosenPlant(){
 		return chosenPlant;
 	}
 
 	/**
+	 * gets the attribute gameStatus
 	 * @return - game state
 	 */
 	public GameState getGameStatus(){
@@ -227,13 +264,17 @@ public class Game extends Observable implements java.io.Serializable{
 	}
 
 	/**
-	 * returns points
+	 * gets the attribute points
+	 * @return - the attribute points
 	 */
-
 	public int getPoints(){
 		return points;
 	}
 
+	/**
+	 * @param po - an int for points
+	 * adds the param to the attribute points
+	 */
 	public void setPoints(int po){
 		points = points+po;
 	}
@@ -249,10 +290,18 @@ public class Game extends Observable implements java.io.Serializable{
 		}
 	}
 
+	/**
+	 * gets an array of the streams
+	 * @return - an array of streams
+	 */
 	public Stream[] getStreams() {
 		return streams;
 	}
 
+	/**
+	 * gets the arrtribute estuary
+	 * @return - the attribute estuary
+	 */
 	public Estuary getEstuary() {
 		return estuary;
 	}
@@ -309,6 +358,11 @@ public class Game extends Observable implements java.io.Serializable{
 		return removed;
 	}
 
+	/**
+	 * @param obj - an instance of estuaryObject
+	 * removes an object without adjusting points
+	 * @return - a bool, if it should be removed
+	 */
 	public boolean removeObjToTrash(EstuaryObject obj){
 		boolean removed;
 		if(obj.isGood()){
@@ -422,8 +476,8 @@ public class Game extends Observable implements java.io.Serializable{
 		tickCount++;
 	}
 
-	/*
-	 * reutrns if all streams are empty
+	/**
+	 * @return - if all streams are empty
 	 */
 	public boolean isEndWave(){
 		boolean empty=true;
@@ -448,6 +502,10 @@ public class Game extends Observable implements java.io.Serializable{
 		return pl;
 	}
 
+	/**
+	 * gets the attribute health
+	 * @return - an int, an attribute health
+	 */
 	public int getHealth(){
 		return health;
 	}
@@ -489,10 +547,18 @@ public class Game extends Observable implements java.io.Serializable{
 		userWins = true;
 	}
 
+	/**
+	 * @param b - a boolean b 
+	 * sets the attribute userWins equal to the param
+	 */
 	public void setUserWon(boolean b) {
 		userWins = b;
 	}
 
+	/**
+	 * gets the attribute userWins
+	 * @return - an attribute userWins
+	 */
 	public boolean userWon() {
 		return userWins;
 	}
@@ -516,30 +582,58 @@ public class Game extends Observable implements java.io.Serializable{
 		return false;
 	}
 
+	/**
+	 * gets the attribute gameState
+	 * @return - the attribute gameState
+	 */
 	public GameState getGameState() {
 		return gameState;
 	}
 
+	/**
+	 * @param gameState - takes in a instance of gameState
+	 * sets the attribute gameState to the param 
+	 */
 	public void setGameState(GameState gameState) {
 		this.gameState = gameState;
 	}
 
+	/**
+	 * @param clickedObject - an instance of estuaryObject
+	 * sets the attribute clickedObject to the param
+	 */
 	public void setClickedObject(EstuaryObject clickedObject) {
 		this.clickedObject = clickedObject;
 	}
 
+	/**
+	 * @param previousPosition - an instance of Point
+	 * sets the attribute previousPosition to the param
+	 */
 	public void setPreviousPosition(Point previousPosition) {
 		this.previousPosition = previousPosition;
 	}
 
+	/**
+	 * gets the attribute plants
+	 * @return - an arrayList of plants
+	 */
 	public ArrayList<Plant> getPlants() {
 		return plants;
 	}
 
+	/**
+	 * @param plants - am arrayList of instances plants
+	 * sets the attribute plants to the param
+	 */
 	public void setPlants(ArrayList<Plant> plants) {
 		this.plants = plants;
 	}
 
+	/**
+	 * gets the attribute fishCount
+	 * @return - the attribute fishCount
+	 */
 	public int getFishCount() {
 		return fishCount;
 	}
