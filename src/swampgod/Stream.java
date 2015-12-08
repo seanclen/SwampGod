@@ -137,36 +137,69 @@ public class Stream implements java.io.Serializable{
 //	 * @param obj the EstuaryObject to move down the stream
 //	 */
 
+	/**
+	 * 
+	 * @param r - Rectangle2D
+	 * @return - a boolean
+	 */
 	public boolean intersectsStream(Rectangle2D r) {
 		Stroke stroke = new BasicStroke(100f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
 		Shape streamShape = stroke.createStrokedShape(streamCurve);
 		return streamShape.intersects(r);
 	}
 	
+	/**
+	 * gets the attribute streamCurve
+	 * @return - a CubicCurve2D
+	 */
 	public CubicCurve2D getStreamCurve() {
 		return streamCurve;
 	}
 
+	/**
+	 * sets the attribute streamCurve to param
+	 * @param streamCurve - take in a CubicCurve2D
+	 */
 	public void setStreamCurve(CubicCurve2D streamCurve) {
 		this.streamCurve = streamCurve;
 	}
 	
+	/**
+	 * gets the attribute id
+	 * @return - an int, the attribute id
+	 */
 	public int getId() {
 		return this.id;
 	}
 	
+	/**
+	 * gets the list of badObjects
+	 * @return - an arraylist, the attribute badObject
+	 */
 	public ArrayList<BadObject> getBadObjects() {
 		return badObjects;
 	}
 	
+	/**
+	 * gets the list of goodObjects
+	 * @return - an arrayList, the attribute goodObjects
+	 */
 	public ArrayList<GoodObject> getGoodObjects() {
 		return goodObjects;
 	}
 	
+	/**
+	 * gets the attribute bounds
+	 * @return - a rectangle, the attribute bounds
+	 */
 	public Rectangle getBounds() {
 		return this.bounds;
 	}
 	
+	/**
+	 * sets the attribute bound with the param
+	 * @param bounds
+	 */
 	public void setBounds(Rectangle bounds) {
 		this.bounds = bounds;
 	}
