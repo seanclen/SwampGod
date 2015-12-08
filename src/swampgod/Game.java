@@ -444,6 +444,7 @@ public class Game extends Observable implements java.io.Serializable{
 				removeObjects(temp);
 			}
 		}
+		estuary.moveFish();
 		// call eat function for plants
 		if(tickCount%8==0){
 			for(Plant pl : getPlants()){

@@ -73,7 +73,43 @@ public class Estuary implements java.io.Serializable {
 		
 		
 	}
-	
+	public void moveFish(){
+		for(GoodObject fish: goodObjects){
+			Fish fish1 = (Fish)fish;
+			int x=(int) fish1.getPosition().getX();
+			int y=(int) fish1.getPosition().getY();
+			int xx = fish1.getSwimX();
+			int yy=fish1.getSwimY();
+		  	if(x>bounds.getMaxX()-40){
+
+		  		fish1.setSwimX(0-xx);
+		  		fish1.setDir(fish1.getDir()+1);
+		  	}
+		  	else if(x<bounds.getMinX()){ 
+		  		fish1.setSwimX(0-xx);
+		  		fish1.setDir(fish1.getDir()+1);
+		  	}
+		  	else if(y>bounds.getMaxY()-40){
+		  		fish1.setSwimY(0-yy);
+		  	}
+		  	else if(y<bounds.getMinY()){
+
+		  		fish1.setSwimY(0-yy);
+		  	}
+		  	//System.out.println(x + "  "+y+ "        "+bounds.getMinX()+ " "+bounds.getMaxX()+"   "+ bounds.getMinY()+" "+bounds.getMaxY());
+		  	x+=fish1.getSwimX();
+		  	y+=fish1.getSwimY();
+		  	int i = (int) (1 + (Math.floor(Math.random() * 2)));
+		  	if(i==2){
+		  		y++;
+		  	}
+		  	else{
+		  		y--;
+		  	}
+		  	Point p = new Point(x+=fish1.getSwimX(), y+=fish1.getSwimY());
+		  	fish.setPosition(p);
+		}
+	}
 	/**
 	 * @param numFish - takes in the attribute fishCount
 	 * removes the fish from the list of estuary objects

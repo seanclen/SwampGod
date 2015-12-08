@@ -30,6 +30,7 @@ import javax.swing.JPanel;
 
 import controllers.GameViewController;
 import objects.EstuaryObject;
+import objects.Fish;
 import objects.Plant;
 import swampgod.Estuary;
 import swampgod.Game;
@@ -358,12 +359,20 @@ public class GameView extends JPanel implements Observer{
 			Image img = null;
 			if(obj.getType() == "Fish"){
 				img = imgFish;
-				
+			if(((Fish)obj).getDir()==1){
+				g.drawImage(img,
+						obj.getBounds().x, 
+						obj.getBounds().y, 
+						-40, 
+						40,this);
+			}
+			else{
 			g.drawImage(img,
 					obj.getBounds().x, 
 					obj.getBounds().y, 
 					40, 
 					40,this);
+			}
 			}
 		}
 	}
