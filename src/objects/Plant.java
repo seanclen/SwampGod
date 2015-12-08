@@ -77,6 +77,13 @@ public class Plant extends EstuaryObject implements java.io.Serializable{
 		return position;
 	}
 
+	/**
+	 * gets the attribute percentEat
+	 * @return - an int, the attribute percentEat
+	 */
+	public int getPercentEat(){
+		return percentEat;
+	}
 	
 	/**
 	 * removes the object from the list of objects
