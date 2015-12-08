@@ -364,9 +364,6 @@ public class GameView extends JPanel implements Observer{
 					obj.getBounds().y, 
 					40, 
 					40,this);
-			System.out.println("fishy");
-			System.out.println(obj.getBounds());
-			System.out.println(estuary.getBounds().contains(obj.getPosition()));
 			}
 		}
 	}
@@ -429,11 +426,10 @@ public class GameView extends JPanel implements Observer{
 				paintSwamp();
 				imgItemScreen = imgBackground;
 			} else if (game.getGameState().equals(GameState.UPGRADE_STATE)) {
-				upgradesPanel.setVisible(true);
 				paintSwamp();
 			} else if (game.getGameState().equals(GameState.NEXTWAVE_STATE)) {
 				System.out.println("GameView: NEXT WAVE");
-				upgradesPanel.setVisible(false);
+				upgradesPanel.setVisible(true);
 				paintSwamp();
 				game.setGameState(GameState.RUNNING_STATE);
 			}
