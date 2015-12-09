@@ -11,7 +11,7 @@ public class HazardWaste extends BadObject{
 	public HazardWaste() {
 		pointValue = -13;
 		healthValue = -40;
-		speed = 20;
+		speed = 40; //20
 		isGood=false;
 		type = "Hazard Waste";
 		

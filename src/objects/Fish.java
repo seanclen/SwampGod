@@ -18,7 +18,7 @@ public class Fish extends GoodObject{
 		pointValue=7;
 		healthValue= 5;
 		type= "Fish";
-		speed= 50;
+		speed= 94; //50
 		swimX=2;
 		swimY=1;
 		dir=0;

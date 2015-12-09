@@ -15,11 +15,11 @@ public class Tree extends Plant{
 
 	public Tree(Point p) {
 		super(p);
-		pointsPerPlant= 15;
+		pointsPerPlant= 60;
 		type= "Tree";
 		position= p;
-		radius = 9;
-		percentEat= 40;
+		radius = 8;
+		percentEat= 1;
 	}
 
 }

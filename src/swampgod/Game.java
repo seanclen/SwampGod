@@ -378,7 +378,7 @@ public class Game extends Observable implements java.io.Serializable{
 	 * if the player collects fish this modifies the score and health
 	 */
 	public void collectFish(){
-		if(fishCount>5){
+		if(fishCount>2){
 			updateHealth(-15);
 			Fish f = new Fish();
 			updateScore(f.getPointValue()*fishCount);
