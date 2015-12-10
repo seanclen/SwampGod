@@ -80,6 +80,7 @@ public class GameView extends JPanel implements Observer{
 	protected static Image imgLilyPad;
 	protected static Image imgItemScreen;
 	protected static Image imgRiverDirt;
+	protected static Image imgCoin;
 
 	public GameView() {
 		System.out.println("GameView() initialized");
@@ -244,6 +245,7 @@ public class GameView extends JPanel implements Observer{
 			imgBackground = ImageIO.read(new File("pics/newBG.png"));
 			imgItemScreen = ImageIO.read(new File("pics/itemScreen.png"));
 			imgRiverDirt = ImageIO.read(new File("pics/riverDirt.png"));
+			imgCoin = ImageIO.read(new File("pics/Coin.png"));
 			} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -555,9 +557,10 @@ public class GameView extends JPanel implements Observer{
 		
 		g2d.drawImage(imgTrash, trash.x, trash.y, trash.width, trash.height,this);
 		
-		g2d.setColor(Color.RED);
-		g2d.setFont(new Font("Arial", Font.BOLD, 14));
-		g2d.drawString("Level " + (game.getWaveNumber()+1), 100, 20);
+		g2d.drawImage(imgCoin, 10, 10, null);
+		g2d.setColor(Color.WHITE);
+		g2d.setFont(new Font("Arial", Font.BOLD, 40));
+		g2d.drawString(Integer.toString(game.getPoints()), 60, 56);
 	}
 	
 	private static BufferedImage dye(BufferedImage image, Color color)
