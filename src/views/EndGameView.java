@@ -24,12 +24,13 @@ import swampgod.Game;
 public class EndGameView extends JPanel implements Observer{
 
 	private JButton btnMenu;
-	//private JPanel endPanel;
+	private JPanel endPanel;
 	private EndGameViewController endGameViewController;
 	private Game game;
-	private JPanel picPanel = new JPanel();
+	//private JPanel picPanel = new JPanel();
 	private static Image imgWinScreen;
 	private static Image imgLoseScreen;
+	
 	
 	public EndGameView() {
 		try
@@ -43,15 +44,20 @@ public class EndGameView extends JPanel implements Observer{
 		
 		setName("EndGameView");
 		setBackground(new Color (36,228,149));
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		//setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setLayout(null);
+		setVisible(false);
 		
+		/*
 		picPanel.setSize(400, 200);
 		picPanel.setPreferredSize(new Dimension(400,200));
 		picPanel.setBackground(Color.RED);
 		picPanel.setVisible(true);
+		*/
 		
 		game = null;
 		btnMenu = new JButton("Main Menu");
+		btnMenu.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/**
@@ -67,14 +73,14 @@ public class EndGameView extends JPanel implements Observer{
 			}
 		});
 		
-		btnMenu.setBounds(600, 500, 280, 92);
+		btnMenu.setBounds(600, 550, 200, 80);
 		
-		/*
+		
 		endPanel = new JPanel();
 		endPanel.setSize(super.getSize().width,getSize().height);
 		endPanel.add(btnMenu);
 		endPanel.setVisible(true);this.add(endPanel);
-		*/
+		
 		
 		//add(picPanel);
 		add(btnMenu);

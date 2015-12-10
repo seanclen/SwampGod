@@ -4,6 +4,7 @@ package views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -52,6 +53,7 @@ public class MenuView extends JPanel{
 		lblSwampSweeper.setPreferredSize(new Dimension(0, 200));
 		
 		btnNewGame = new JButton("New Game");
+		btnNewGame.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/**
