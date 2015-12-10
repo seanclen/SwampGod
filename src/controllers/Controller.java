@@ -16,6 +16,7 @@ public class Controller implements Observer {
 	public Controller(Game newGame) {
 		game = newGame;
 		game.addObserver(this);
+		game.initialize();
 		viewController = new ViewController();
 		
 		
@@ -75,6 +76,11 @@ public class Controller implements Observer {
 			} else if (arg.equals(GameState.ENDGAME_STATE)) {
 				System.out.println("Controller:update():Game:ENDGAME_STATE");
 				viewController.handleStateChange((GameState) arg);
+			}
+			else if (arg.equals(GameState.NEWGAME_STATE))
+			{
+				System.out.println("Controller:update():NEWGAME");
+				viewController.handleStateChange(GameState.NEWGAME_STATE);
 			}
 			else if (arg instanceof GameState) {
 				viewController.handleStateChange((GameState) arg);

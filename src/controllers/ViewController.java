@@ -30,7 +30,6 @@ public class ViewController extends Observable implements Observer{
 	private EndGameView endGameView;
 	private EndGameViewController endGameViewController;
 	private TutorialView tutorialView;
-	private TutorialViewController tutorialViewController;
 
 	public ViewController () {
 		System.out.println("ViewController");
@@ -71,11 +70,8 @@ public class ViewController extends Observable implements Observer{
 		panels.add(endGameView);
 		
 		tutorialView = new TutorialView();
-		tutorialViewController = new TutorialViewController();
-		tutorialViewController.addObserver(this);
-		tutorialViewController.addObserver(tutorialView);
-		tutorialView.addMouseListener(tutorialViewController);
-		tutorialView.initializeController();
+		tutorialView.addMouseListener(gameViewController);
+		tutorialView.addMouseMotionListener(gameViewController);
 		panels.add(tutorialView);
 		
 		viewDelegate.loadPanels(panels);
@@ -110,10 +106,11 @@ public class ViewController extends Observable implements Observer{
 		if (o instanceof GameViewController && arg instanceof Game) {
 			GameState state = ((Game) arg).getGameState();
 			System.out.println("ViewController:Got the game change"+state);
+			
+			// If the game is over, let everyone know
 			if (state.equals(GameState.ENDGAME_STATE)) {
 				// Make sure the game is here in the ViewController
 				setGame((Game) arg);
-				
 				setChanged();
 				notifyObservers(arg);
 				clearChanged();
@@ -128,6 +125,7 @@ public class ViewController extends Observable implements Observer{
 	 * @param game
 	 */
 	public void setGame(Game game) {
+		tutorialView.setGame(game);
 		gameView.setGame(game);
 		gameViewController.setGame(game);
 	}
@@ -173,6 +171,8 @@ public class ViewController extends Observable implements Observer{
 			getContentPane().getComponent(currentPanelIndex).setSize(getSize());
 			getContentPane().getComponent(currentPanelIndex).setVisible(true);
 			setVisible(true);
+			tutorialView.setGraphics(getGraphics());
+			gameView.setGraphics(getGraphics());
 			repaint();
 		}
 		
@@ -200,7 +200,13 @@ public class ViewController extends Observable implements Observer{
 				else if (gameState.equals(GameState.TUTORIAL_STATE))
 				{
 					tutorialView.setSize(this.getSize());
+					gameView.setSize(this.getSize());
 					tutorialView.setVisible(true);
+					tutorialView.resetStage();
+					gameViewController.updateGameSize(getBounds());
+					gameViewController.addObserver(tutorialView);
+					gameViewController.getGame().setIsTutorial(true);
+					gameViewController.startTutorial();
 					add(tutorialView);
 					repaint();
 					return true;
@@ -210,15 +216,8 @@ public class ViewController extends Observable implements Observer{
 					gameView.setSize(this.getSize());
 					gameView.setVisible(true);
 					gameViewController.updateGameSize(getBounds());
-					add(gameView);
-					repaint();
-					return true;
-				}
-				else if (gameState.equals(GameState.RUNNING_STATE))
-				{
-					gameView.setSize(this.getSize());
-					gameView.setVisible(true);
-					gameViewController.updateGameSize(getBounds());
+					gameViewController.deleteObserver(tutorialView);
+					gameViewController.startGame();
 					add(gameView);
 					repaint();
 					return true;

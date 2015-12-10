@@ -9,13 +9,17 @@ import java.util.Collections;
 import java.util.Observable;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 import javax.swing.Timer;
 
+import objects.Algae;
 import objects.BadObject;
 import objects.Bush;
+import objects.Crab;
 import objects.EstuaryObject;
 import objects.GoodObject;
+import objects.HazardWaste;
 import objects.Plant;
 import objects.Tree;
 import swampgod.Game;
@@ -24,9 +28,12 @@ import swampgod.Main.GameState;
 import views.GameView;
 
 public class GameViewController extends Observable implements MouseInputListener {
-	Game game;
-	private static Timer runTimer;
-	private static Timer upgradeTimer;
+	protected Game game;
+	protected static Timer runTimer;
+	protected static Timer upgradeTimer;
+	protected Rectangle bounds;
+	private int tutorialStage;
+	private boolean doneStage3 = false;
 	
 	public GameViewController(){
 		
@@ -50,6 +57,12 @@ public class GameViewController extends Observable implements MouseInputListener
 					notifyObservers(game);
 					clearChanged();
 					runTimer.stop();
+				} else if (game.getGameState().equals(GameState.TUTORIAL_STATE)) {
+					System.out.println("GameViewController.runTimer:TUTORIAL_STATE");
+					runTutorial();
+					setChanged();
+					notifyObservers(game);
+					clearChanged();
 				} else {
 					System.out.println("GameViewController:not running state");
 					setChanged();
@@ -76,8 +89,17 @@ public class GameViewController extends Observable implements MouseInputListener
 		});
 	}
 	
-	public void updateGameSize(Rectangle bounds) {
-		game.updateWindowSize(bounds);
+	public void updateGameSize(Rectangle newBounds) {
+		bounds = newBounds;
+		System.out.println("GameViewController.updateGameSize("+bounds+ ")");
+	}
+	
+	public void startGame() {
+		if (game.getGameState().equals(GameState.NEWGAME_STATE)){
+			game.setGameState(GameState.RUNNING_STATE);
+			game.updateWindowSize(bounds);
+			runTimer.start();
+		}
 	}
 	
 	public void setGame(Game game) {
@@ -88,6 +110,10 @@ public class GameViewController extends Observable implements MouseInputListener
 		return this.game;
 	}
 
+	/**
+	 * Handles the mouseClicked mouse event. In particular handles:
+	 * 		- The placement of currently selected plant
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("GameViewController:mouseClicked("+e.getPoint()+")");
@@ -103,12 +129,14 @@ public class GameViewController extends Observable implements MouseInputListener
 			setChanged();
 			notifyObservers(game);
 			clearChanged();
+			
 		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (game.getGameState().equals(GameState.RUNNING_STATE)) {
+		if (game.getGameState().equals(GameState.RUNNING_STATE) ||
+				game.getGameState().equals(GameState.TUTORIAL_STATE)) {
 			int x = e.getX();
 			int y = e.getY();
 			int s=-1;
@@ -252,11 +280,16 @@ public class GameViewController extends Observable implements MouseInputListener
 					startNextWave();
 				} else if (game.getGameState().equals(GameState.RUNNING_STATE)){
 					runTimer.start();
+				} else if (game.getGameState().equals(GameState.NEWGAME_STATE)){
+					game.setGameState(GameState.RUNNING_STATE);
+					game.updateWindowSize(bounds);
+					runTimer.start();
 				}
 			}
 			else if (btn.getText().equals("Pause")) {
 				System.out.println("GameViewController:buttonClicked().Pause");
 				game.setGameState(GameState.PAUSE_STATE);
+				runTimer.stop();
 			}
 			else if (btn.getText().equals("Upgrade")) {
 				game.setGameState(GameState.UPGRADE_STATE);
@@ -264,6 +297,9 @@ public class GameViewController extends Observable implements MouseInputListener
 			else if(btn.getText().equals("Collect Fish")){
 				System.out.println("COLLECT FISH");
 				game.collectFish();
+				if (tutorialStage == 3) {
+					doneStage3 = true;
+				}
 			}
 			else if (btn.getText().equals("Win")) {
 				game.setUserWon(true);
@@ -281,6 +317,97 @@ public class GameViewController extends Observable implements MouseInputListener
 				Tree t = new Tree(null);
 				game.setChosenPlant(t);
 			}
+			
+		}
+	}
+	
+	public void tutorialButtonClicked(ActionEvent e) {
+		System.out.println("ButtonClicked : Skip");
+		if (e.getSource() instanceof JButton) {
+			JButton btn = (JButton) e.getSource();
+			if (btn.getText().equals("Skip")) {
+				runTimer.stop();
+				game.updateGameState(GameState.NEWGAME_STATE);
+			}
+		}
+	}
+	boolean stageInitialized = false;
+	private void runTutorial() {
+		tutorialStage = game.getTutorialStage();
+		switch (tutorialStage) {
+		case 1:
+			stageOne();
+			break;
+		case 2:
+			stageTwo();
+			break;
+		case 3:
+			stageThree();
+			break;
+		case 4:
+			runTimer.stop();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private void stageOne() {
+		if (stageInitialized) {
+			if (game.getStreams()[1].getBadObjects().isEmpty() && 
+					game.getClickedObject() == null){
+				game.nextTutorialStage();
+				stageInitialized = false;
+			}
+		} else {
+			stageInitialized = true;
+			game.getStreams()[1].createBadObjectAt(new HazardWaste(), .45f);
+			game.getStreams()[1].createBadObjectAt(new Algae(), .50f);
+			game.getStreams()[1].createBadObjectAt(new Crab(), .55f);
+		}
+	}
+	
+	private void stageTwo() {
+		if (stageInitialized) {
+			System.out.println("Number of Plants: " + game.getPlants().size());
+			if (game.getPlants().size() > 1){
+				game.nextTutorialStage();
+				stageInitialized = false;
+			}
+		} else {
+			stageInitialized = true;
+			game.setPoints(100);
+		}
+	}
+	
+	private void stageThree() {
+		if (stageInitialized) {
+			System.out.println("tick");
+			game.tick();
+			if (doneStage3){
+				game.nextTutorialStage();
+				stageInitialized = false;
+			}
+		} else {
+			for (int i = 0; i < 40; i++) {
+                int streamId = EstuaryObject.pickStream();
+                game.getStreams()[streamId].createGoodObjects(1);
+            }
+			stageInitialized = true;
+		}
+	}
+	
+	public void startTutorial() {
+		System.out.println("GameViewController.startTutorial:bounds :" + bounds);
+		game.updateWindowSize(bounds);
+		game.setIsTutorial(true);
+		runTimer.start();
+	}
+	
+	public void finishTutorial() {
+		if (tutorialStage == 4) {
+			game.updateGameState(GameState.NEWGAME_STATE);
+			game.setTutorialStage(0);
 		}
 	}
 

@@ -66,6 +66,13 @@ public class Stream implements java.io.Serializable{
 		}
 	}
 	
+	public void createBadObjectAt(BadObject obj, float completion) {
+		obj.setStream(id);
+		obj.setPosition(CalculateBezierPoint(completion));
+		obj.setBounds(obj.getPosition().x, obj.getPosition().y, objectSize.width, objectSize.height);
+		badObjects.add(obj);
+	}
+	
 	/**
 	 * initializes bad objects
 	 * @param num
