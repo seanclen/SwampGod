@@ -446,7 +446,7 @@ public class Game extends Observable implements java.io.Serializable{
 		}
 		estuary.moveFish();
 		// call eat function for plants
-		if(tickCount%8==0){
+		if(tickCount%16==0){
 			for(Plant pl : getPlants()){
 				double x = pl.getPos().getX();
 				double y= pl.getPos().getY();

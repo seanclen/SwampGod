@@ -1,7 +1,9 @@
 package views;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -22,6 +24,7 @@ import swampgod.Game;
 public class EndGameView extends JPanel implements Observer{
 
 	private JButton btnMenu;
+	//private JPanel endPanel;
 	private EndGameViewController endGameViewController;
 	private Game game;
 	private JPanel picPanel = new JPanel();
@@ -64,6 +67,15 @@ public class EndGameView extends JPanel implements Observer{
 			}
 		});
 		
+		btnMenu.setBounds(600, 500, 280, 92);
+		
+		/*
+		endPanel = new JPanel();
+		endPanel.setSize(super.getSize().width,getSize().height);
+		endPanel.add(btnMenu);
+		endPanel.setVisible(true);this.add(endPanel);
+		*/
+		
 		//add(picPanel);
 		add(btnMenu);
 		
@@ -76,9 +88,12 @@ public class EndGameView extends JPanel implements Observer{
 	@Override
 	public void paintComponent(Graphics g) {
 		System.out.println("EndGameView:paintComponent()");
-		g.setColor(Color.RED);
+		//super.paintComponent(g);
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Arial", Font.BOLD, 28));
 		if (game != null && game.userWon()) {
 			g.drawImage(imgWinScreen, 0, 0, getSize().width, getSize().height, null);
+			g.drawString("Final Score: " + game.getPoints(), (getSize().width/2)-150, getSize().height/2);
 		} else {
 			g.drawImage(imgLoseScreen, 0, 0, getSize().width, getSize().height, null);
 		}
