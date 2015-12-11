@@ -275,7 +275,7 @@ public class GameView extends JPanel implements Observer{
 	 */
 	public void displayDialog(Rectangle bounds, String toComponent, DialogType type, String message) {
 		if (type.equals(DialogType.TUTORIAL)) {
-			bounds = this.getBounds();
+			bounds = new Rectangle(getBounds().x, getBounds().y+100, getBounds().width/2, getBounds().height/2);
 			bounds.grow(-50, -50);
 			Font f = new Font("Arial", Font.BOLD, 20);
 			setJTextPaneFont(dialogMessage, f, Color.BLACK);
