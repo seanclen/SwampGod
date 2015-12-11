@@ -24,10 +24,11 @@ public class GameTest implements java.io.Serializable{
 	
 	@Test
 	public void healthTest() {
-		Game g1 = new Game();
-		assertEquals(50,g1.getHealth());
-		g1.updateHealth(30);
-		assertEquals(80, g1.getHealth());
+		Game g5 = new Game();
+		g5.initialize();
+		assertEquals(50,g5.getHealth());
+		g5.updateHealth(30);
+		assertEquals(80, g5.getHealth());
 	}
 	
 	@Test
@@ -58,16 +59,27 @@ public class GameTest implements java.io.Serializable{
 	@Test
 	public void updateHeathTest(){
 		Game g1 = new Game();
+		g1.initialize();
 		g1.updateHealth(2);
 		assertEquals(52,g1.getHealth());
 		
 	}
 	
 	@Test
+	public void levelTest(){
+		Game g = new Game();
+		g.initialize();
+		assertEquals(140, g.getLevel().getGoodObjectReleaseFrequency(1));
+		assertEquals(75, g.getLevel().getBadObjectReleaseFrequency(1));
+		assertEquals(34, g.getLevel().getPlantEatFrequency(2));
+	}
+	
+	@Test
 	public void collectFishTest(){
 		Game g1 = new Game();
+		g1.initialize();
 		g1.collectFish();
-		assertEquals(25,g1.getHealth());
+		assertEquals(50,g1.getHealth());
 		assertEquals(25,g1.getPoints());
 
 	}

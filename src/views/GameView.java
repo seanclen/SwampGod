@@ -553,7 +553,7 @@ public class GameView extends JPanel implements Observer{
 		g2d.fillRoundRect(healthBar.x, healthBar.y, health * 5, healthBar.height, 15, 15);
 		g2d.setColor(Color.BLACK);
 		g2d.setFont(new Font("Arial", Font.BOLD, 20));
-		g2d.drawString("Health: " + health + "  Points: " +game.getPoints() + "   Fish: " + game.getFishCount(), healthBar.x + 140, healthBar.y + 50);
+		g2d.drawString("Health: " + health + "   Fish: " + game.getFishCount(), healthBar.x + 140, healthBar.y + 50);
 		
 		g2d.drawImage(imgTrash, trash.x, trash.y, trash.width, trash.height,this);
 		

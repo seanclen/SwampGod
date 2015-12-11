@@ -132,14 +132,13 @@ public class EstuaryObjectTest implements java.io.Serializable{
 
 
 	//Plants
-	
 	@Test
 	public void treeTest(){
 		Tree tr= new Tree(p);
 		assertFalse(tr.canPlace());
 		tr.setCanPlace(true);
 		assertTrue(tr.canPlace());
-		assertEquals(15, tr.getPointsPerPlants());
+		assertEquals(60, tr.getPointsPerPlants());
 		assertEquals("Tree", tr.getType());
 		assertEquals(p, tr.getPosition());
 		assertEquals(9, tr.getRadius());

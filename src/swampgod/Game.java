@@ -154,22 +154,49 @@ public class Game extends Observable implements java.io.Serializable{
         }
     }
     
+    /**
+     * gets the attribute level
+     * @return - the attribute level
+     */
+    public Level getLevel(){
+    	return level;
+    }
+    
+    /**
+     * gets the attribute tutorialStage 
+     * @return - the attribute tutorialStage
+     */
     public int getTutorialStage() {
         return tutorialStage;
     }
     
+    /**
+     * adds one to the attribute tutorialStage
+     */
     public void nextTutorialStage() {
     	tutorialStage++;
     }
     
+    /**
+     * @param s - an int
+     * sets the tutorialStage to the param
+     */
     public void setTutorialStage(int s) {
     	tutorialStage = s;
     }
     
+    /**
+     * gets the attribute isTutorial
+     * @return - a bool, the attribute isTutorial
+     */
     public boolean getIsTutorial() {
     	return isTutorial;
     }
     
+    /**
+     * @param b - takes in a bool
+     * if the param is tru, it sets the streams
+     */
     public void setIsTutorial(boolean b) {
     	isTutorial = b;
     	if (isTutorial) {
