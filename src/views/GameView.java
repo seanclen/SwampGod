@@ -279,6 +279,10 @@ public class GameView extends JPanel implements Observer{
 			bounds.grow(-50, -50);
 			Font f = new Font("Arial", Font.BOLD, 20);
 			setJTextPaneFont(dialogMessage, f, Color.BLACK);
+			if (game.getTutorialStage()==2 ||
+					game.getTutorialStage() == 3) {
+				bounds.grow(0, 50);
+			}
 		}
 		dialogPanel.setBounds(bounds);
 		if (message != null) {
