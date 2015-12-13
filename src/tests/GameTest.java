@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.awt.Rectangle;
 import java.util.Arrays;
 import org.junit.Test;
 
@@ -69,9 +70,9 @@ public class GameTest implements java.io.Serializable{
 	public void levelTest(){
 		Game g = new Game();
 		g.initialize();
-		assertEquals(140, g.getLevel().getGoodObjectReleaseFrequency(1));
-		assertEquals(75, g.getLevel().getBadObjectReleaseFrequency(1));
-		assertEquals(34, g.getLevel().getPlantEatFrequency(2));
+		assertEquals(150, g.getLevel().getGoodObjectReleaseFrequency(1));
+		assertEquals(62, g.getLevel().getBadObjectReleaseFrequency(1));
+		assertEquals(2, g.getLevel().getPlantEatFrequency(2));
 	}
 	
 	@Test
@@ -80,8 +81,40 @@ public class GameTest implements java.io.Serializable{
 		g1.initialize();
 		g1.collectFish();
 		assertEquals(50,g1.getHealth());
-		assertEquals(25,g1.getPoints());
+		assertEquals(0,g1.getPoints());
 
+	}
+	
+	@Test
+	public void healthScoreTest(){
+		Game g = new Game();
+		g.initialize();
+		g.updateHealth(20);
+		assertEquals(70, g.getHealth());
+	}
+	
+	@Test
+	public void fishTest(){
+		Game g = new Game();
+		g.initialize();
+		assertEquals(0, g.getFishCount());
+		g.collectFish();
+		assertEquals(50, g.getHealth());
+	}
+	
+	@Test
+	public void endWaveTest(){
+		Game g = new Game();
+		g.initialize();
+		assertFalse(g.isEndWave());
+	}
+	
+	@Test
+	public void userTest(){
+		Game g = new Game();
+		g.initialize();
+		g.setUserWon(true);
+		assertTrue(g.userWon());
 	}
 }
 
