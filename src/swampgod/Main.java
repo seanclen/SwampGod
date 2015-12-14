@@ -34,35 +34,6 @@ public class Main {
 	public static void main(String[] args) {
 		game = new Game();
 		Controller controller = new Controller(game);
-		
-//		ViewRepaintController repaintController =
-//				new ViewRepaintController(game, view);
-//		TitleMouseController titleMouseController =
-//				new TitleMouseController(game, view);
-//		GameMouseController gameMouseController =
-//				new GameMouseController(game, view);
-//		
-//		// a repaint timer so that the window will update every 25 ms
-//		new Timer(25, repaintController).start();
-//		
-//		// register controllers as listeners
-//		view.registerListeners(titleMouseController, gameMouseController);
-//		
-//		// Set the final dimensions and jink and start!
-//		view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		view.setSize(1000,700);
-//		view.setVisible(true);
-		
-		
-		
-//		while (g.getGameState() == GameState.RUNNING_STATE) {
-//			if(!(g.getGameState()==GameState.PAUSE_STATE)){
-//				Thread.sleep(100);
-//				g.tick();
-//				viewController.updateGame(g);
-//				viewController.paintIt();
-//			}
-//		}
 	}
 
 	public static void saveGame(String fileName, Object obj) throws IOException{
